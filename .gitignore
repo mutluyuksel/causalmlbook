@@ -1,24 +1,32 @@
- Ignore RStudio project files
-*.Rproj.user/
-*.Rhistory
-*.Rprofile
+ # Ignore RStudio project files
+.Rproj.user/
+.Rhistory
+.Rprofile
 *.RData
 
-# Ignore bookdown source and temporary files
+# Ignore bookdown output and cache
+_book/
 _bookdown_files/
+_cache/
+_output.yml
+bookdown.yml
 
-# Ignore automatically generated image and data files
-*.png
-*.jpg
-*.jpeg
+# Ignore raw source files if you want them private
+*.Rmd
+*.Rproj
+
+# Ignore large or temporary files
+*.Rds
+*.Rda
 *.csv
 *.xlsx
 *.txt
+*.png
+*.jpg
+*.jpeg
 
-# Ignore other common project files
-*.Rds
-*.Rda
-
+# Ignore custom folders not meant for version control
 old/
 SLIDES/
 my_dir/
+
