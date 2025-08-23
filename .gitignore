@@ -11,6 +11,13 @@ _cache/
 _output.yml
 bookdown.yml
 
+# Book styling and assets
+css/
+png/
+
+# Bibliography files
+*.bib
+
 # Ignore raw source files if you want them private
 *.Rmd
 *.Rproj
