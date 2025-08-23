@@ -9,7 +9,7 @@ _book/
 _bookdown_files/
 _cache/
 _output.yml
-bookdown.yml
+_bookdown.yml
 
 # Book styling and assets
 css/
