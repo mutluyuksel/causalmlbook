@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning</title>
+  <meta name="description" content="Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning" />
+  
+  <meta name="twitter:description" content="Chapter 8 Nonparametric Estimations - Basics | Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+<meta name="author" content="Mutlu Yuksel and Yigit Aydede" />
+
+
+<meta name="date" content="2025-08-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="parametric-estimation---basics.html"/>
+<link rel="next" href="hyperparameter-tuning.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference and Machine Learning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-read-this-book"><i class="fa fa-check"></i>Why read this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-can-use-this-book"><i class="fa fa-check"></i>Who Can Use This Book?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#prediction-vs.-estimation"><i class="fa fa-check"></i><b>1.1</b> Prediction vs. Estimation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#applications-of-machine-learning-in-economics-and-social-sciences"><i class="fa fa-check"></i><b>1.2</b> Applications of Machine Learning in Economics and Social Sciences</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#machine-learning-and-econometrics-complementary-roles"><i class="fa fa-check"></i><b>1.3</b> Machine Learning and Econometrics: Complementary Roles</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#core-modeling-frameworks"><i class="fa fa-check"></i><b>1.4</b> Core Modeling Frameworks</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#statistical-vs.-machine-learning-paradigms"><i class="fa fa-check"></i><b>1.4.1</b> Statistical vs. Machine Learning Paradigms</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#parametric-and-nonparametric-models"><i class="fa fa-check"></i><b>1.4.2</b> Parametric and Nonparametric Models:</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#predictive-vs.-causal-thinking"><i class="fa fa-check"></i><b>1.4.3</b> Predictive vs. Causal Thinking</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#model-selection"><i class="fa fa-check"></i><b>1.4.4</b> Model Selection:</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#the-role-of-simulation"><i class="fa fa-check"></i><b>1.4.5</b> The Role of Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#concluding-remarks"><i class="fa fa-check"></i><b>1.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html"><i class="fa fa-check"></i><b>2</b> From Data to Causality</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#qualitative-and-quantitative-research-methods"><i class="fa fa-check"></i><b>2.1</b> Qualitative and Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#quantitative-research-methods"><i class="fa fa-check"></i><b>2.2</b> Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#data-and-visualization"><i class="fa fa-check"></i><b>2.3</b> Data and Visualization</a></li>
+<li class="chapter" data-level="2.4" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation"><i class="fa fa-check"></i><b>2.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation-and-regression"><i class="fa fa-check"></i><b>2.4.1</b> Correlation and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#effect-of-x-on-y-regression"><i class="fa fa-check"></i><b>2.5</b> Effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> / Regression</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#how-can-we-estimate-the-population-parameters-beta_0-and-beta_1"><i class="fa fa-check"></i><b>2.5.1</b> How Can We Estimate the Population Parameters, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#from-estimation-to-prediction"><i class="fa fa-check"></i><b>2.5.2</b> From Estimation to Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#causal-effect"><i class="fa fa-check"></i><b>2.6</b> Causal Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="learning-systems.html"><a href="learning-systems.html"><i class="fa fa-check"></i><b>3</b> Learning Systems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="learning-systems.html"><a href="learning-systems.html#learning-systems-1"><i class="fa fa-check"></i><b>3.1</b> Learning Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>4</b> Error</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="error.html"><a href="error.html#estimation-error"><i class="fa fa-check"></i><b>4.1</b> Estimation error</a></li>
+<li class="chapter" data-level="4.2" data-path="error.html"><a href="error.html#efficiency"><i class="fa fa-check"></i><b>4.2</b> Efficiency</a></li>
+<li class="chapter" data-level="4.3" data-path="error.html"><a href="error.html#mean-square-error"><i class="fa fa-check"></i><b>4.3</b> Mean Square Error</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="error.html"><a href="error.html#from-one-random-sample-to-population-parameters"><i class="fa fa-check"></i><b>4.3.1</b> From one random sample to population parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="error.html"><a href="error.html#prediction-error--mspe"><i class="fa fa-check"></i><b>4.4</b> Prediction error- MSPE</a></li>
+<li class="chapter" data-level="4.5" data-path="error.html"><a href="error.html#technical-points-and-proofs"><i class="fa fa-check"></i><b>4.5</b> Technical points and proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html"><i class="fa fa-check"></i><b>5</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>5.1</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-polynomial-regression"><i class="fa fa-check"></i><b>5.1.1</b> Simulation for Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-population-parameter"><i class="fa fa-check"></i><b>5.2</b> Simulation for Population Parameter</a></li>
+<li class="chapter" data-level="5.3" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#biased-estimator-as-a-predictor"><i class="fa fa-check"></i><b>5.3</b> Biased estimator as a predictor</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="overfitting.html"><a href="overfitting.html"><i class="fa fa-check"></i><b>6</b> Overfitting</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="overfitting.html"><a href="overfitting.html#out-sample-mspe"><i class="fa fa-check"></i><b>6.1</b> Out-sample MSPE</a></li>
+<li class="chapter" data-level="6.2" data-path="overfitting.html"><a href="overfitting.html#technical-points-about-out-sample-and-in-sample-mspe"><i class="fa fa-check"></i><b>6.2</b> Technical Points about Out-sample and In-sample MSPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html"><i class="fa fa-check"></i><b>7</b> Parametric Estimation - Basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#the-dichotomy-of-statistical-modeling"><i class="fa fa-check"></i><b>7.1</b> The Dichotomy of Statistical Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#data-versus-algorithmic-approaches"><i class="fa fa-check"></i><b>7.1.1</b> Data versus Algorithmic Approaches:</a></li>
+<li class="chapter" data-level="7.1.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-versus-nonparametric-models"><i class="fa fa-check"></i><b>7.1.2</b> Parametric versus Nonparametric Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-estimations"><i class="fa fa-check"></i><b>7.2</b> Parametric Estimations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-probability-model-lpm"><i class="fa fa-check"></i><b>7.2.1</b> Linear Probability Model (LPM)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#logistic-regression"><i class="fa fa-check"></i><b>7.2.2</b> Logistic Regression</a></li>
+<li class="chapter" data-level="7.2.3" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-vs.-logistic-probability-models"><i class="fa fa-check"></i><b>7.2.3</b> Linear vs. Logistic Probability Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html"><i class="fa fa-check"></i><b>8</b> Nonparametric Estimations - Basics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#density-estimation"><i class="fa fa-check"></i><b>8.1</b> Density Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#histogram-density-estimation"><i class="fa fa-check"></i><b>8.1.1</b> Histogram Density Estimation</a></li>
+<li class="chapter" data-level="8.1.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#naive-estimator-parzen-windows"><i class="fa fa-check"></i><b>8.1.2</b> Naive Estimator (Parzen Windows)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-density-estimation-kde"><i class="fa fa-check"></i><b>8.2</b> Kernel Density Estimation (KDE)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kde-vs-histogram"><i class="fa fa-check"></i><b>8.2.1</b> Simulation: KDE vs Histogram</a></li>
+<li class="chapter" data-level="8.2.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#prediction-with-kernel-density-estimation"><i class="fa fa-check"></i><b>8.2.2</b> Prediction with Kernel Density Estimation</a></li>
+<li class="chapter" data-level="8.2.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-regression"><i class="fa fa-check"></i><b>8.2.3</b> Kernel Regression</a></li>
+<li class="chapter" data-level="8.2.4" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kernel-regression-example"><i class="fa fa-check"></i><b>8.2.4</b> Simulation: Kernel Regression Example</a></li>
+<li class="chapter" data-level="8.2.5" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#multivariate-and-additive-models"><i class="fa fa-check"></i><b>8.2.5</b> Multivariate and Additive Models</a></li>
+<li class="chapter" data-level="8.2.6" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#bandwidth-selection-in-kernel-density-estimation-and-kernel-regression"><i class="fa fa-check"></i><b>8.2.6</b> Bandwidth Selection in Kernel Density Estimation and Kernel Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#conclusion-remarks"><i class="fa fa-check"></i><b>8.3</b> Conclusion Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html"><i class="fa fa-check"></i><b>9</b> Hyperparameter Tuning</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#training-validation-and-test-data-sets"><i class="fa fa-check"></i><b>9.1</b> Training, Validation, and Test Data Sets</a></li>
+<li class="chapter" data-level="9.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#data-splitting"><i class="fa fa-check"></i><b>9.2</b> Data Splitting</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#how-can-we-split-the-data-randomly"><i class="fa fa-check"></i><b>9.2.1</b> How can we split the data randomly?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3</b> k-Fold Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#what-is-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> What is k-Fold Cross-Validation?</a></li>
+<li class="chapter" data-level="9.3.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#building-a-simple-k-fold-cross-validation-loop"><i class="fa fa-check"></i><b>9.3.2</b> Building a Simple k-Fold Cross-Validation Loop</a></li>
+<li class="chapter" data-level="9.3.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#advantages-of-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.3</b> Advantages of k-Fold Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#grid-search"><i class="fa fa-check"></i><b>9.4</b> Grid Search</a></li>
+<li class="chapter" data-level="9.5" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#simulation-of-grid-search-with-cross-validation"><i class="fa fa-check"></i><b>9.5</b> Simulation of Grid Search With Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>10</b> Classification</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="classification.html"><a href="classification.html#classifying-handwritten-digits"><i class="fa fa-check"></i><b>10.1</b> Classifying Handwritten Digits</a></li>
+<li class="chapter" data-level="10.2" data-path="classification.html"><a href="classification.html#linear-classifiers"><i class="fa fa-check"></i><b>10.2</b> Linear Classifiers</a></li>
+<li class="chapter" data-level="10.3" data-path="classification.html"><a href="classification.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>10.3</b> k-Nearest Neighbors</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="classification.html"><a href="classification.html#example-finding-nearest-neighbors-with-k-2"><i class="fa fa-check"></i><b>10.3.1</b> Example: Finding Nearest Neighbors with <span class="math inline">\(k = 2\)</span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="classification.html"><a href="classification.html#more-realistic-example"><i class="fa fa-check"></i><b>10.3.2</b> More Realistic Example</a></li>
+<li class="chapter" data-level="10.3.3" data-path="classification.html"><a href="classification.html#mnist_27-dataset"><i class="fa fa-check"></i><b>10.3.3</b> <code>mnist_27</code> dataset</a></li>
+<li class="chapter" data-level="10.3.4" data-path="classification.html"><a href="classification.html#single-run-grid-search-for-k"><i class="fa fa-check"></i><b>10.3.4</b> Single-run grid search for k</a></li>
+<li class="chapter" data-level="10.3.5" data-path="classification.html"><a href="classification.html#multi-run-grid-search-training-the-model-for-k"><i class="fa fa-check"></i><b>10.3.5</b> Multi-run grid search (training the model) for k</a></li>
+<li class="chapter" data-level="10.3.6" data-path="classification.html"><a href="classification.html#grid-search-with-parallel-computing-mclapply"><i class="fa fa-check"></i><b>10.3.6</b> Grid search with parallel computing (<code>mclapply</code>)</a></li>
+<li class="chapter" data-level="10.3.7" data-path="classification.html"><a href="classification.html#knn3-from-caret-single-vs-parallel-core-application"><i class="fa fa-check"></i><b>10.3.7</b> <code>knn3</code> from <code>caret</code>: Single vs Parallel Core Application</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="classification.html"><a href="classification.html#tuning-in-classification"><i class="fa fa-check"></i><b>10.4</b> Tuning in Classification</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="classification.html"><a href="classification.html#confusion-matrix"><i class="fa fa-check"></i><b>10.4.1</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="10.4.2" data-path="classification.html"><a href="classification.html#why-accuracy-can-be-misleading"><i class="fa fa-check"></i><b>10.4.2</b> Why Accuracy Can Be Misleading</a></li>
+<li class="chapter" data-level="10.4.3" data-path="classification.html"><a href="classification.html#performance-measures-beyond-accuracy"><i class="fa fa-check"></i><b>10.4.3</b> Performance Measures Beyond Accuracy</a></li>
+<li class="chapter" data-level="10.4.4" data-path="classification.html"><a href="classification.html#kappa-statistic"><i class="fa fa-check"></i><b>10.4.4</b> Kappa Statistic</a></li>
+<li class="chapter" data-level="10.4.5" data-path="classification.html"><a href="classification.html#youdens-j-statistic"><i class="fa fa-check"></i><b>10.4.5</b> Youden’s J Statistic</a></li>
+<li class="chapter" data-level="10.4.6" data-path="classification.html"><a href="classification.html#roc-curve"><i class="fa fa-check"></i><b>10.4.6</b> ROC Curve</a></li>
+<li class="chapter" data-level="10.4.7" data-path="classification.html"><a href="classification.html#roc-curve-and-auc"><i class="fa fa-check"></i><b>10.4.7</b> ROC Curve and AUC</a></li>
+<li class="chapter" data-level="10.4.8" data-path="classification.html"><a href="classification.html#using-rocr-and-proc-packages"><i class="fa fa-check"></i><b>10.4.8</b> Using <code>ROCR</code> and <code>pROC</code> packages</a></li>
+<li class="chapter" data-level="10.4.9" data-path="classification.html"><a href="classification.html#tuning-knn-with-auc"><i class="fa fa-check"></i><b>10.4.9</b> Tuning kNN with AUC</a></li>
+<li class="chapter" data-level="10.4.10" data-path="classification.html"><a href="classification.html#test-score-and-threshold"><i class="fa fa-check"></i><b>10.4.10</b> Test Score and Threshold</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="classification.html"><a href="classification.html#conclusion"><i class="fa fa-check"></i><b>10.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html"><i class="fa fa-check"></i><b>11</b> Model Selection and Sparsity</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-econometrics"><i class="fa fa-check"></i><b>11.1</b> Model Selection in Econometrics</a></li>
+<li class="chapter" data-level="11.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-assessment-criteria"><i class="fa fa-check"></i><b>11.2</b> Model Assessment Criteria</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#adjusted-r2-as-a-model-selection-criterion"><i class="fa fa-check"></i><b>11.2.1</b> Adjusted <span class="math inline">\(R^2\)</span> as a Model Selection Criterion</a></li>
+<li class="chapter" data-level="11.2.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#mallows-c_p-statistic"><i class="fa fa-check"></i><b>11.2.2</b> Mallows’ <span class="math inline">\(C_p\)</span> Statistic</a></li>
+<li class="chapter" data-level="11.2.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>11.2.3</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>11.2.4</b> Bayesian Information Criterion (BIC)</a></li>
+<li class="chapter" data-level="11.2.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#cross-validation-and-bootstrap-methods"><i class="fa fa-check"></i><b>11.2.5</b> Cross-Validation and Bootstrap Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#subset-variable-selection-methods"><i class="fa fa-check"></i><b>11.3</b> Subset Variable Selection Methods</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#best-subset-selection"><i class="fa fa-check"></i><b>11.3.1</b> Best Subset Selection</a></li>
+<li class="chapter" data-level="11.3.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#forward-selection"><i class="fa fa-check"></i><b>11.3.2</b> Forward Selection</a></li>
+<li class="chapter" data-level="11.3.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#backward-selection"><i class="fa fa-check"></i><b>11.3.3</b> Backward Selection</a></li>
+<li class="chapter" data-level="11.3.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#hybrid-stepwise-selection"><i class="fa fa-check"></i><b>11.3.4</b> Hybrid (Stepwise) Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#selecting-functional-form-in-econometric-models"><i class="fa fa-check"></i><b>11.4</b> Selecting Functional Form in Econometric Models</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#functional-forms-and-transformations"><i class="fa fa-check"></i><b>11.4.1</b> Functional Forms and Transformations</a></li>
+<li class="chapter" data-level="11.4.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#models-with-structural-changes-piecewise-linear-models"><i class="fa fa-check"></i><b>11.4.2</b> Models with Structural Changes: Piecewise Linear Models</a></li>
+<li class="chapter" data-level="11.4.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#extensions-and-alternative-methods"><i class="fa fa-check"></i><b>11.4.3</b> Extensions and Alternative Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-machine-learning"><i class="fa fa-check"></i><b>11.5</b> Model Selection in Machine Learning</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#comparing-prediction-models"><i class="fa fa-check"></i><b>11.5.1</b> Comparing Prediction Models</a></li>
+<li class="chapter" data-level="11.5.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#balancing-interpretability-and-predictive-accuracy"><i class="fa fa-check"></i><b>11.5.2</b> Balancing Interpretability and Predictive Accuracy</a></li>
+<li class="chapter" data-level="11.5.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#practical-guidelines"><i class="fa fa-check"></i><b>11.5.3</b> Practical Guidelines:</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#sparsity-in-model-selection"><i class="fa fa-check"></i><b>11.6</b> Sparsity in Model Selection</a></li>
+<li class="chapter" data-level="11.7" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#oracle-properties-in-model-selection"><i class="fa fa-check"></i><b>11.7</b> Oracle Properties in Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html"><i class="fa fa-check"></i><b>12</b> Penalized Regression Methods</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>12.1</b> Ridge Regression</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#standardization-of-predictors"><i class="fa fa-check"></i><b>12.1.1</b> Standardization of Predictors</a></li>
+<li class="chapter" data-level="12.1.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-ridge-regression"><i class="fa fa-check"></i><b>12.1.2</b> Implementation and Simulation of Ridge Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>12.2</b> Lasso Regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#coordinate-descent-for-lasso-regression"><i class="fa fa-check"></i><b>12.2.1</b> Coordinate Descent for Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#least-angle-regression-lars-for-lasso"><i class="fa fa-check"></i><b>12.2.2</b> Least Angle Regression (LARS) for Lasso</a></li>
+<li class="chapter" data-level="12.2.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#differences-between-coordinate-descent-and-lars"><i class="fa fa-check"></i><b>12.2.3</b> Differences Between Coordinate Descent and LARS</a></li>
+<li class="chapter" data-level="12.2.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-lasso-regression"><i class="fa fa-check"></i><b>12.2.4</b> Implementation and Simulation of Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#the-relationship-between-the-lasso-and-ols-coefficient-estimates"><i class="fa fa-check"></i><b>12.2.5</b> The relationship between the Lasso and OLS coefficient estimates</a></li>
+<li class="chapter" data-level="12.2.6" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-1"><i class="fa fa-check"></i><b>12.2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#adaptive-lasso"><i class="fa fa-check"></i><b>12.3</b> Adaptive Lasso</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#steps-in-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.1</b> Steps in Adaptive Lasso:</a></li>
+<li class="chapter" data-level="12.3.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.2</b> Implementation and Simulation of Adaptive Lasso</a></li>
+<li class="chapter" data-level="12.3.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-2"><i class="fa fa-check"></i><b>12.3.3</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#elastic-net-regression"><i class="fa fa-check"></i><b>12.4</b> Elastic Net Regression</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-elastic-net"><i class="fa fa-check"></i><b>12.4.1</b> Implementation and Simulation of Elastic Net</a></li>
+<li class="chapter" data-level="12.4.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-3"><i class="fa fa-check"></i><b>12.4.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#technical-derivation-of-ridge-regression-estimator"><i class="fa fa-check"></i><b>12.5</b> Technical: Derivation of Ridge Regression Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html"><i class="fa fa-check"></i><b>13</b> Classification and Regression Trees (CART)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#basic-concepts"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#gini-index---impurity-measure"><i class="fa fa-check"></i><b>13.1.1</b> Gini index - Impurity measure</a></li>
+<li class="chapter" data-level="13.1.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#finding-the-split"><i class="fa fa-check"></i><b>13.1.2</b> Finding the split</a></li>
+<li class="chapter" data-level="13.1.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#can-we-find-a-better-split"><i class="fa fa-check"></i><b>13.1.3</b> Can we find a better split?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#function-to-find-the-important-variables-and-gains"><i class="fa fa-check"></i><b>13.1.4</b> Function to find the important variables and gains</a></li>
+<li class="chapter" data-level="13.1.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#the-second-split"><i class="fa fa-check"></i><b>13.1.5</b> The Second Split</a></li>
+<li class="chapter" data-level="13.1.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#variable-importance---easy-and-heuristic-way"><i class="fa fa-check"></i><b>13.1.6</b> Variable Importance - Easy and heuristic way</a></li>
+<li class="chapter" data-level="13.1.7" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#recursive-partitioning---the-tree-model"><i class="fa fa-check"></i><b>13.1.7</b> Recursive partitioning - The tree model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#step-by-step-tree-construction-for-binary-classification"><i class="fa fa-check"></i><b>13.2</b> Step-by-Step Tree Construction for Binary Classification</a></li>
+<li class="chapter" data-level="13.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#classification-decision-trees-with-rpart"><i class="fa fa-check"></i><b>13.3</b> Classification Decision Trees with <code>rpart</code></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#pruning-the-tree"><i class="fa fa-check"></i><b>13.3.1</b> Pruning the Tree</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#regression-trees"><i class="fa fa-check"></i><b>13.4</b> Regression Trees</a></li>
+<li class="chapter" data-level="13.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#building-and-interpreting-regression-trees-with-rpart-a-step-by-step-guide"><i class="fa fa-check"></i><b>13.5</b> Building and Interpreting Regression Trees with <code>rpart</code>: A Step-by-Step Guide</a></li>
+<li class="chapter" data-level="13.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#additional-considerations-and-extensions-for-regression-trees"><i class="fa fa-check"></i><b>13.6</b> Additional Considerations and Extensions for Regression Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html"><i class="fa fa-check"></i><b>14</b> Ensemble Learning and Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#bagging-bootstrap-aggregating"><i class="fa fa-check"></i><b>14.1</b> Bagging (Bootstrap Aggregating)</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#application-with-multiple-splits"><i class="fa fa-check"></i><b>14.1.1</b> Application with multiple splits</a></li>
+<li class="chapter" data-level="14.1.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#tuning"><i class="fa fa-check"></i><b>14.1.2</b> Tuning?</a></li>
+<li class="chapter" data-level="14.1.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#using-out-of-bag-oob-error"><i class="fa fa-check"></i><b>14.1.3</b> Using Out-of-Bag (OOB) Error</a></li>
+<li class="chapter" data-level="14.1.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#oob-error-rate"><i class="fa fa-check"></i><b>14.1.4</b> OOB error rate</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>14.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest-like-variable-selection"><i class="fa fa-check"></i><b>14.2.1</b> Random Forest-like Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#implementing-random-forest-in-r"><i class="fa fa-check"></i><b>14.3</b> Implementing Random Forest in R</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#building-a-random-forest-model-on-titanic-data"><i class="fa fa-check"></i><b>14.3.1</b> Building a Random Forest Model on Titanic Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#auc"><i class="fa fa-check"></i><b>14.3.2</b> AUC</a></li>
+<li class="chapter" data-level="14.3.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#regression-hitters"><i class="fa fa-check"></i><b>14.3.3</b> Regression: Hitters</a></li>
+<li class="chapter" data-level="14.3.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#importance-of-variables"><i class="fa fa-check"></i><b>14.3.4</b> Importance of Variables</a></li>
+<li class="chapter" data-level="14.3.5" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#local-importance"><i class="fa fa-check"></i><b>14.3.5</b> Local Importance</a></li>
+<li class="chapter" data-level="14.3.6" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#randomforestexplainer"><i class="fa fa-check"></i><b>14.3.6</b> <code>randomForestExplainer</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boosting-1.html"><a href="boosting-1.html"><i class="fa fa-check"></i><b>15</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="boosting-1.html"><a href="boosting-1.html#types-of-boosting-models"><i class="fa fa-check"></i><b>15.1</b> Types of Boosting Models</a></li>
+<li class="chapter" data-level="15.2" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-machines-gbm"><i class="fa fa-check"></i><b>15.2</b> Gradient Boosting Machines (GBM)</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-algorithm-steps"><i class="fa fa-check"></i><b>15.2.1</b> Gradient Boosting Algorithm Steps</a></li>
+<li class="chapter" data-level="15.2.2" data-path="boosting-1.html"><a href="boosting-1.html#hyperparameter-tuning-in-gbm"><i class="fa fa-check"></i><b>15.2.2</b> Hyperparameter Tuning in GBM</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="boosting-1.html"><a href="boosting-1.html#gbm-in-r"><i class="fa fa-check"></i><b>15.3</b> GBM in R</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="boosting-1.html"><a href="boosting-1.html#variable-importance-in-gbm"><i class="fa fa-check"></i><b>15.3.1</b> Variable Importance in GBM</a></li>
+<li class="chapter" data-level="15.3.2" data-path="boosting-1.html"><a href="boosting-1.html#external-training"><i class="fa fa-check"></i><b>15.3.2</b> External Training</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="boosting-1.html"><a href="boosting-1.html#adaboost"><i class="fa fa-check"></i><b>15.4</b> AdaBoost</a></li>
+<li class="chapter" data-level="15.5" data-path="boosting-1.html"><a href="boosting-1.html#xgboost"><i class="fa fa-check"></i><b>15.5</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="boosting-1.html"><a href="boosting-1.html#regression-example"><i class="fa fa-check"></i><b>15.5.1</b> Regression Example</a></li>
+<li class="chapter" data-level="15.5.2" data-path="boosting-1.html"><a href="boosting-1.html#classification-example"><i class="fa fa-check"></i><b>15.5.2</b> Classification Example</a></li>
+<li class="chapter" data-level="15.5.3" data-path="boosting-1.html"><a href="boosting-1.html#tuning-in-xgboost"><i class="fa fa-check"></i><b>15.5.3</b> Tuning in XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="boosting-1.html"><a href="boosting-1.html#the-implementation-of-boosting-methods"><i class="fa fa-check"></i><b>15.6</b> The Implementation of Boosting Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html"><i class="fa fa-check"></i><b>16</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#counterfactual-framework-1"><i class="fa fa-check"></i><b>16.1</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#assumptions-of-the-rubin-causal-model"><i class="fa fa-check"></i><b>16.1.1</b> Assumptions of the Rubin Causal Model:</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#average-treatment-effects"><i class="fa fa-check"></i><b>16.2</b> Average Treatment Effects:</a></li>
+<li class="chapter" data-level="16.3" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#selection-bias-and-heterogeneous-treatment-effect-bias"><i class="fa fa-check"></i><b>16.3</b> Selection Bias and Heterogeneous Treatment Effect Bias</a></li>
+<li class="chapter" data-level="16.4" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#limitations-of-rcm"><i class="fa fa-check"></i><b>16.4</b> Limitations of RCM:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html"><i class="fa fa-check"></i><b>17</b> Randomized Controlled Trials</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#key-assumptions"><i class="fa fa-check"></i><b>17.1</b> Key Assumptions</a></li>
+<li class="chapter" data-level="17.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#randomization-inference"><i class="fa fa-check"></i><b>17.2</b> Randomization Inference</a></li>
+<li class="chapter" data-level="17.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#linear-regression-in-rcts"><i class="fa fa-check"></i><b>17.3</b> Linear Regression in RCTs</a></li>
+<li class="chapter" data-level="17.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-adjustment-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4</b> Regression Adjustment in Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#residual-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.1</b> Residual strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.2</b> Regression strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#single-regression-with-covariate-adjustment"><i class="fa fa-check"></i><b>17.4.3</b> Single Regression with Covariate Adjustment</a></li>
+<li class="chapter" data-level="17.4.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#simulation-covariate-adjustment-in-rcts"><i class="fa fa-check"></i><b>17.4.4</b> Simulation: Covariate Adjustment in RCTs</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#fishers-randomization-inference"><i class="fa fa-check"></i><b>17.5</b> Fisher’s Randomization Inference</a></li>
+<li class="chapter" data-level="17.6" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#challenges-in-randomized-controlled-trials"><i class="fa fa-check"></i><b>17.6</b> Challenges in Randomized Controlled Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="selection-on-observables.html"><a href="selection-on-observables.html"><i class="fa fa-check"></i><b>18</b> Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#assumptions-and-definitions-behind-selection-on-observables"><i class="fa fa-check"></i><b>18.1</b> Assumptions and Definitions Behind Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#conditional-independence-assumption-unconfoundedness"><i class="fa fa-check"></i><b>18.1.1</b> Conditional Independence Assumption (Unconfoundedness)</a></li>
+<li class="chapter" data-level="18.1.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#common-support-assumption-overlap-condition"><i class="fa fa-check"></i><b>18.1.2</b> Common Support Assumption (Overlap Condition)</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#defining-the-conditional-average-treatment-effect"><i class="fa fa-check"></i><b>18.2</b> Defining the (Conditional) Average Treatment Effect</a></li>
+<li class="chapter" data-level="18.3" data-path="selection-on-observables.html"><a href="selection-on-observables.html#regression-based-estimation-methods"><i class="fa fa-check"></i><b>18.3</b> Regression-Based Estimation Methods</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#separate-regressions-for-treated-and-control-groups"><i class="fa fa-check"></i><b>18.3.1</b> Separate Regressions for Treated and Control Groups</a></li>
+<li class="chapter" data-level="18.3.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#single-regression-with-covariate-adjustment-1"><i class="fa fa-check"></i><b>18.3.2</b> Single Regression with Covariate Adjustment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="double-machine-learning.html"><a href="double-machine-learning.html"><i class="fa fa-check"></i><b>19</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#double-machine-learning-1"><i class="fa fa-check"></i><b>19.1</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#brief-practical-framework-dml1-dml2-for-lasso"><i class="fa fa-check"></i><b>19.1.1</b> Brief Practical Framework (DML1 &amp; DML2 for LASSO)</a></li>
+<li class="chapter" data-level="19.1.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#inference-and-robust-standard-errors"><i class="fa fa-check"></i><b>19.1.2</b> Inference and Robust Standard Errors</a></li>
+<li class="chapter" data-level="19.1.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-dm1-lasso-and-simulation"><i class="fa fa-check"></i><b>19.1.3</b> Step-by-step DM1-LASSO and Simulation</a></li>
+<li class="chapter" data-level="19.1.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml1"><i class="fa fa-check"></i><b>19.1.4</b> Simulation for DML1:</a></li>
+<li class="chapter" data-level="19.1.5" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-procedure-for-dml2-lasso"><i class="fa fa-check"></i><b>19.1.5</b> Step-by-step procedure for DML2-LASSO:</a></li>
+<li class="chapter" data-level="19.1.6" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2"><i class="fa fa-check"></i><b>19.1.6</b> Simulation for DML2:</a></li>
+<li class="chapter" data-level="19.1.7" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2-lasso-with-the-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.7</b> DML2-Lasso with the Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.8" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2-with-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.8</b> Simulation for DML2 with Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.9" data-path="double-machine-learning.html"><a href="double-machine-learning.html#sparsity-in-dml-lasso"><i class="fa fa-check"></i><b>19.1.9</b> Sparsity in DML-Lasso:</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2--decision-trees"><i class="fa fa-check"></i><b>19.2</b> DML2 -Decision Trees</a></li>
+<li class="chapter" data-level="19.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2---random-forest"><i class="fa fa-check"></i><b>19.3</b> DML2 - Random Forest</a></li>
+<li class="chapter" data-level="19.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#technical-notes-from-fwl-to-dml"><i class="fa fa-check"></i><b>19.4</b> Technical Notes: From FWL to DML</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#frisch-waugh-lovell-theorem"><i class="fa fa-check"></i><b>19.4.1</b> Frisch-Waugh-Lovell Theorem</a></li>
+<li class="chapter" data-level="19.4.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#from-fwl-to-double-machine-learning-dml"><i class="fa fa-check"></i><b>19.4.2</b> From FWL to Double Machine Learning (DML):</a></li>
+<li class="chapter" data-level="19.4.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#debiased-lasso"><i class="fa fa-check"></i><b>19.4.3</b> Debiased LASSO</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="matching-methods.html"><a href="matching-methods.html"><i class="fa fa-check"></i><b>20</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="matching-methods.html"><a href="matching-methods.html#subclassification-or-stratification"><i class="fa fa-check"></i><b>20.1</b> Subclassification or Stratification</a></li>
+<li class="chapter" data-level="20.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-1"><i class="fa fa-check"></i><b>20.2</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="matching-methods.html"><a href="matching-methods.html#factors-influence-the-implementation-of-matching-methods"><i class="fa fa-check"></i><b>20.2.1</b> Factors influence the implementation of matching methods:</a></li>
+<li class="chapter" data-level="20.2.2" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance"><i class="fa fa-check"></i><b>20.2.2</b> Assessing Balance</a></li>
+<li class="chapter" data-level="20.2.3" data-path="matching-methods.html"><a href="matching-methods.html#matching-benefits-and-limitations"><i class="fa fa-check"></i><b>20.2.3</b> Matching: Benefits and Limitations</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="matching-methods.html"><a href="matching-methods.html#propensity-score-matching-psm"><i class="fa fa-check"></i><b>20.3</b> Propensity Score Matching (PSM)</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="matching-methods.html"><a href="matching-methods.html#estimating-the-propensity-score"><i class="fa fa-check"></i><b>20.3.1</b> Estimating the Propensity Score</a></li>
+<li class="chapter" data-level="20.3.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-in-psm"><i class="fa fa-check"></i><b>20.3.2</b> Matching Methods in PSM</a></li>
+<li class="chapter" data-level="20.3.3" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance-in-psm"><i class="fa fa-check"></i><b>20.3.3</b> Assessing Balance in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="matching-methods.html"><a href="matching-methods.html#calculation-of-treatment-effects"><i class="fa fa-check"></i><b>20.4</b> Calculation of Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="matching-methods.html"><a href="matching-methods.html#regression-adjustment-including-propensity-score"><i class="fa fa-check"></i><b>20.4.1</b> Regression Adjustment Including Propensity Score</a></li>
+<li class="chapter" data-level="20.4.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-and-stratification-on-propensity-score"><i class="fa fa-check"></i><b>20.4.2</b> Matching and Stratification on Propensity Score</a></li>
+<li class="chapter" data-level="20.4.3" data-path="matching-methods.html"><a href="matching-methods.html#estimation-of-standard-errors-in-psm"><i class="fa fa-check"></i><b>20.4.3</b> Estimation of Standard Errors in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="matching-methods.html"><a href="matching-methods.html#integrating-xgboost-with-matchit-for-propensity-score-matching"><i class="fa fa-check"></i><b>20.5</b> Integrating XGBoost with MatchIt for Propensity Score Matching</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html"><i class="fa fa-check"></i><b>21</b> Inverse Weighting and Doubly Robust Estimation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#inverse-probability-weighting-ipw"><i class="fa fa-check"></i><b>21.1</b> Inverse Probability Weighting (IPW)</a></li>
+<li class="chapter" data-level="21.2" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#doubly-robust-estimators---aipw"><i class="fa fa-check"></i><b>21.2</b> Doubly Robust Estimators - AIPW</a></li>
+<li class="chapter" data-level="21.3" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#challenges-of-selection-on-observables"><i class="fa fa-check"></i><b>21.3</b> Challenges of Selection on Observables</a></li>
+<li class="chapter" data-level="21.4" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#technical-note-derivation-and-doubly-robust-of-the-aipw-estimator"><i class="fa fa-check"></i><b>21.4</b> Technical Note: Derivation and Doubly robust of the AIPW Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html"><i class="fa fa-check"></i><b>22</b> Selection on Unobservables and DML-IV</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>22.1</b> Instrumental Variables (IV):</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#core-iv-concepts"><i class="fa fa-check"></i><b>22.1.1</b> Core IV Concepts</a></li>
+<li class="chapter" data-level="22.1.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-potential-outcomes-framework-and-rcts"><i class="fa fa-check"></i><b>22.1.2</b> IV in the Potential Outcomes Framework and RCTs</a></li>
+<li class="chapter" data-level="22.1.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-observational-data"><i class="fa fa-check"></i><b>22.1.3</b> IV in the Observational Data</a></li>
+<li class="chapter" data-level="22.1.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#weak-instrument"><i class="fa fa-check"></i><b>22.1.4</b> Weak Instrument</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-iv-dml-iv"><i class="fa fa-check"></i><b>22.2</b> Double Machine Learning IV (DML-IV)</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#structural-model-and-instrumental-variables-estimation"><i class="fa fa-check"></i><b>22.2.1</b> Structural Model and Instrumental Variables Estimation</a></li>
+<li class="chapter" data-level="22.2.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-dml-iv-estimation"><i class="fa fa-check"></i><b>22.2.2</b> Double Machine Learning (DML-IV) Estimation</a></li>
+<li class="chapter" data-level="22.2.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#neyman-orthogonality-and-robustness"><i class="fa fa-check"></i><b>22.2.3</b> Neyman Orthogonality and Robustness</a></li>
+<li class="chapter" data-level="22.2.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#algorithm-dml-iv"><i class="fa fa-check"></i><b>22.2.4</b> Algorithm: DML-IV</a></li>
+<li class="chapter" data-level="22.2.5" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-lasso"><i class="fa fa-check"></i><b>22.2.5</b> DML2-IV Simulation using LASSO</a></li>
+<li class="chapter" data-level="22.2.6" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-random-forest"><i class="fa fa-check"></i><b>22.2.6</b> DML2-IV Simulation using RANDOM FOREST</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#closing-remarks-ml-for-iv"><i class="fa fa-check"></i><b>22.3</b> Closing Remarks: ML for IV</a></li>
+<li class="chapter" data-level="22.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#technical-connecting-iv-to-potential-outcomes-to-2sls"><i class="fa fa-check"></i><b>22.4</b> Technical: Connecting IV to potential outcomes to 2sls</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html"><i class="fa fa-check"></i><b>23</b> Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-approaches-to-estimating-heterogeneous-treatment-effects"><i class="fa fa-check"></i><b>23.1</b> Parametric Approaches to Estimating Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#interaction-models-in-linear-regression"><i class="fa fa-check"></i><b>23.1.1</b> Interaction Models in Linear Regression</a></li>
+<li class="chapter" data-level="23.1.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#stratified-or-subgroup-analysis"><i class="fa fa-check"></i><b>23.1.2</b> Stratified or Subgroup Analysis</a></li>
+<li class="chapter" data-level="23.1.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-generalized-linear-models-glms"><i class="fa fa-check"></i><b>23.1.3</b> Parametric Generalized Linear Models (GLMs)</a></li>
+<li class="chapter" data-level="23.1.4" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#random-coefficients-models"><i class="fa fa-check"></i><b>23.1.4</b> Random Coefficients Models</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#double-machine-learning-for-conditional-average-treatment-effects-cate"><i class="fa fa-check"></i><b>23.2</b> Double Machine Learning for Conditional Average Treatment Effects (CATE)</a></li>
+<li class="chapter" data-level="23.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#fully-nonparametric-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3</b> Fully Nonparametric Methods for HTE Estimation</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#matching-and-weighting-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.1</b> Matching and Weighting Methods for HTE Estimation</a></li>
+<li class="chapter" data-level="23.3.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#kernel-based-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.2</b> Kernel-Based Methods for HTE Estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html"><i class="fa fa-check"></i><b>24</b> Causal Trees and Forests</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#honest-causal-tree-ct-h-method"><i class="fa fa-check"></i><b>24.1</b> Honest Causal Tree (CT-H) Method</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#ct-h-algorithm"><i class="fa fa-check"></i><b>24.1.1</b> CT-H Algorithm:</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-honest-causal-tree"><i class="fa fa-check"></i><b>24.1.2</b> Simulation: Honest Causal Tree</a></li>
+<li class="chapter" data-level="24.1.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#causal-random-forests-ensemble-methods-for-hte-and-inference"><i class="fa fa-check"></i><b>24.1.3</b> “Causal” Random Forests: Ensemble Methods for HTE and Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#generalized-random-forests-grf"><i class="fa fa-check"></i><b>24.2</b> Generalized Random Forests (GRF)</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#grf-algorithm"><i class="fa fa-check"></i><b>24.2.1</b> GRF Algorithm:</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-with-grf-package-in-r"><i class="fa fa-check"></i><b>24.2.2</b> Simulation with GRF package in R:</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#application-of-causal-forests-in-economics-health-and-social-sciences"><i class="fa fa-check"></i><b>24.3</b> Application of Causal Forests in Economics, Health and Social Sciences</a></li>
+<li class="chapter" data-level="24.4" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#technical-optimizing-causal-forests-and-derivations"><i class="fa fa-check"></i><b>24.4</b> Technical: Optimizing Causal Forests and Derivations</a>
+<ul>
+<li class="chapter" data-level="24.4.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#equivalence-of-step-4-estimators-in-the-grf-algorithm-for-the-causal-forest"><i class="fa fa-check"></i><b>24.4.1</b> Equivalence of Step 4 Estimators in the <code>grf</code> Algorithm for the Causal Forest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html"><i class="fa fa-check"></i><b>25</b> Meta Learners for Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#meta-learners-and-cate"><i class="fa fa-check"></i><b>25.1</b> Meta Learners and CATE</a></li>
+<li class="chapter" data-level="25.2" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#s-learner-single-model-approach"><i class="fa fa-check"></i><b>25.2</b> S-Learner (Single Model Approach)</a></li>
+<li class="chapter" data-level="25.3" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#t-learner-separate-models-for-treatment-and-control"><i class="fa fa-check"></i><b>25.3</b> T-Learner (Separate Models for Treatment and Control)</a>
+<ul>
+<li class="chapter" data-level="25.3.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-s-learner-and-t-learner"><i class="fa fa-check"></i><b>25.3.1</b> Simulation of S-Learner and T-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.4" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#x-learner-cross-fitting"><i class="fa fa-check"></i><b>25.4</b> X-Learner (Cross-Fitting)</a>
+<ul>
+<li class="chapter" data-level="25.4.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-x-learner"><i class="fa fa-check"></i><b>25.4.1</b> Simulation of X-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.5" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#r-learner-residualized-estimation"><i class="fa fa-check"></i><b>25.5</b> R-Learner (Residualized Estimation)</a></li>
+<li class="chapter" data-level="25.6" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#dr-learner-doubly-robust-learner"><i class="fa fa-check"></i><b>25.6</b> DR-Learner (Doubly Robust Learner)</a></li>
+<li class="chapter" data-level="25.7" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#cate-vs.-ite"><i class="fa fa-check"></i><b>25.7</b> CATE vs. ITE</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html"><i class="fa fa-check"></i><b>26</b> Difference in Differences and DML-DiD</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#panel-data-fixed-effects-and-causal-inference"><i class="fa fa-check"></i><b>26.1</b> Panel Data, Fixed Effects, and Causal Inference</a></li>
+<li class="chapter" data-level="26.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#difference-in-differences-did"><i class="fa fa-check"></i><b>26.2</b> Difference-in-Differences (DiD)</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#controlling-for-additional-covariates-in-did"><i class="fa fa-check"></i><b>26.2.1</b> Controlling for Additional Covariates in DiD</a></li>
+<li class="chapter" data-level="26.2.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#two-way-fixed-effects-twfe-with-covariates"><i class="fa fa-check"></i><b>26.2.2</b> Two-Way Fixed Effects (TWFE) with Covariates</a></li>
+<li class="chapter" data-level="26.2.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#event-study-designs"><i class="fa fa-check"></i><b>26.2.3</b> Event Study Designs</a></li>
+<li class="chapter" data-level="26.2.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#heterogeneous-treatment-effects-in-did"><i class="fa fa-check"></i><b>26.2.4</b> Heterogeneous Treatment Effects in DiD</a></li>
+<li class="chapter" data-level="26.2.5" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#where-to-go-next-tools-resources-and-recent-advances"><i class="fa fa-check"></i><b>26.2.5</b> Where to Go Next: Tools, Resources, and Recent Advances</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-for-did-estimation"><i class="fa fa-check"></i><b>26.3</b> Double Machine Learning for DiD Estimation</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#step-by-step-implementation"><i class="fa fa-check"></i><b>26.3.1</b> Step-by-Step Implementation</a></li>
+<li class="chapter" data-level="26.3.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-did-simulation"><i class="fa fa-check"></i><b>26.3.2</b> Double-Machine Learning DiD Simulation</a></li>
+<li class="chapter" data-level="26.3.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#extension-of-dml-did-to-multiple-time-periods"><i class="fa fa-check"></i><b>26.3.3</b> Extension of DML-DiD to multiple time periods</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#time-varying-continuous-treatments"><i class="fa fa-check"></i><b>26.4</b> Time-varying Continuous Treatments</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html"><i class="fa fa-check"></i><b>27</b> Synthetic DiD and Regression Discontinuity</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#the-synthetic-control-method"><i class="fa fa-check"></i><b>27.1</b> The Synthetic Control Method</a>
+<ul>
+<li class="chapter" data-level="27.1.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#generalized-synthetic-control-method-gscm"><i class="fa fa-check"></i><b>27.1.1</b> Generalized Synthetic Control Method (GSCM)</a></li>
+<li class="chapter" data-level="27.1.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#augmented-synthetic-control-method-ascm"><i class="fa fa-check"></i><b>27.1.2</b> Augmented Synthetic Control Method (ASCM)</a></li>
+</ul></li>
+<li class="chapter" data-level="27.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#synthetic-difference-in-differences-sdid"><i class="fa fa-check"></i><b>27.2</b> Synthetic Difference-in-Differences (SDiD)</a></li>
+<li class="chapter" data-level="27.3" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#regression-discontinuity-designs-rdd"><i class="fa fa-check"></i><b>27.3</b> Regression Discontinuity Designs (RDD)</a>
+<ul>
+<li class="chapter" data-level="27.3.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#rdd-simulation"><i class="fa fa-check"></i><b>27.3.1</b> RDD Simulation</a></li>
+<li class="chapter" data-level="27.3.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#credibility-and-extensions-in-rdd-applications"><i class="fa fa-check"></i><b>27.3.2</b> Credibility and Extensions in RDD Applications</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html"><i class="fa fa-check"></i><b>28</b> Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#arima-a-statistical-model-for-time-series-forecasting"><i class="fa fa-check"></i><b>28.1</b> ARIMA: A Statistical Model for Time Series Forecasting</a></li>
+<li class="chapter" data-level="28.2" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#hyndman-khandakar-algorithm"><i class="fa fa-check"></i><b>28.2</b> Hyndman-Khandakar algorithm</a></li>
+<li class="chapter" data-level="28.3" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#ts-plots"><i class="fa fa-check"></i><b>28.3</b> TS Plots</a></li>
+<li class="chapter" data-level="28.4" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#box-cox-transformation"><i class="fa fa-check"></i><b>28.4</b> Box-Cox transformation</a></li>
+<li class="chapter" data-level="28.5" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#stationarity"><i class="fa fa-check"></i><b>28.5</b> Stationarity</a></li>
+<li class="chapter" data-level="28.6" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#modeling-arima"><i class="fa fa-check"></i><b>28.6</b> Modeling ARIMA</a></li>
+<li class="chapter" data-level="28.7" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#grid-search-for-arima"><i class="fa fa-check"></i><b>28.7</b> Grid search for ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html"><i class="fa fa-check"></i><b>29</b> Direct Forecasting with Random Forests</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#time-series-embedding-for-direct-forecasting"><i class="fa fa-check"></i><b>29.1</b> Time Series Embedding for Direct Forecasting</a></li>
+<li class="chapter" data-level="29.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#var-for-recursive-forecasting"><i class="fa fa-check"></i><b>29.2</b> VAR for Recursive Forecasting</a></li>
+<li class="chapter" data-level="29.3" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#embedding-for-direct-forecast"><i class="fa fa-check"></i><b>29.3</b> Embedding for Direct Forecast</a></li>
+<li class="chapter" data-level="29.4" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#random-forest-with-time-series"><i class="fa fa-check"></i><b>29.4</b> Random Forest with Time Series</a>
+<ul>
+<li class="chapter" data-level="29.4.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#univariate"><i class="fa fa-check"></i><b>29.4.1</b> Univariate</a></li>
+<li class="chapter" data-level="29.4.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#multivariate"><i class="fa fa-check"></i><b>29.4.2</b> Multivariate</a></li>
+</ul></li>
+<li class="chapter" data-level="29.5" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#rolling-and-expanding-windows"><i class="fa fa-check"></i><b>29.5</b> Rolling and expanding windows</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html"><i class="fa fa-check"></i><b>30</b> Neural Networks &amp; Deep Learning</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---the-idea"><i class="fa fa-check"></i><b>30.1</b> Neural Network - the idea</a></li>
+<li class="chapter" data-level="30.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#backpropagation"><i class="fa fa-check"></i><b>30.2</b> Backpropagation</a></li>
+<li class="chapter" data-level="30.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---more-inputs"><i class="fa fa-check"></i><b>30.3</b> Neural Network - More inputs</a></li>
+<li class="chapter" data-level="30.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning"><i class="fa fa-check"></i><b>30.4</b> Deep Learning</a></li>
+<li class="chapter" data-level="30.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning-with-keras-package"><i class="fa fa-check"></i><b>30.5</b> Deep Learning with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.5.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#setting-up-a-keras-model"><i class="fa fa-check"></i><b>30.5.1</b> Setting up a Keras Model</a></li>
+<li class="chapter" data-level="30.5.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-with-python"><i class="fa fa-check"></i><b>30.5.2</b> Keras with Python</a></li>
+<li class="chapter" data-level="30.5.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#tuning-a-keras-model"><i class="fa fa-check"></i><b>30.5.3</b> Tuning a Keras Model</a></li>
+<li class="chapter" data-level="30.5.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#visualizing-model-performance"><i class="fa fa-check"></i><b>30.5.4</b> Visualizing Model Performance</a></li>
+<li class="chapter" data-level="30.5.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-keras-tuner"><i class="fa fa-check"></i><b>30.5.5</b> Grid Search with Keras Tuner</a></li>
+<li class="chapter" data-level="30.5.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-r"><i class="fa fa-check"></i><b>30.5.6</b> Grid Search with R</a></li>
+</ul></li>
+<li class="chapter" data-level="30.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#clasification-with-keras-package"><i class="fa fa-check"></i><b>30.6</b> Clasification with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.6.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#model-outcome-and-activation-function"><i class="fa fa-check"></i><b>30.6.1</b> Model Outcome and Activation Function</a></li>
+<li class="chapter" data-level="30.6.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#probabilistic-model-and-thresholding"><i class="fa fa-check"></i><b>30.6.2</b> Probabilistic Model and Thresholding</a></li>
+<li class="chapter" data-level="30.6.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-package"><i class="fa fa-check"></i><b>30.6.3</b> <code>keras</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="30.7" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#pytorch-and-keras"><i class="fa fa-check"></i><b>30.7</b> PyTorch and Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html"><i class="fa fa-check"></i><b>31</b> Matrix Decomposition and Applications</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>31.1</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="31.2" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#single-value-decomposition"><i class="fa fa-check"></i><b>31.2</b> Single Value Decomposition</a></li>
+<li class="chapter" data-level="31.3" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#rankr-approximations"><i class="fa fa-check"></i><b>31.3</b> Rank(<span class="math inline">\(r\)</span>) Approximations</a></li>
+<li class="chapter" data-level="31.4" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#moore-penrose-inverse"><i class="fa fa-check"></i><b>31.4</b> Moore-Penrose Inverse</a></li>
+<li class="chapter" data-level="31.5" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#principle-component-analysis"><i class="fa fa-check"></i><b>31.5</b> Principle Component Analysis</a></li>
+<li class="chapter" data-level="31.6" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#factor-analysis"><i class="fa fa-check"></i><b>31.6</b> Factor Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html"><i class="fa fa-check"></i><b>32</b> Optimization Algorithms - Basics</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#brute-force-optimization"><i class="fa fa-check"></i><b>32.1</b> Brute-force optimization</a></li>
+<li class="chapter" data-level="32.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#derivative-based-methods"><i class="fa fa-check"></i><b>32.2</b> Derivative-based methods</a></li>
+<li class="chapter" data-level="32.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#ml-estimation-with-logistic-regression"><i class="fa fa-check"></i><b>32.3</b> ML Estimation with logistic regression</a></li>
+<li class="chapter" data-level="32.4" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#gradient-descent-algorithm"><i class="fa fa-check"></i><b>32.4</b> Gradient Descent Algorithm</a>
+<ul>
+<li class="chapter" data-level="32.4.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#one-variable"><i class="fa fa-check"></i><b>32.4.1</b> One-variable</a></li>
+<li class="chapter" data-level="32.4.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#adjustable-lr-and-sgd"><i class="fa fa-check"></i><b>32.4.2</b> Adjustable <code>lr</code> and SGD</a></li>
+<li class="chapter" data-level="32.4.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#multivariable"><i class="fa fa-check"></i><b>32.4.3</b> Multivariable</a></li>
+</ul></li>
+<li class="chapter" data-level="32.5" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#optimization-with-r"><i class="fa fa-check"></i><b>32.5</b> Optimization with R</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>33</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Causal Inference and Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nonparametric-estimations---basics" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Nonparametric Estimations - Basics<a href="nonparametric-estimations---basics.html#nonparametric-estimations---basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In previous chapter, we explored the Dichotomy of Statistical Modeling with a focus on Parametric vs. Nonparametric Models. Parametric models, as discussed, assume that the data-generating process follows a specific form, with a fixed number of parameters that we estimate. This assumption allows for simpler interpretations and computational efficiency, making parametric models a popular choice in both economics, social and health sciences, and machine learning. In the previous chapter, we concentrated on Parametric Estimations, such as the Linear Probability Model and Logistic Regression, which rely on known functional forms and assumptions about the relationship between predictors and outcomes. These models allow us to find associations, estimate causal effects, and offer robust predictions and interpretations when the underlying assumptions are valid. However, they can be limiting when the true data-generating process is complex or unknown, which is often the case.</p>
+<p>This chapter introduces Nonparametric Estimations, a more flexible approach that does not assume a specific functional form for the data. Nonparametric methods adapt to the structure of the data, allowing for more complex relationships to emerge without predefined assumptions. However, this flexibility comes at the cost of interpretability and computational efficiency, especially with larger datasets.</p>
+<p>Nonparametric regressions form the foundation of many modern machine learning techniques due to their flexibility in modeling complex relationships without making strong assumptions about the underlying data structure. Unlike parametric models, which assume a specific functional form, nonparametric methods allow the data to guide the shape of the model, making them ideal for uncovering patterns in high-dimensional or nonlinear datasets. This flexibility is key in machine learning, where tasks often involve capturing intricate relationships between variables, such as predicting customer behavior or disease outcomes. Nonparametric methods like kernel regression, decision trees, and k-nearest neighbors serve as the basis for more advanced algorithms like random forests, support vector machines, and deep learning, which further improve the predictive power while maintaining the ability to generalize well to unseen data. These methods are particularly powerful in situations where the data is too complex for simple parametric models, making nonparametric estimations a crucial building block for machine learning applications.</p>
+<p>We will begin by discussing the basics of density estimation, a core concept in nonparametric statistics. From there, we will explore one of the most widely used nonparametric techniques: kernel density estimation and regression. These methods provide a foundation for understanding more advanced nonparametric models, making this chapter an essential starting point for those looking to extend beyond the constraints of parametric assumptions.</p>
+<div id="density-estimation" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Density Estimation<a href="nonparametric-estimations---basics.html#density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In statistical modeling, understanding the distribution of a dataset is essential for many types of analysis. Parametric models typically assume that the data follow a known distribution, such as the normal distribution, with a few parameters to estimate. However, when we wish to avoid making strong assumptions about the underlying distribution, nonparametric density estimation offers a flexible approach to estimating the probability distribution of a random variable.</p>
+<p>Let’s assume that a sample of <span class="math inline">\(n\)</span> observations, <span class="math inline">\(y_1, \dots, y_n\)</span>, is drawn from a parametric distribution <span class="math inline">\(f(y; \theta)\)</span>. The joint density function for these independent and identically distributed (i.i.d.) observations is:</p>
+<p><span class="math display">\[\begin{equation}
+f(y; \theta) = \prod_{i=1}^{n} f(y_i; \theta)
+\end{equation}\]</span></p>
+<p>To estimate <span class="math inline">\(\theta\)</span>, we maximize the likelihood or log-likelihood:</p>
+<p><span class="math display">\[\begin{equation}
+\ell(y; \theta) = \sum_{i=1}^{n} \log f(y_i; \theta)
+\end{equation}\]</span></p>
+<p>This approach is called . If <span class="math inline">\(f(y; \theta)\)</span> is not the correct form, it leads to biased estimates.</p>
+<p>To avoid such biases, we use , which estimates the density directly from the data without assuming a specific parametric form. Given a set of data points <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> drawn from some unknown probability distribution with a probability density function (PDF) <span class="math inline">\(f(x)\)</span>, the goal of density estimation is to estimate <span class="math inline">\(f(x)\)</span> without assuming any particular form for it. In nonparametric methods, the shape of the density function is determined directly from the data, offering more flexibility compared to parametric methods. Here, <span class="math inline">\(y\)</span> is used for parametric estimation, as it typically represents the dependent variable or outcomes in parametric estimations, and <span class="math inline">\(x\)</span> is used in the context of nonparametric density estimation, where we are focused on the independent variable whose distribution we wish to estimate.</p>
+<div id="histogram-density-estimation" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Histogram Density Estimation<a href="nonparametric-estimations---basics.html#histogram-density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the simplest forms of nonparametric density estimation is the histogram. The histogram groups the data into bins and counts the number of observations that fall into each bin. The density is then estimated by normalizing these counts by the total number of observations and the width of the bins. The histogram estimate of the density at a point <span class="math inline">\(x\)</span> is given by:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{f}(x) = \frac{1}{n h} \sum_{i=1}^{n} \mathbf{1}(x_i \in \text{Bin}(x))
+\end{equation}\]</span></p>
+Where:
+<p>For instance, assume there are 2000 total observations, <span class="math inline">\(x = 3\)</span>, and the bin width <span class="math inline">\(h = 1\)</span>. The bin containing <span class="math inline">\(x = 3\)</span> covers the interval <span class="math inline">\([x - h, x + h]\)</span>, which is <span class="math inline">\([3 - 1, 3 + 1] = [2, 4]\)</span>. If there are 100 observations in this bin, the estimated density <span class="math inline">\(\hat{f}(3)\)</span> would be:
+<span class="math inline">\(\hat{f}(3) = \frac{1}{2000 \times 1} \times 100 = \frac{100}{2000} = 0.05\)</span></p>
+<p>Thus, the estimated density at <span class="math inline">\(x = 3\)</span> is 0.05, meaning that approximately 5% of the total observations fall in the interval <span class="math inline">\([2, 4]\)</span>. While histograms are easy to understand, they suffer from limitations such as their dependence on bin width and location, which can lead to poor approximations of the underlying density.</p>
+</div>
+<div id="naive-estimator-parzen-windows" class="section level3 hasAnchor" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Naive Estimator (Parzen Windows)<a href="nonparametric-estimations---basics.html#naive-estimator-parzen-windows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A more sophisticated approach to nonparametric density estimation is the or . This method smooths the distribution by using a moving window (with intersections between bins) instead of fixed bins. The naive estimator is given by:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{f}(x) = \frac{1}{n h} \sum_{i=1}^{n} I\left( x - \frac{h}{2} &lt; x_i &lt; x + \frac{h}{2} \right)
+\end{equation}\]</span></p>
+<p>Where <span class="math inline">\(I(\cdot)\)</span> is an indicator function, and <span class="math inline">\(h\)</span> is the bin width, which defines the range of the bin. While the naive estimator offers some improvement over histograms, it assigns equal weight to all points within a given window, regardless of their distance from the estimation point.</p>
+</div>
+</div>
+<div id="kernel-density-estimation-kde" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Kernel Density Estimation (KDE)<a href="nonparametric-estimations---basics.html#kernel-density-estimation-kde" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Kernel Density Estimation (KDE) addresses the limitations of both histograms and the naive estimator by assigning weights to each data point based on their distance from the estimation point. Instead of using uniform weights, KDE smooths the distribution of data points by placing a “kernel” over each data point and then summing the contributions from all kernels to estimate the density. The kernel function, often a smooth, symmetric function such as a Gaussian, controls how much influence each data point has on the estimate of <span class="math inline">\(f(x)\)</span>.</p>
+<p>The kernel density estimator of <span class="math inline">\(f(x)\)</span> is given by:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{f}(x;h) = \frac{1}{n h} \sum_{i=1}^{n} K\left( \frac{x - x_i}{h} \right)
+\end{equation}\]</span></p>
+Where:
+<p>The choice of bandwidth <span class="math inline">\(h\)</span> is crucial in determining the quality of the density estimate. A small <span class="math inline">\(h\)</span> leads to an overfit, with the estimate capturing too much noise, while a large <span class="math inline">\(h\)</span> may oversmooth the data, losing important details of the distribution. Common kernel functions include:</p>
+<p>Another common notation is</p>
+<p><span class="math display">\[\begin{equation}
+K_h(z) = \frac{1}{h} K\left(\frac{z}{h}\right),
+\end{equation}\]</span></p>
+<p>so the kernel density estimator (KDE) can be compactly written as</p>
+<p><span class="math display">\[\begin{equation}
+\hat{f}(x; h) = \frac{1}{n} \sum_{i=1}^{n} K_h(x - X_i).
+\end{equation}\]</span></p>
+<p>For instance, suppose we have 2000 total observations, and we want to estimate the density at <span class="math inline">\(x = 3\)</span> with a bandwidth <span class="math inline">\(h = 1\)</span>. The Epanechnikov kernel gives more weight to observations near <span class="math inline">\(x = 3\)</span> and less weight to those further away. If we have the following five data points: <span class="math inline">\(x_1 = 2.5\)</span>, <span class="math inline">\(x_2 = 2.7\)</span>, <span class="math inline">\(x_3 = 3.1\)</span>, <span class="math inline">\(x_4 = 3.5\)</span>, and <span class="math inline">\(x_5 = 3.8\)</span>, we can compute the contribution of each point to the density estimate at <span class="math inline">\(x = 3\)</span> as follows:</p>
+<p><span class="math display">\[
+\hat{f}(3) = \frac{1}{5 \times 1} \left[ \frac{3}{4}(1 - (0.5)^2) + \frac{3}{4}(1 - (0.3)^2) + \frac{3}{4}(1 - (0.1)^2) + \frac{3}{4}(1 - (0.5)^2) + 0 \right]
+\]</span></p>
+<p>Since the Epanechnikov kernel assigns a weight of 0 for any point more than 1 unit away from <span class="math inline">\(x\)</span>, the observation at <span class="math inline">\(x_5 = 3.8\)</span> does not contribute to the estimate because <span class="math inline">\(\left|\frac{3 - 3.8}{1}\right| = 0.8\)</span> exceeds the support of kernel of <span class="math inline">\([-1, 1]\)</span>. The density estimate is then computed as <span class="math inline">\(\hat{f}(3) = 0.51\)</span>. Thus, the estimated density at <span class="math inline">\(x = 3\)</span> using the Epanechnikov kernel with <span class="math inline">\(h = 1\)</span> is approximately <span class="math inline">\(0.51\)</span>. This example demonstrates how the Epanechnikov kernel assigns different weights to data points based on their proximity to the point of interest, leading to a smooth density estimate. Although the type of kernel function <span class="math inline">\(K(u)\)</span> influences the estimate, the choice of bandwidth <span class="math inline">\(h\)</span> is far more important in determining the overall smoothness.</p>
+<div id="simulation-kde-vs-histogram" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Simulation: KDE vs Histogram<a href="nonparametric-estimations---basics.html#simulation-kde-vs-histogram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can now simulate a density estimation example using both a histogram and a kernel density estimator. We will generate a set of random data points from a mixture of normal distributions and compare the estimated density using both the histogram and KDE methods. This will demonstrate how KDE offers a smoother and more flexible estimate compared to the histogram method.</p>
+<div class="figure"><span style="display:block;" id="fig:nonpar1"></span>
+<img src="08-Nonparametric_files/figure-html/nonpar1-1.png" alt="Histogram vs Kernel Density Estimation" width="672" />
+<p class="caption">
+FIGURE 8.1: Histogram vs Kernel Density Estimation
+</p>
+</div>
+<p>In this simulation, we generated <span class="math inline">\(n = 2000\)</span> data points from a mixture of two normal distributions, one centered at <span class="math inline">\(-2\)</span> and the other at <span class="math inline">\(2\)</span>, both with a standard deviation of <span class="math inline">\(0.5\)</span>. The goal is to estimate the probability density function using both a histogram and kernel density estimation (KDE).</p>
+<p>The histogram groups the data into bins. For each bin, it counts the number of observations and normalizes by the total number of observations <span class="math inline">\(n = 2000\)</span> and the bin width <span class="math inline">\(h\)</span>. For example, at <span class="math inline">\(x = 3\)</span>, we check the bin containing <span class="math inline">\(x = 3\)</span>. Let’s assume the bin width <span class="math inline">\(h = 0.2\)</span>. If there are 15 observations in the bin, the density estimate is computed as:</p>
+<p><span class="math display">\[
+\hat{f}_{\text{hist}}(3) = \frac{1}{n \cdot h} \sum_{i=1}^{n} \mathbf{1}(x_i \in \text{Bin}(3)) = \frac{15}{2000 \cdot 0.2} = 0.0375
+\]</span>
+For every value of <span class="math inline">\(x\)</span>, this process is repeated to estimate the density across all bins.</p>
+<p>For the KDE, we use a kernel function (in this case, the Gaussian kernel). The kernel function places a smooth, continuous curve over each observation, and the density estimate at <span class="math inline">\(x = 3\)</span> is computed by summing the contributions from all observations weighted by their distance from <span class="math inline">\(x = 3\)</span>.</p>
+<p><span class="math display">\[
+\hat{f}_{\text{kde}}(3) = \frac{1}{2000 \times 1} \sum_{i=1}^{2000} \frac{1}{\sqrt{2\pi}} e^{-\frac{(3 - x_i)^2}{2}} \approx 0.05
+\]</span></p>
+<p>For each point <span class="math inline">\(x\)</span>, both the histogram and KDE methods compute the density using the same principles described above, with KDE providing more flexibility due to the choice of kernel and bandwidth.</p>
+<p>In this case, the KDE (shown by the line in the plot) offers a smoother estimate compared to the histogram, especially in regions where the data points are sparse. The choice of bandwidth <span class="math inline">\(h\)</span> is crucial in determining the smoothness of the KDE. A small bandwidth leads to a more detailed estimate (but may overfit the data), while a large bandwidth smooths out the estimate (but may miss important features). We will discuss how to select appropriate hyperparameter <span class="math inline">\(h\)</span>, bandwidth, in the next chapter.</p>
+</div>
+<div id="prediction-with-kernel-density-estimation" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Prediction with Kernel Density Estimation<a href="nonparametric-estimations---basics.html#prediction-with-kernel-density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Kernel Density Estimation (KDE) is not only a powerful tool for estimating the underlying probability density function (PDF) of a dataset but also for predicting the density at new data points. This nonparametric approach allows for flexible estimation without assuming a specific parametric form, making it especially useful when the true distribution of the data is unknown or complex.</p>
+<p>In many real-world applications, we often encounter situations where we need to predict the likelihood or density of a new observation that hasn’t been seen before. In finance, KDE can be used for estimating the probability of extreme returns for asset pricing. In healthcare, KDE helps in predicting the likelihood of disease occurrence based on patient data. In machine learning, it is useful for model calibration, anomaly detection, and probabilistic forecasting. In environmental science, KDE can predict rare events like natural disasters based on historical data. By avoiding strict parametric assumptions, KDE provides a more flexible and accurate method in cases where traditional models may fail to capture complex, multimodal distributions.</p>
+<p>The process of KDE involves placing a smooth kernel (like a Gaussian) over each data point and then summing these contributions to estimate the density. The bandwidth <span class="math inline">\(h\)</span> determines the smoothness of the resulting estimate, with smaller bandwidths capturing more details but risking overfitting, and larger bandwidths providing a smoother, more generalized estimate.</p>
+<p>Once the density is estimated, we can also use it to predict the PDF for new data points. This can be crucial for making probabilistic forecasts in various domains, including risk management, anomaly detection, and machine learning model calibration. For example, instead of assuming a normal distribution for a dataset, KDE lets us model the true underlying distribution directly from the data, allowing for more accurate predictions.</p>
+<p>How does the simulation calculate the prediction? The simulation below shows how we can estimate the density using KDE and then predict the PDF at a new point <span class="math inline">\(x = 1.832\)</span>. We first generate a dataset of 100 observations, perform kernel density estimation, and create an interpolation function from the KDE result. Finally, we use this interpolation function to predict the density for the new data point.</p>
+<p>Here is a simulation example that predicts the PDF for a new data point using KDE:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="nonparametric-estimations---basics.html#cb100-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb100-2"><a href="nonparametric-estimations---basics.html#cb100-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)  <span class="co"># Generate 100 random normal values</span></span>
+<span id="cb100-3"><a href="nonparametric-estimations---basics.html#cb100-3" tabindex="-1"></a><span class="co"># Perform kernel density estimation</span></span>
+<span id="cb100-4"><a href="nonparametric-estimations---basics.html#cb100-4" tabindex="-1"></a>kde_result <span class="ot">&lt;-</span> <span class="fu">density</span>(data)</span>
+<span id="cb100-5"><a href="nonparametric-estimations---basics.html#cb100-5" tabindex="-1"></a><span class="co"># Create an interpolation function from the density estimate</span></span>
+<span id="cb100-6"><a href="nonparametric-estimations---basics.html#cb100-6" tabindex="-1"></a>pdf_estimate <span class="ot">&lt;-</span> <span class="fu">approxfun</span>(kde_result<span class="sc">$</span>x, kde_result<span class="sc">$</span>y)</span>
+<span id="cb100-7"><a href="nonparametric-estimations---basics.html#cb100-7" tabindex="-1"></a><span class="co"># Predict the PDF at a new point (e.g., x = 1.832)</span></span>
+<span id="cb100-8"><a href="nonparametric-estimations---basics.html#cb100-8" tabindex="-1"></a>new_x <span class="ot">&lt;-</span> <span class="fl">1.832</span></span>
+<span id="cb100-9"><a href="nonparametric-estimations---basics.html#cb100-9" tabindex="-1"></a>predicted_pdf <span class="ot">&lt;-</span> <span class="fu">pdf_estimate</span>(new_x)</span>
+<span id="cb100-10"><a href="nonparametric-estimations---basics.html#cb100-10" tabindex="-1"></a><span class="co"># Print the predicted PDF value</span></span>
+<span id="cb100-11"><a href="nonparametric-estimations---basics.html#cb100-11" tabindex="-1"></a>predicted_pdf</span></code></pre></div>
+<pre><code>## [1] 0.09141111</code></pre>
+<p>In this simulation, we first generate 100 random normal values. The kernel density estimation process fits a smooth curve over the data points to estimate the underlying PDF. The <code>density()</code> function in R computes this kernel density estimate, and the <code>approxfun()</code> function is used to create a smooth interpolation function that can predict the PDF at any new point.</p>
+<p>For example, we predict the PDF for <span class="math inline">\(x = 1.832\)</span>, which yields a density value (i.e., the likelihood of observing a value around <span class="math inline">\(x = 1.832\)</span>). This prediction is made without any parametric assumptions about the data distribution, allowing us to model more complex or multimodal distributions effectively.By leveraging the flexibility of KDE, we can avoid restrictive assumptions and create more accurate models for data that may not follow traditional distributional patterns.</p>
+</div>
+<div id="kernel-regression" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Kernel Regression<a href="nonparametric-estimations---basics.html#kernel-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Building on the concepts introduced in the chapter on density estimations, we now explore , a non-parametric method for estimating the regression function <span class="math inline">\(E[Y|X=x]\)</span>. While kernel density estimation focuses on estimating the probability distribution of a set of data points, kernel regression aims to estimate the conditional mean of the response variable <span class="math inline">\(Y\)</span> given the predictor <span class="math inline">\(X\)</span>, without assuming any specific functional form for the relationship between them. This is analogous to the OLS with one exogenous variable used in linear regression. The kernel regression estimate can be viewed as a smooth, weighted average of observed values, where the weights are determined by the proximity of each observation to the point of interest. This flexibility allows kernel regression to capture nonlinear patterns in data that parametric models might miss, avoiding the risk of model misspecification.</p>
+<p>In healthcare, it can be used to predict patient recovery times based on factors such as age and treatment type, offering a flexible alternative to linear models. Another example is predicting housing prices based on features like square footage, number of rooms, and distance to the city center. The Nadaraya-Watson estimator would weigh the influence of nearby houses (in terms of square footage) more heavily than distant ones.</p>
+<p>The Nadaraya-Watson estimator is a common form of kernel regression, given by:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{m}(x;h) = =\sum_{i=1}^n\frac{K_h(x-X_i)}{\sum_{i=1}^nK_h(x-X_i)}Y_i=\sum_{i=1}^nW^0_{i}(x)Y_i,
+\end{equation}\]</span></p>
+Where:
+<p>The Nadaraya–Watson estimator can be seen as a weighted average of <span class="math inline">\(Y_1, \dots, Y_n\)</span> by means of the set of weights <span class="math inline">\(\{ W_i(x) \}_{i=1}^{n}\)</span> (they add to one). The Nadaraya–Watson estimator is a local mean of <span class="math inline">\(Y_1, \dots, Y_n\)</span> about <span class="math inline">\(X = x\)</span>.</p>
+<p>For instance, let’s calculate <span class="math inline">\(\hat{m}(3)\)</span> using the Nadaraya-Watson estimator with the following assumptions. Let’s assume the bandwidth is <span class="math inline">\(h = 0.5\)</span>, and we have three data points in our bandwidth around <span class="math inline">\(x=3\)</span> from the sample. These data points are as follows: <span class="math inline">\(x_1 = 2.5, y_1 = 6.25\)</span>, <span class="math inline">\(x_2 = 3.2, y_2 = 10.24\)</span>, and <span class="math inline">\(x_3 = 3.1, y_3 = 8.41\)</span>.</p>
+<p>Kernel values in the Nadaraya-Watson estimator while using the Gaussian kernel function is given by:</p>
+<p><span class="math display">\[\begin{equation}
+K_h(x - X_i) =
+K\left( \frac{x - X_i}{h} \right) = \frac{1}{h} \frac{1}{\sqrt{2\pi}} e^{-\frac{(\frac{x - X_i}{h})^2}{2}}
+\end{equation}\]</span></p>
+<p>We now calculate the kernel values for each data point:</p>
+<p>For <span class="math inline">\(x_1 = 2.5\)</span>:
+<span class="math inline">\(K_h(3 - 2.5) = \frac{1}{0.5} \frac{1}{\sqrt{2\pi}} e^{-\frac{\left(\frac{3 - 2.5}{0.5}\right)^2}{2}} \approx 0.48394\)</span></p>
+<p>For <span class="math inline">\(x_2 = 3.2\)</span>:
+<span class="math inline">\(K_h(3 - 3.2) = \frac{1}{0.5} \frac{1}{\sqrt{2\pi}} e^{-\frac{\left(\frac{3 - 3.2}{0.5}\right)^2}{2}} \approx 0.73654\)</span></p>
+<p>For <span class="math inline">\(x_3 = 3.1\)</span>:
+<span class="math inline">\(K_h(3 - 3.1) = \frac{1}{0.5} \frac{1}{\sqrt{2\pi}} e^{-\frac{\left(\frac{3 - 3.1}{0.5}\right)^2}{2}} \approx 0.78208\)</span></p>
+<p>After calculating each values, we sum these kernel values and find <span class="math inline">\(K_h(3 - 2.5) + K_h(3 - 3.2) + K_h(3 - 3.1)=2.00256\)</span></p>
+<p>Next, the weights for each data point are computed by dividing the kernel values <span class="math inline">\(K_h(3 - x_i)\)</span> by the sum of all the kernel values. The weights represent the influence of each data point in the final estimate of <span class="math inline">\(\hat{m}(3)\)</span>.</p>
+<p><span class="math inline">\(W_1(3) = \frac{K_h(3 - 2.5)}{K_h(3 - 2.5) + K_h(3 - 3.2) + K_h(3 - 3.1)} = \frac{0.48394}{2.00256} \approx 0.2417\)</span></p>
+<p>Similarly for <span class="math inline">\(x_2 = 3.2\)</span>: <span class="math inline">\(W_2(3) = {0.73654 / 2.00256} \approx 0.36788\)</span> and for <span class="math inline">\(x_3 = 3.1\)</span>: <span class="math inline">\(W_2(3) = {0.78208 / 2.00256} \approx 0.39042\)</span></p>
+<p>Finally, we compute <span class="math inline">\(\hat{m}(3)\)</span> by summing the weighted values of <span class="math inline">\(y_i\)</span> for each data point:</p>
+<p><span class="math inline">\(\hat{m}(3) = W_1(3) y_1 + W_2(3) y_2 + W_3(3) y_3 = 0.24170 \times 6.25 + 0.36788 \times 10.24 + 0.39042 \times 7.84 = 9.0314\)</span></p>
+<p>Thus, the estimated regression value at <span class="math inline">\(x = 3\)</span> using the Nadaraya-Watson estimator is <span class="math inline">\(\hat{m}(3) \approx 9.0314\)</span>. The values <span class="math inline">\(x_1, y_1\)</span> the other two data points were generated from the function <span class="math inline">\(y_i = x_i^2 + \epsilon_i(0,0.2)\)</span>, thus the actual value of <span class="math inline">\(m(3)\)</span> is 9. Instead of using a parametric approach (for instance OLS), we have estimated <span class="math inline">\(m(3)\)</span> using the nonparametric Nadaraya-Watson estimator, demonstrating how nonparametric methods can provide flexible alternatives when the functional form is unknown.</p>
+</div>
+<div id="simulation-kernel-regression-example" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Simulation: Kernel Regression Example<a href="nonparametric-estimations---basics.html#simulation-kernel-regression-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To illustrate kernel regression, we simulate data from a sine function with added noise and apply kernel regression to estimate the true underlying relationship:</p>
+<p><span class="math display">\[\begin{equation}
+Y = X^2 + \varepsilon
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\varepsilon \sim N(0, 4)\)</span>. Below is the R code for fitting a kernel regression model using the <code>np</code> package and visualizing the results.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="nonparametric-estimations---basics.html#cb102-1" tabindex="-1"></a><span class="co"># Simulating data</span></span>
+<span id="cb102-2"><a href="nonparametric-estimations---basics.html#cb102-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb102-3"><a href="nonparametric-estimations---basics.html#cb102-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb102-4"><a href="nonparametric-estimations---basics.html#cb102-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb102-5"><a href="nonparametric-estimations---basics.html#cb102-5" tabindex="-1"></a>Y <span class="ot">&lt;-</span> X<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb102-6"><a href="nonparametric-estimations---basics.html#cb102-6" tabindex="-1"></a><span class="co"># Kernel regression using np package</span></span>
+<span id="cb102-7"><a href="nonparametric-estimations---basics.html#cb102-7" tabindex="-1"></a><span class="fu">library</span>(np)</span>
+<span id="cb102-8"><a href="nonparametric-estimations---basics.html#cb102-8" tabindex="-1"></a><span class="fu">options</span>(<span class="at">np.messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb102-9"><a href="nonparametric-estimations---basics.html#cb102-9" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">npreg</span>(Y <span class="sc">~</span> X, <span class="at">regtype =</span> <span class="st">&quot;lc&quot;</span>, <span class="at">bws =</span> <span class="fl">0.5</span>)</span>
+<span id="cb102-10"><a href="nonparametric-estimations---basics.html#cb102-10" tabindex="-1"></a><span class="co">#regtype = &quot;lc&quot;: Nadaraya-Watson estimator uses Gaussian kernel; </span></span>
+<span id="cb102-11"><a href="nonparametric-estimations---basics.html#cb102-11" tabindex="-1"></a><span class="co">#bws = 0.1: This sets the bandwidth h to 0.1 </span></span>
+<span id="cb102-12"><a href="nonparametric-estimations---basics.html#cb102-12" tabindex="-1"></a><span class="co">#( can change with bwmethod = &quot;cv.aic&quot;: Cross-validation for </span></span>
+<span id="cb102-13"><a href="nonparametric-estimations---basics.html#cb102-13" tabindex="-1"></a><span class="co">#bandwidth selection); can include ckertype = &quot;epanechnikov&quot; </span></span>
+<span id="cb102-14"><a href="nonparametric-estimations---basics.html#cb102-14" tabindex="-1"></a><span class="co">#or &quot;triweight&quot; for different kernel types)</span></span>
+<span id="cb102-15"><a href="nonparametric-estimations---basics.html#cb102-15" tabindex="-1"></a></span>
+<span id="cb102-16"><a href="nonparametric-estimations---basics.html#cb102-16" tabindex="-1"></a><span class="co"># Plot the true function and estimated function</span></span>
+<span id="cb102-17"><a href="nonparametric-estimations---basics.html#cb102-17" tabindex="-1"></a><span class="fu">plot</span>(X, Y, <span class="at">main=</span><span class="st">&quot;Kernel Regression&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb102-18"><a href="nonparametric-estimations---basics.html#cb102-18" tabindex="-1"></a><span class="fu">lines</span>(X, X<span class="sc">^</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)  <span class="co"># True function</span></span>
+<span id="cb102-19"><a href="nonparametric-estimations---basics.html#cb102-19" tabindex="-1"></a><span class="fu">lines</span>(X, <span class="fu">fitted</span>(model), <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)    <span class="co"># Kernel estimator</span></span>
+<span id="cb102-20"><a href="nonparametric-estimations---basics.html#cb102-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;True Function&quot;</span>, <span class="st">&quot;Kernel regression&quot;</span>),</span>
+<span id="cb102-21"><a href="nonparametric-estimations---basics.html#cb102-21" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:nonpar3c"></span>
+<img src="08-Nonparametric_files/figure-html/nonpar3c-1.png" alt="Kernel Regression Example" width="672" />
+<p class="caption">
+FIGURE 8.2: Kernel Regression Example
+</p>
+</div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="nonparametric-estimations---basics.html#cb103-1" tabindex="-1"></a><span class="co"># Simulating data</span></span>
+<span id="cb103-2"><a href="nonparametric-estimations---basics.html#cb103-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb103-3"><a href="nonparametric-estimations---basics.html#cb103-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb103-4"><a href="nonparametric-estimations---basics.html#cb103-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb103-5"><a href="nonparametric-estimations---basics.html#cb103-5" tabindex="-1"></a>Y <span class="ot">&lt;-</span> X<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb103-6"><a href="nonparametric-estimations---basics.html#cb103-6" tabindex="-1"></a><span class="co"># Kernel regression using np package</span></span>
+<span id="cb103-7"><a href="nonparametric-estimations---basics.html#cb103-7" tabindex="-1"></a><span class="fu">library</span>(np)</span>
+<span id="cb103-8"><a href="nonparametric-estimations---basics.html#cb103-8" tabindex="-1"></a><span class="fu">options</span>(<span class="at">np.messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb103-9"><a href="nonparametric-estimations---basics.html#cb103-9" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">npreg</span>(Y <span class="sc">~</span> X, <span class="at">regtype =</span> <span class="st">&quot;lc&quot;</span>, <span class="at">bws =</span> <span class="fl">0.5</span>)</span>
+<span id="cb103-10"><a href="nonparametric-estimations---basics.html#cb103-10" tabindex="-1"></a><span class="co">#regtype = &quot;lc&quot;: Nadaraya-Watson estimator uses Gaussian kernel; </span></span>
+<span id="cb103-11"><a href="nonparametric-estimations---basics.html#cb103-11" tabindex="-1"></a><span class="co">#bws = 0.1: This sets the bandwidth h to 0.1 </span></span>
+<span id="cb103-12"><a href="nonparametric-estimations---basics.html#cb103-12" tabindex="-1"></a><span class="co">#( can change with bwmethod = &quot;cv.aic&quot;: Cross-validation for </span></span>
+<span id="cb103-13"><a href="nonparametric-estimations---basics.html#cb103-13" tabindex="-1"></a><span class="co">#bandwidth selection); can include ckertype = &quot;epanechnikov&quot; </span></span>
+<span id="cb103-14"><a href="nonparametric-estimations---basics.html#cb103-14" tabindex="-1"></a><span class="co">#or &quot;triweight&quot; for different kernel types)</span></span>
+<span id="cb103-15"><a href="nonparametric-estimations---basics.html#cb103-15" tabindex="-1"></a></span>
+<span id="cb103-16"><a href="nonparametric-estimations---basics.html#cb103-16" tabindex="-1"></a><span class="co"># Plot the true function and estimated function</span></span>
+<span id="cb103-17"><a href="nonparametric-estimations---basics.html#cb103-17" tabindex="-1"></a><span class="fu">plot</span>(X, Y, <span class="at">main=</span><span class="st">&quot;Kernel Regression&quot;</span>, <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb103-18"><a href="nonparametric-estimations---basics.html#cb103-18" tabindex="-1"></a><span class="fu">lines</span>(X, X<span class="sc">^</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb103-19"><a href="nonparametric-estimations---basics.html#cb103-19" tabindex="-1"></a><span class="fu">lines</span>(X, <span class="fu">fitted</span>(model), <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb103-20"><a href="nonparametric-estimations---basics.html#cb103-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;True Function&quot;</span>, <span class="st">&quot;Kernel regression&quot;</span>),</span>
+<span id="cb103-21"><a href="nonparametric-estimations---basics.html#cb103-21" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">2</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p>In this example, we generated data where the true regression function is <span class="math inline">\(\sin(X)\)</span>, and we used kernel regression to estimate it. The black dashed line represents the true function, and the red solid line represents the kernel regression estimate. By adjusting the bandwidth parameter <span class="math inline">\(h\)</span>, we can control the smoothness of the kernel regression fit. As seen in the plot, kernel regression provides a flexible, non-parametric way to estimate the relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> without making strong assumptions about the functional form of the relationship.</p>
+</div>
+<div id="multivariate-and-additive-models" class="section level3 hasAnchor" number="8.2.5">
+<h3><span class="header-section-number">8.2.5</span> Multivariate and Additive Models<a href="nonparametric-estimations---basics.html#multivariate-and-additive-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Although the Nadaraya-Watson estimator handles one-dimensional regression, kernel regression can be extended to handle multivariate data. For high-dimensional data, however, kernel regression suffers from the , as the number of required data points increases exponentially with the number of predictors.</p>
+<p>To address this, additive models provide a flexible structure for modeling relationships in higher dimensions. The additive model for kernel regression is expressed as:</p>
+<p><span class="math display">\[\begin{equation}
+y = \beta_0 + m_1(x_1) + m_2(x_2) + \cdots + m_p(x_p) + \varepsilon
+\end{equation}\]</span></p>
+<p>Here, the function <span class="math inline">\(m_j(x_j)\)</span> is estimated for each predictor separately, allowing the model to handle more predictors while reducing the complexity.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>Another widely used non-parametric regression method is (Locally Estimated Scatterplot Smoothing), also known as locally weighted regression. Loess is a form of kernel regression. It is a non-parametric regression method that fits multiple weighted local regressions to subsets of data around each point. Unlike the Nadaraya-Watson estimator, which provides a local mean, loess fits a local linear or polynomial regression, thereby increasing its flexibility in capturing non-linear relationships across the predictor space. We will use in the simulation in the data splitting section to demonstrate how to tune kernel regression, which will be covered in more detail in the next chapter.</p>
+<p>Local polynomial estimators, in general, are a broader framework where a polynomial of a specified degree is fit locally to the data. The degree of the polynomial can vary (e.g., local constant, local linear, or local quadratic), offering different levels of smoothness in the regression function. The degree of the polynomials is also hyperparameter. Loess is a specific case of this framework, often using local linear or quadratic fits with a tricube weight function to assign weights to nearby data points.</p>
+<p>The parameter in loess controls the size of the neighborhood around each point <span class="math inline">\(x_0\)</span>, with smaller spans focusing more on local data points and larger spans leading to smoother fits. This makes loess highly flexible and particularly useful for smoothing scatterplots and capturing trends in data without assuming a global parametric form.</p>
+<p>In summary, while local polynomial regression is a general technique, loess is a practical and popular method for local smoothing, providing flexibility in modeling complex relationships with options to control the level of smoothing through the span parameter.</p>
+</div>
+<div id="bandwidth-selection-in-kernel-density-estimation-and-kernel-regression" class="section level3 hasAnchor" number="8.2.6">
+<h3><span class="header-section-number">8.2.6</span> Bandwidth Selection in Kernel Density Estimation and Kernel Regression<a href="nonparametric-estimations---basics.html#bandwidth-selection-in-kernel-density-estimation-and-kernel-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The choice of bandwidth <span class="math inline">\(h\)</span> is critical in both kernel density estimation (KDE) and kernel regression, as it controls the trade-off between bias and variance. In both contexts, a small bandwidth results in a highly flexible model that may overfit the data, while a large bandwidth produces a smoother model that may underfit the data. Although bandwidth plays a similar role in both methods, the criteria for selecting bandwidth may differ based on the specific task at hand—whether it is density estimation or regression.</p>
+<p>In KDE, the bandwidth determines the smoothness of the estimated probability density function (PDF). Choosing an appropriate bandwidth <span class="math inline">\(h\)</span> is crucial because a bandwidth that is too small will result in overfitting (too much noise), while a bandwidth that is too large will oversmooth the estimate, potentially missing important features of the distribution. One common method for bandwidth selection is Silverman’s Rule of Thumb, where the bandwidth is calculated using the formula:
+<span class="math inline">\(h = 1.06 \hat{\sigma} n^{-1/5}\)</span>
+where <span class="math inline">\(\hat{\sigma}\)</span> is the standard deviation of the data and <span class="math inline">\(n\)</span> is the number of data points. Cross-validation is another common method used to minimize the mean integrated squared error (MISE) by testing different bandwidths. The optimal bandwidth minimizes the prediction error by balancing bias and variance, ensuring generalizability to unseen data. Plug-in methods are also used in KDE to minimize the asymptotic mean integrated squared error (AMISE), which provides an approximation to MISE and becomes accurate as the sample size <span class="math inline">\(n\)</span> increases. AMISE is easier to compute than MISE and is often employed for bandwidth selection in density estimation.</p>
+<p>In kernel regression, the bandwidth selection process is similar but with some important distinctions. Kernel regression estimates the relationship between a dependent variable <span class="math inline">\(Y\)</span> and an independent variable <span class="math inline">\(X\)</span>. Here, the bandwidth again controls the smoothness of the estimated regression function <span class="math inline">\(E[Y|X]\)</span>. A small bandwidth leads to a flexible model that may overfit, capturing too much noise, while a large bandwidth produces a smoother model that may miss important features in the data. Like KDE, bandwidth can be chosen using Silverman’s Rule of Thumb:
+<span class="math inline">\(h = 1.06 \hat{\sigma} n^{-1/5}\)</span>
+where <span class="math inline">\(\hat{\sigma}\)</span> is the standard deviation of the independent variable <span class="math inline">\(X\)</span>, and <span class="math inline">\(n\)</span> is the sample size. However, in kernel regression, the most common method of bandwidth selection is cross-validation. In this approach, the bandwidth is selected by minimizing the cross-validated mean squared error (MSE), which measures the accuracy of predictions. The data is split into training and validation sets, and the MSE is computed for different bandwidths to find the optimal one. This method directly minimizes the prediction error on unseen data and is widely used in practice.</p>
+<p>Plug-in methods are also applicable in kernel regression, where they rely on estimating the second derivative of the true regression function to select the bandwidth that minimizes the integrated squared error (ISE). While MISE is used for density estimation in KDE, ISE is more appropriate for regression tasks because it focuses on minimizing the error in approximating the true regression function.</p>
+<p>Although the principles of bandwidth selection are similar between KDE and kernel regression, the specific criteria for evaluating the performance of the models differ. In KDE, we aim to minimize MISE or AMISE, while in kernel regression, the focus is on minimizing MSE or ISE. Both approaches face a bias-variance trade-off: a small bandwidth reduces bias but increases variance, while a large bandwidth increases bias but reduces variance. These methods help balance the trade-off to achieve better generalization and prediction accuracy.</p>
+<p>In higher-dimensional settings, both methods suffer from the curse of dimensionality. As the number of predictors increases, the data becomes sparse, and the number of required data points grows exponentially. Kernel regression, in particular, is sensitive to this issue, as the performance deteriorates in high dimensions. Practitioners often use additive models or methods like local polynomial regression (LOESS) to mitigate the curse of dimensionality.</p>
+<p>We also want to mention the distinction between bandwidth and span in smoothing methods. Bandwidth is commonly used in kernel methods like kernel density estimation and kernel regression, controlling the width of the kernel and determining the influence of nearby points on the estimate. In contrast, span is specific to methods like LOESS, where it represents the proportion of data used for each local regression. Both parameters play a crucial role in balancing the trade-off between bias and variance, with smaller values yielding more detail and larger values providing smoother estimates.</p>
+<p>In conclusion, bandwidth selection plays a crucial role in both KDE and kernel regression. Cross-validation is often the preferred method as it minimizes prediction error on unseen data. This approach, along with detailed implementation, will be covered in the next chapter.</p>
+</div>
+</div>
+<div id="conclusion-remarks" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Conclusion Remarks<a href="nonparametric-estimations---basics.html#conclusion-remarks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this chapter, we explored two important non-parametric methods: kernel density estimation (KDE) and kernel regression. These methods offer flexibility by allowing the data to determine the shape of the model, avoiding strong assumptions about the underlying distribution or functional form. We began with kernel density estimation, where we used kernel functions to estimate the probability density function of a random variable, and highlighted the critical role of bandwidth selection in balancing the trade-off between bias and variance.</p>
+<p>Building on the concepts from KDE, we introduced kernel regression, a non-parametric technique for estimating the regression function <span class="math inline">\(E[Y|X=x]\)</span>. Kernel regression uses kernel weights to model the relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> in a flexible way, making it suitable for capturing complex, non-linear patterns in the data. We discussed various kernel functions, the Nadaraya-Watson estimator, and bandwidth selection methods such as cross-validation and plug-in estimators. Furthermore, we addressed the challenges of kernel regression, including the curse of dimensionality and computational costs, particularly when dealing with high-dimensional data. Both kernel density estimation and kernel regression are powerful tools for non-parametric analysis, but they require careful consideration of bandwidth selection and performance trade-offs. I</p>
+<p>Aside from kernel density estimation and kernel regression, several other non-parametric methods are commonly used in statistics and machine learning. One such method is <strong>k-Nearest Neighbors (k-NN)</strong>, which classifies an observation based on the majority label of its nearest neighbors. For instance, in a healthcare study, k-NN can be used to predict whether a patient has a certain disease based on the characteristics of similar patients. Non-parametric methods can be applied to both regression and classification tasks, depending on the data and the problem at hand. k-NN can function as both a classifier and a regression method. In classification, it assigns the majority label from the nearest neighbors, as in predicting whether a customer will make a purchase based on demographic similarities. In regression, k-NN averages the values of the nearest neighbors to predict a continuous outcome, such as estimating housing prices based on nearby properties.</p>
+<p>Another popular technique is <strong>decision trees</strong>, which recursively split the data into subsets based on the most significant variables. In economics, decision trees can be used to predict household income based on demographic factors such as education, occupation, and location. Decision trees can be used for both classification and regression. In classification tasks, a decision tree predicts categorical outcomes, such as determining whether a student will drop out based on their grades and attendance. In regression, it predicts continuous outcomes, like estimating stock prices based on past performance and economic indicators.</p>
+<p><strong>Spline regression</strong> is another non-parametric method that fits piecewise polynomials to the data, ensuring smooth transitions between segments. This method is particularly useful in modeling relationships where different behaviors exist over different ranges of the predictor, such as predicting the effect of education on wages across different age groups in labor market studies.</p>
+<p><strong>Random forests</strong>, an ensemble of decision trees, are widely used for more robust predictions, such as predicting credit risk for loan applicants based on financial history and other factors. Random forests can be applied to both classification and regression problems. For instance, random forests can classify whether a bank customer will default on a loan (classification) or predict the actual loan amount that a customer is likely to default on (regression). These non-parametric methods offer flexible tools to capture complex patterns in data without relying on strict parametric assumptions. In the following chapters, we will explore all the mentioned non-parametric methods, in greater detail.</p>
+<p>Hyperparameters play a critical role in non-parametric models as they directly affect the trade-off between bias and variance. In the next chapter, we will explore hyperparameter tuning techniques, such as cross-validation, to optimize these values and ensure the model generalizes well to new data.</p>
+<p>In both density estimation and kernel regression, a key hyperparameter is the bandwidth <span class="math inline">\(h\)</span>. The bandwidth controls the smoothness of the estimate by determining how much weight is given to nearby data points. In density estimation, a smaller bandwidth results in a more detailed but jagged estimate, while a larger bandwidth smooths the estimate, potentially at the cost of losing finer details. Similarly, in kernel regression, the bandwidth controls the flexibility of the regression function, balancing between overfitting and underfitting. A well-chosen bandwidth is crucial for the performance of both kernel density and regression estimations.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="13">
+<li id="fn13"><p>Very detailed notes about kernel estimation and regression can be found at <a href="https://bookdown.org/egarpor/NP-UC3M/" class="uri">https://bookdown.org/egarpor/NP-UC3M/</a>.<a href="nonparametric-estimations---basics.html#fnref13" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parametric-estimation---basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hyperparameter-tuning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/yihui/bookdown-crc/edit/master/08-Nonparametric.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown.pdf", "bookdown.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

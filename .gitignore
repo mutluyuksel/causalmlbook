@@ -1,0 +1,24 @@
+ Ignore RStudio project files
+*.Rproj.user/
+*.Rhistory
+*.Rprofile
+*.RData
+
+# Ignore bookdown source and temporary files
+_bookdown_files/
+
+# Ignore automatically generated image and data files
+*.png
+*.jpg
+*.jpeg
+*.csv
+*.xlsx
+*.txt
+
+# Ignore other common project files
+*.Rds
+*.Rda
+
+old/
+SLIDES/
+my_dir/
