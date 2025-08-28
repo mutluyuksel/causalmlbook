@@ -1,0 +1,688 @@
+# Direct Forecasting with Random Forests
+
+In this chapter, we will discuss the direct forecasting of time series data.  We will start with the recursive forecasting and then move to the direct forecasting.  We will use the Toronto COVID-19 data for our examples.  We will also show how to use the Random Forest algorithm for direct forecasting.
+
+## Time Series Embedding for Direct Forecasting 
+
+Forecasting models generally employ direct forecasting, recursive forecasting, or a combination of both (Taieb and Hyndman, 2012). The key distinction between these methods lies in their approach to prediction accuracy and forecast variance, which in turn affects their suitability for different forecasting tasks.  
+
+Before exploring time series embedding for direct forecasting, let’s first review the two primary forecasting strategies. 
+
+1. **Recursive Forecasting**:  
+   - Uses a single parametric model, such as AR(1), to generate predictions step by step. 
+   - The forecast for time $t+1$ is first estimated, then used as an input for predicting $t+2$, and so on. 
+   - This iterative process can accumulate errors, leading to increasing uncertainty as the forecast horizon expands. 
+   - It is particularly effective when the underlying time series follows a linear structure, but struggles when dealing with nonlinear dependencies.  
+
+2. **Direct Forecasting**:  
+   - Instead of iterating over previous predictions, direct forecasting builds separate models for each time step within the forecast horizon. 
+   - This approach allows for nonparametric methods, such as machine learning algorithms, which can capture complex and nonlinear relationships in the data. 
+   - However, direct forecasting often exhibits higher variance, especially as the forecast horizon increases, due to the need for estimating multiple models independently.  
+
+In multi-step forecasting, a common recursive approach involves using a single model—such as AR(1)—and iteratively substituting its own predictions to generate future values. Given a forecast horizon of \( h \), the model is applied recursively to estimate:  
+\begin{equation}
+\begin{aligned}
+\hat{y}_{t+1} &= f(y_t, y_{t-1}, \dots) \\
+\hat{y}_{t+2} &= f(\hat{y}_{t+1}, y_t, \dots) \\
+&\;\;\vdots \\
+\hat{y}_{t+h} &= f(\hat{y}_{t+h-1}, \dots)
+\end{aligned}
+\end{equation}
+
+where \( \hat{y}_{t+h} \) is the forecasted value at time \( t+h \), and \( f \) represents the forecasting model. The recursive nature of this approach can lead to error accumulation, particularly for longer forecast horizons.
+
+Direct forecasting, in contrast, requires restructuring the dataset to create individual models for each future time step. This technique, known as time series embedding, transforms the original time series into a supervised learning problem, where each target variable corresponds to a specific future time step. The process involves:  
+
+- Creating lagged features from past observations.  
+- Training separate models for each step within the forecast horizon. 
+- Ensuring that data preprocessing aligns with the expected forecast structure. 
+
+By embedding time series data effectively, direct forecasting can provide more flexible and adaptive predictions, particularly in cases where relationships between past and future values are highly nonlinear.  
+
+Choosing between recursive and direct forecasting depends on the trade-off between bias and variance:  
+- Recursive forecasting leverages a single model but risks error accumulation over longer horizons. 
+- Direct forecasting reduces error propagation but requires estimating multiple models, increasing variance.  
+
+In practice, hybrid approaches combining both methods are often employed to balance predictive accuracy and robustness. This chapter explores time series embedding in depth, demonstrating how to effectively restructure data to implement direct forecasting models.  
+
+Let's start with a simple AR(1) model to illustrate recursive multi-step forecasting:
+
+\begin{equation}
+x_{t+1} = \alpha_0 + \phi_1 x_t + \epsilon_{t}
+\end{equation}
+
+To generate forecasts for the next three periods, we recursively substitute predicted values into the model:
+
+\begin{align}
+\hat{x}_{t+1} &= \hat{\alpha}_0 + \hat{\phi}_1 x_t \notag \\
+\hat{x}_{t+2} &= \hat{\alpha}_0 + \hat{\phi}_1 \hat{x}_{t+1} \notag \\
+\hat{x}_{t+3} &= \hat{\alpha}_0 + \hat{\phi}_1 \hat{x}_{t+2}
+\end{align}
+
+Applying iterative substitution gives us the forecasts expressed in terms of \( x_t \):
+
+\begin{align}
+\hat{x}_{t+1} &= \hat{\alpha}_0 + \hat{\phi}_1 x_t \quad \text{(1st period)} \notag \\
+\hat{x}_{t+2} &= \hat{\alpha}_0 + \hat{\phi}_1 \hat{\alpha}_0 + \hat{\phi}_1^2 x_t \quad \text{(2nd period)} \notag \\
+\hat{x}_{t+3} &= \hat{\alpha}_0 + \hat{\phi}_1 \hat{\alpha}_0 + \hat{\phi}_1^2 \hat{\alpha}_0 + \hat{\phi}_1^3 x_t \quad \text{(3rd period)}
+\end{align}
+
+More generally, the \( h \)-step recursive forecast is:
+
+\begin{equation}
+\hat{x}_{t+h} = \hat{\alpha}_0 \sum_{i=1}^{h} \hat{\phi}_1^{i-1} + \hat{\phi}_1^h x_t
+\end{equation}
+
+This approach uses the same estimated model for every step ahead; only the inputs change. Thus, a single model suffices to generate forecasts for any horizon.
+
+Alternatively, the direct forecasting strategy fits a separate model for each forecast horizon. For example, with AR(1)-type direct forecasts for three periods ahead:
+
+\begin{align}
+x_{t+1} &= \alpha_0 + \alpha_1 x_t + \epsilon_{t} \notag \\
+x_{t+2} &= \beta_0 + \beta_1 x_t + \epsilon_{t} \notag \\
+x_{t+3} &= \omega_0 + \omega_1 x_t + \epsilon_{t}
+\end{align}
+
+Each model is estimated independently, and forecasts are given by:
+
+\begin{align}
+\hat{x}_{t+1} &= \hat{\alpha}_0 + \hat{\alpha}_1 x_t \quad \text{(1st period)} \notag \\
+\hat{x}_{t+2} &= \hat{\beta}_0 + \hat{\beta}_1 x_t \quad \text{(2nd period)} \notag \\
+\hat{x}_{t+3} &= \hat{\omega}_0 + \hat{\omega}_1 x_t \quad \text{(3rd period)}
+\end{align}
+
+Direct forecasting avoids compounding forecast errors across horizons, but requires estimating and maintaining multiple models—one for each step ahead.
+
+
+## VAR for Recursive Forecasting
+
+The limitations of recursive multi-step forecasting become more apparent in multivariate settings. Consider the bivariate case where \( y_t \) depends not only on its own lag but also on another variable \( x_t \):
+
+\begin{equation}
+y_{t+1} = \beta_0 + \beta_1 y_t + \beta_2 x_t + \epsilon_t
+\end{equation}
+
+To forecast two steps ahead, we substitute forecasted values:
+
+\begin{equation}
+\hat{y}_{t+2} = \hat{\beta}_0 + \hat{\beta}_1 \hat{y}_{t+1} + \hat{\beta}_2 \hat{x}_{t+1}
+\end{equation}
+
+This requires not only forecasting \( \hat{y}_{t+1} \) but also estimating \( \hat{x}_{t+1} \). A natural solution is to use a Vector Autoregressive (VAR) model.
+
+A VAR model consists of a system of equations—one per variable—each including a constant and lags of **all** variables in the system. For a VAR(1), we might specify:
+
+\begin{align}
+y_t &= c_1 + \beta_1 y_{t-1} + \beta_2 x_{t-1} + \varepsilon_t \\
+x_t &= c_2 + \phi_1 x_{t-1} + \phi_2 y_{t-1} + e_t
+\end{align}
+
+Each equation is estimated separately by ordinary least squares, provided the variables are stationary. Multi-step forecasts are then computed recursively: one-step-ahead forecasts feed into the next step, just as in the univariate case. The VAR framework handles these dependencies internally and provides consistent forecasts for all variables in the system.
+
+To determine the appropriate number of lags, model selection criteria such as the Bayesian Information Criterion (BIC) are typically used.
+
+Let's have our COVID-19 data and include the mobility to our forecasting model.  
+
+```{r, message=FALSE, warning=FALSE}
+library(tsibble)
+library(fpp3)
+
+load("dftoronto.RData")
+day <- seq.Date(
+  from = as.Date("2020/03/01"),
+  to = as.Date("2020/11/21"),
+  by = 1
+)
+
+tdata <- tibble(Day = day,
+                mob = data$mob,
+                cases = data$cases)
+
+toronto <- tdata %>%
+  as_tsibble(index = Day)
+
+toronto
+```
+
+We will estimate the recursive forecasts for 1 to 14 days ahead. 
+
+```{r, message=FALSE, warning=FALSE}
+# We need make series stationary
+trdf <- toronto %>%
+  mutate(diffcases = difference(cases),
+         diffmob = difference(mob))
+
+# VAR with BIC
+fit <- trdf[-1, ] %>%
+  model(VAR(vars(diffcases, diffmob), ic = "bic"))
+glance(fit)
+fit %>% report()
+```
+  
+```{r fixed, message=FALSE, warning=FALSE}
+library(tsibble); library(fpp3)
+
+# fit is your VAR model; now forecast 14 days ahead
+fc14 <- fit %>% forecast(h = 14)
+
+# plot only the point forecasts (no intervals, no legend)
+fc14 %>%
+  autoplot(trdf[-c(1:200), ], level = c()) +
+  labs(title = "VAR recursive forecasts (1–14 days ahead)",
+       x = "Date",
+       y = "First differences") +
+  theme(legend.position = "none")
+```
+  
+We should have transformed both series by the Box-Cox transformation, but we ignored it above.
+
+## Embedding for Direct Forecast
+
+For direct forecasting, we need to rearrange the data in a way that we can estimate 7 models for forecasting ahead each day of 7 days.  We will use `embed()` function to show what we mean with rearranging data for AR(3), for example: 
+
+```{r}
+Y <- 1:10
+Y <- embed(Y, 3)
+colnames(Y) = c("Y(t)", "Y(t-1)", "Y(t-2)")
+Y
+```
+
+Now, the key point is that there is no a temporal dependence between each row so that shuffling this data after re-structuring it admissible.  Let's have an AR(1) example on this simulated data
+
+```{r}
+# Stationary data rho < 1 but = 0.85
+n <- 10000
+rho <- 0.85
+
+y <- c(0, n)
+set.seed(345)
+eps <- rnorm(n, 0, 1)
+
+for (j in 1:(n - 1)) {
+  y[j + 1] <- y[j] * rho + eps[j]
+}
+
+ylagged <- y[2:n]
+
+par(mfrow = c(1, 2))
+plot(ylagged,
+     y[1:(n - 1)],
+     col = "lightpink",
+     ylab = "y",
+     xlab = "y(t-1)")
+plot(y[1:500],
+     type = "l",
+     col = "firebrick",
+     ylab = "y",
+     xlab = "t"
+)
+```
+
+We will use an AR(1) estimation with OLS after embedding:
+
+```{r}
+head(y)
+y_em <- embed(y, 2)
+colnames(y_em) <- c("yt", "yt_1")
+head(y_em)
+```
+  
+And estimation of AR(1) with OLS:
+
+```{r}
+y_em <- as.data.frame(y_em)
+ar1 <- lm(yt ~ yt_1 - 1, y_em)
+ar1
+```
+  
+Now, let's shuffle `y_em`:
+
+```{r}
+# Shuffle
+ind <- sample(nrow(y_em), nrow(y_em), replace = FALSE)
+y_em_sh <- y_em[ind, ]
+
+ar1 <- lm(yt ~ yt_1 - 1, y_em_sh)
+ar1
+```
+
+This application shows the temporal independence across the observations in the rearranged data give that model (AR) is correctly specified.  This is important because we can use conventional machine learning applications on time series data, like random forests, which we see in the next chapter.   
+
+This re-arrangement can also be applied to multivariate data sets:
+
+```{r}
+tsdf <- matrix(c(1:10, 21:30), nrow = 10)
+colnames(tsdf) <- c("Y", "X")
+first <- embed(tsdf, 3)
+colnames(first) <- c("y(t)","x(t)","y(t-1)","x(t-1)", "y(t-2)", "x(t-2)")
+head(first)
+```
+Now, we need to have three models for three forecasting horizons.  Here are these models:
+
+$$
+\begin{aligned}
+\hat{y}_{t+1}=\hat{\alpha}_0+\hat{\alpha}_1 y_t + \hat{\alpha}_2 y_{t-1}+ \hat{\alpha}_3 x_t + \hat{\alpha}_4 x_{t-1}+ \hat{\alpha}_5 x_{t-2} ~~~~ 1^{st} ~ \text{Period}\\
+\hat{y}_{t+2}=\hat{\beta}_0+\hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1}+ \hat{\beta}_3 x_t + \hat{\beta}_4 x_{t-1}+ \hat{\beta}_5 x_{t-2} ~~~~ 2^{nd} ~ \text{Period}\\
+\hat{y}_{t+3}=\hat{\omega}_0+\hat{\omega}_1 y_t + \hat{\omega}_2 y_{t-1}+ \hat{\omega}_3 x_t + \hat{\omega}_4 x_{t-1}+ \hat{\omega}_5 x_{t-2} ~~~~ 3^{rd} ~ \text{Period}
+\end{aligned}
+$$
+  
+Each one of these models requires a different rearrangement in the data.  Here are the required arrangement for each model:    
+
+```{r, echo=FALSE}
+n <- nrow(first)
+second <- cbind(first[-1,1], first[-n,-1])
+colnames(second) <- c("y(t)","x(t-1)","y(t-2)","x(t-2)", "y(t-3)", "x(t-3)")
+third <- cbind(first[-c(1:2),1], first[-c(n,n-1),-1])
+colnames(third) <- c("y(t)","x(t-2)","y(t-3)","x(t-3)", "y(t-4)", "x(t-4)")
+head(first)
+head(second)
+head(third)
+```
+ 
+We already rearranged the data for the first model. if we remove the first row in `y(t)` and the last row in the remaining set, we can get the data for the second model:
+
+```{r, echo=FALSE}
+colnames(first) <- NULL
+```
+
+```{r}
+cbind(first[-1,1], first[-nrow(first),-1])
+```
+We will use our COVID-19 data and a simple linear regression as an example of direct forecasting:
+
+```{r}
+# Preparing data
+df <- data.frame(dcases = trdf$diffcases, dmob = trdf$diffmob)
+df <- df[complete.cases(df),]
+rownames(df) <- NULL
+df <- as.matrix(df)
+head(df)
+```
+
+Now we need to decide on two parameters: the window size, that is, how many lags will be included in each row; and how many days we will forecast.  The next section will use more advance functions for re-arranging the data and apply the direct forecasting with random forests. For now, let's use a 3-day window and a 3-day forecast horizon: 
+  
+```{r}
+h = 3
+w = 3
+fh <- c() # storage for forecast
+
+# Start with first
+dt <- embed(df, w)
+y <- dt[, 1]
+X <- dt[, -1]
+
+for (i in 1:h) {
+  fit <- lm(y ~ X)
+  l <- length(fit$fitted.values)
+  fh[i] <- fit$fitted.values[l]
+  y <- y[-1]
+  X <- X[-nrow(X), ]
+}
+
+fh
+```
+
+```{r}
+plot(1:266, trdf$diffcases, col = "firebrick", type = "l")
+lines(267:269, fh, col = "darkblue")
+```
+
+We haven't used training and test sets above.  If we apply a proper splitting, we can even set the window size as our hyperparameter to minimize the forecast error:
+
+```{r}
+# We set the last 7 days as our test set
+train <- df[1:258,]
+test <- df[-c(1:258),]
+
+h = 7
+w <- 3:14 # a grid for window size
+
+fh <- matrix(0, length(w), h)
+rownames(fh) <- w
+colnames(fh) <- 1:7
+
+for (s in 1:length(w)) {
+  dt <- embed(train, w[s])
+  y <- dt[, 1]
+  X <- dt[, -1]
+  for (i in 1:h) {
+    fit <- lm(y ~ X)
+    fh[s, i] <- last(fit$fitted.values)
+    y <- y[-1]
+    X <- X[-nrow(X), ]
+  }
+}
+
+fh
+```
+
+Rows in `fh` show the 7-day forecast for each window size.  We can see which window size is the best:
+
+```{r}
+rmspe <- c()
+
+for (i in 1:nrow(fh)) {
+  rmspe[i] <- sqrt(mean((fh[i, ] - test) ^ 2))
+}
+
+rmspe
+which.min(rmspe)
+```
+
+We used the last 7 days in our data as our test set.  A natural question would be whether we could shuffle the data and use any 7 days as our test set?  The answer is yes, because we do not need to follow a temporal order in the data after rearranging it with embedding. This is important because we can add a bootstrapping loop to our grid search above and get better tuning for finding the best window size.
+
+We incorporate all these ideas with our random forest application in the next section. 
+
+## Random Forest with Time Series
+
+Now, we turn our attention to the application of embedding techniques for direct forecasting using Random Forests. The choice to employ Random Forests is driven by its inherent advantages, such as not requiring explicit tuning through grid search. Nevertheless, in practice, we can still optimize the model by searching for the optimal number of trees and the number of variables randomly sampled as candidates at each split.
+
+By harnessing the power of Random Forests in conjunction with embedding methods, we can achieve more accurate and reliable time series forecasts. This chapter elucidates the process of integrating these two techniques, demonstrating how to effectively leverage Random Forests for direct forecasting in time series analysis. 
+
+Let's get our COVID-19 data:
+
+```{r tsr1, message=FALSE, warning=FALSE}
+library(tsibble)
+library(fpp3)
+
+load("toronto2.rds")
+day <- seq.Date(
+  from = as.Date("2020/03/01"),
+  to = as.Date("2020/11/21"),
+  by = 1
+)
+
+tdata <- tibble(Day = day, data[, -1])
+toronto2 <- tdata %>%
+  as_tsibble(index = Day)
+toronto2
+```
+
+As before, the data contain the first wave and the initial part of the second wave in Toronto for 2020. It is from Ontario Data Catalogue^[https://data.ontario.ca/en/dataset?groups=2019-novel-coronavirus#byPHU] sorted by episode dates (`Day`), which is the date when the first symptoms were started. The mobility data is from Facebook, `all_day_bing_tiles_visited_relative_change`, which is reflects positive or negative change in movement relative to baseline. The other variables related to tests are `delay`, which is the time between test results and the episode date, the gender distribution of people is given by `male`, `age` shows the average age among tested people any given day.  The last two variables, `temp` and `hum`, show the daily maximum day temperature and the average outdoor humidity during the day, respectively.
+
+Except for `age` all other variables are non-stationary.  We will take their first difference and make the series stationary before we proceed.
+
+```{r tsr2}
+df <- toronto2 %>%
+  mutate(
+    dcases = difference(cases),
+    dmob = difference(mob),
+    ddelay = difference(delay),
+    dmale = difference(male),
+    dtemp = difference(temp),
+    dhum = difference(hum)
+  )
+
+dft <- df[, -c(2:5, 7, 8)] #removing levels
+dft <- dft[-1, c(1, 3:7, 2)] # reordering the columns
+```
+
+First, we will use a univariate setting for a single-window forecasting, which is the last 7 days.  
+
+### Univariate
+
+We will not have a grid search on the random forest algorithm, which could be added to the following script:  
+
+```{r tsr3, message=FALSE, warning=FALSE, cache=TRUE}
+library(randomForest)
+
+h = 7
+w <- 3:21 # a grid for window size
+
+fh <- matrix(0, length(w), h)
+rownames(fh) <- w
+colnames(fh) <- 1:h
+
+for (s in 1:length(w)) {
+  dt <- as.data.frame(embed(as.matrix(dft[, 2]), w[s]))
+  test_ind = nrow(dt) - (h)
+  train <- dt[1:test_ind,]
+  test <- dt[-c(1:test_ind),]
+  y <- train[, 1]
+  X <- train[, -1]
+  
+  for (i in 1:h) {
+    fit <- randomForest(X, y)
+    fh[s,] <- predict(fit, test[, -1])
+    y <- y[-1]
+    X <- X[-nrow(X),]
+  }
+}
+
+fh
+```
+We can now see RMSPE for each row (window size):
+
+```{r tsr4}
+actual <- test[, 1]
+rmspe <- c()
+
+for (i in 1:nrow(fh)) {
+  rmspe[i] <- sqrt(mean((fh[i,] - actual) ^ 2))
+}
+
+rmspe
+which.min(rmspe)
+```
+
+And, if we plot several series of our forecast with different window sizes:
+
+```{r tsr5}
+plot(
+  actual,
+  type = "l",
+  col = "red",
+  ylim = c(-80, 50),
+  ylab = "Actual (red) vs. Forecasts",
+  xlab = "Last 7 days",
+  main = "7-Day Foerecasts",
+  lwd = 3
+)
+lines(fh[1,], type = "l", col = "steelblue")
+lines(fh[2,], type = "l", col = "seagreen")
+lines(fh[5,], type = "l", col = "darkorange")
+lines(fh[12,], type = "l", col = "black")
+legend(
+  "bottomright",
+  title = "Lags",
+  legend = c("3-day", "4-day", "7-day", "14-day"),
+  col = c("steelblue", "seagreen", "darkorange"),
+  lty = c(1, 1, 1, 1, 1),
+  bty = "o",
+  cex = 0.75
+)
+```
+
+As the window size gets larger, the forecast becomes increasingly smooth missing the short term dynamics. Another observation is that, although "blue" (3-day window) has the minimum RMSPE, it is not able to capture ups and downs relative to 7-day or 14-day windows.  
+
+### Multivariate
+
+Can we increase the prediction accuracy with additional predictors?
+
+```{r tsr6, message=FALSE, warning=FALSE, cache=TRUE}
+library(randomForest)
+
+h = 7
+w <- 3:14 # a grid for window size
+
+fh <- matrix(0, length(w), h)
+rownames(fh) <- w
+colnames(fh) <- 1:h
+
+for (s in 1:length(w)) {
+  dt <- as.data.frame(embed(as.matrix(dft[, -1]), w[s]))
+  test_ind = nrow(dt) - (h)
+  train <- dt[1:test_ind,]
+  test <- dt[-c(1:test_ind),]
+  y <- train[, 1]
+  X <- train[, -1]
+  
+  for (i in 1:h) {
+    fit <- randomForest(X, y)
+    fh[s,] <- predict(fit, test[, -1])
+    y <- y[-1]
+    X <- X[-nrow(X),]
+  }
+}
+
+fh
+```
+  
+```{r}
+actual <- test[, 1]
+rmspe <- c()
+
+for (i in 1:nrow(fh)) {
+  rmspe[i] <- sqrt(mean((fh[i, ] - actual) ^ 2))
+}
+
+rmspe
+which.min(rmspe)
+```
+
+```{r tsr7}
+plot(
+  actual,
+  type = "l",
+  col = "red",
+  ylim = c(-80,+50),
+  ylab = "Actual (red) vs. Forecasts",
+  xlab = "Last 7 days",
+  main = "7-Day Foerecasts",
+  lwd = 3
+)
+lines(fh[1,], type = "l", col = "steelblue")
+lines(fh[3,], type = "l", col = "seagreen")
+lines(fh[5,], type = "l", col = "darkorange")
+lines(fh[12,], type = "l", col = "black")
+legend(
+  "bottomright",
+  title = "Lags",
+  legend = c("3-day", "5-day", "7-day", "14-day"),
+  col = c("steelblue", "seagreen", "darkorange", "black"),
+  lty = c(1, 1, 1, 1, 1),
+  bty = "o",
+  cex = 0.75
+)
+```
+
+It seems that additional predictors do increase the accuracy. Again, relative to the best model (5-day window) our 7-day window correctly captures most ups and downs in the forecast.  Now, a visual inspection shows that all RMSPE's are lower than the univariate forecasts. We would conclude that this is because of the new predictors, specially mobility, temperature, and humidity.  As a side note, we need to test if those differences are statistical significant or not (i.e. Diebold-Mariano Test).   
+
+## Rolling and expanding windows
+
+A seven-day window is not enough for a reliable judgment on the forecast accuracy.  One way to deal with this issue is to use rolling or expanding windows to predict the next h days. The following example shows a 1-day-ahead forecast with varying lags for embedding.  
+
+```{r tsr8, message=FALSE, warning=FALSE, cache=TRUE}
+library(randomForest)
+
+l = 3:10 # lags for embedding
+ws = 150 # size of each rolling window
+rmspe <- c()
+
+all_fh <- vector(mode = "list", length = length(l))
+all_y <-  vector(mode = "list", length = length(l))
+
+for (s in 1:length(l)) {
+  dt <- as.data.frame(embed(as.matrix(dft[,-1]), l[s]))
+  nwin <- nrow(dt) - ws #number of windows
+  fh <- c()
+  y <- c()
+  
+  for (i in 1:nwin) {
+    train <- dt[i:(ws + i - 1),] # each loop, window moves one day forward
+    test <- dt[(ws + i),]
+    
+    set.seed(i + s)
+    fit <- randomForest(train[,-1], train[, 1])
+    fh[i] <- predict(fit, test[,-1])
+    y[i] <- test[, 1] # to use later for plotting
+  }
+  all_y[[s]] <- y
+  all_fh[[s]] <- fh
+  err <- test[, 1] - fh
+  rmspe[s] <- sqrt(mean(err ^ 2))
+}
+
+rmspe
+bst <- which.min(rmspe)
+l[bst] # Winning lag in embedding
+```
+
+To adjust the application above to an expanding-window forecast, we just need to change `dt[i:(ws + i - 1), ]` to `dt[1:(ws + i - 1), ]` in the script.
+  
+Now, we can plot the results:  
+
+```{r tsr9}
+par(mfrow = c(1, 2))
+plot(
+  all_y[[bst]],
+  type = "l",
+  col = "orangered",
+  ylab = "Actual (red) vs Predicted (Blue)",
+  xlab = "Days",
+  main = "1-Day-Ahead"
+)
+lines(all_fh[[bst]], col = "royalblue")
+plot(
+  all_y[[bst]][60:110],
+  type = "o",
+  col = "orangered",
+  ylab = "Actual (red) vs Predicted (Blue)",
+  xlab = "Days",
+  main = "Last 50 Days"
+)
+lines(all_fh[[bst]][60:110], col = "royalblue")
+```
+
+Getting the predicted values back to originals can be achieved by:
+
+$$
+\begin{aligned}
+& y_{t+1}=y_t+z_{t+1} \\
+& y_{t+2}=y_{t+1}+z_{t+2}=y_t+z_{t+1}+z_{t+2}
+\end{aligned}
+$$
+
+```{r tsr10}
+set.seed(321)
+y <- rnorm(10)
+z <- diff(y)     # first differences
+back <- cumsum(c(y[1], z))
+cbind(y, back)
+```
+  
+Since our algorithm predict the changes in observations, a simple sum would do the job for back transformation. For example, as a starting point, our algorithm predicts the change in $Y$ from day 156 to 157 (window size 150 plus the best lag window, 6).  When we add this predicted change to the actual $Y$ at 156, it will give us the back-transformed forecast at day 157. 
+
+```{r tsr11}
+y <- df$cases
+
+# The first forecast is at ws (150) + l[best] (6) + 1, which is 157
+# The first actual Y should start a day earlier
+# removing all Y's until ws+l[bst]
+
+y_a_day_before <- y[-c(1:(ws + l[bst] - 1))]
+
+# This adds predicted changes to observed values a day earlier
+back_forecast <- head(y_a_day_before,-1) + all_fh[[bst]]
+
+# Actual Y's in the test set starting at ws (150) + l[best] (6) + 1, which is 157
+ytest <- y[-c(1:(ws + l[bst]))]
+
+plot(
+  ytest,
+  type = "l",
+  col = "royalblue",
+  ylab = "Actual Y (Blue) vs Forecast (Red)",
+  xlab = "Days",
+  main = "Back-transformed Forecast"
+)
+lines(back_forecast, type = "l", col = "orangered")
+```
+
+It seems that, for most days, our algorithm simply forecasts the next day by using the value from the day before.  If we change our algorithm to a 7-day-ahead forecast, this would be different.   This is also a common problem when the predictive model has a poor forecasting power.  Again, this is not due to our algorithm, but forecasting an epi curve with imperfect test data is almost impossible job, as we highlighted earlier. 
+
+In practice, however, there are several ways that we can improve the scripts above.  For example, we can consider the (rolling or expanding) window size as a hyperparameter.  We can also have an explicit training for the Random Forest algorithm.  We can have an ensemble forecasting by adding other predictive algorithms to the script, like boosting.  Further, we can develop a base forecast that would give us a benchmark to see how much our algorithm improves against that base. Lastly, we could apply a transformation to the data in order to stabilize the variance in all variables. 
+
+
+
