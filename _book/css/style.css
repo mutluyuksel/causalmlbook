@@ -53,6 +53,49 @@ body {
   color: #222;
   background-color: #fff;
 }
+.cover-box {
+  float: right;
+  width: 38%;
+  max-width: 420px;
+  margin: 0 0 1.2rem 1.2rem;
+  text-align: center;
+}
+.cover-box img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  border-radius: 6px;
+}
+.cover-box .preorder-btn {
+  display: inline-block;
+  margin-top: .8rem;
+  padding: .65rem 1rem;
+  background: #004080;
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: .5rem;
+  text-decoration: none;
+}
+.cover-box .preorder-btn:hover { background: #002e5a; }
+@media (max-width: 900px) {
+  .cover-box { float: none; width: 100%; max-width: 520px; margin: 0 auto 1.2rem; }
+}
+/* Pull the whole block up (optional) */
+.book .book-body .page-wrapper .page-inner { padding-top: 0.5rem; }
+
+/* Title block spacing */
+.book .book-body .page-wrapper .page-inner section.normal h1.title {
+  margin-top: 0.2rem; margin-bottom: 0.2rem;
+}
+.book .book-body .page-wrapper .page-inner section.normal h1.title + p.subtitle { margin-top: 0.2rem; }
+.book .book-body .page-wrapper .page-inner section.normal p.subtitle + p.author { margin-top: 0.2rem; }
+.book .book-body .page-wrapper .page-inner section.normal p.author { margin-bottom: 0.15rem; }
+/* if you show a date line, keep it tight too */
+.book .book-body .page-wrapper .page-inner section.normal p.date { margin: 0.15rem 0; }
+
+/* Space before the “Welcome” heading */
+section.normal h1#welcome { margin-top: 0.3rem; }
+
 
 
 
