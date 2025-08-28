@@ -20,15 +20,14 @@ _bookdown_files/
 *.docx
 
 # Source figures, working folders
-*.png
 *.jpg
 *.jpeg
 *.eps
 *.svg
-figure-html/
 old/
 data/
 workingniceversion/
 SLIDES/
 my_dir/
+
 
