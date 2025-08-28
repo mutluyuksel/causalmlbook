@@ -931,19 +931,19 @@ v_1=-1, v_2=3
 <div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb979-1"><a href="matrix-decomposition-and-applications.html#cb979-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">9</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span>
 <span id="cb979-2"><a href="matrix-decomposition-and-applications.html#cb979-2" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]   26   31   79
-## [2,]   24   94   71
-## [3,]   82   64   47</code></pre>
+## [1,]   43   52   91
+## [2,]   98   10   80
+## [3,]   57   32   19</code></pre>
 <div class="sourceCode" id="cb981"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb981-1"><a href="matrix-decomposition-and-applications.html#cb981-1" tabindex="-1"></a><span class="fu">eigen</span>(A)</span></code></pre></div>
 <pre><code>## eigen() decomposition
 ## $values
-## [1] 176.77734 -49.35761  39.58027
+## [1] 156.17863 -47.62164 -36.55699
 ## 
 ## $vectors
-##            [,1]       [,2]       [,3]
-## [1,] -0.4525972 -0.6511179  0.5457150
-## [2,] -0.6525168 -0.2465096 -0.7439158
-## [3,] -0.6077644  0.7178290  0.3857259</code></pre>
+##            [,1]        [,2]        [,3]
+## [1,] -0.6338409 -0.54361846  0.02635933
+## [2,] -0.6523541  0.83695745 -0.87769454
+## [3,] -0.4155477  0.06309682  0.47849502</code></pre>
 <div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb983-1"><a href="matrix-decomposition-and-applications.html#cb983-1" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">eigen</span>(A)<span class="sc">$</span>vectors</span>
 <span id="cb983-2"><a href="matrix-decomposition-and-applications.html#cb983-2" tabindex="-1"></a>Lam <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">eigen</span>(A)<span class="sc">$</span>values)</span>
 <span id="cb983-3"><a href="matrix-decomposition-and-applications.html#cb983-3" tabindex="-1"></a><span class="co"># Prove that AV = VLam</span></span>
@@ -966,24 +966,24 @@ v_1=-1, v_2=3
 <div class="sourceCode" id="cb987"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb987-1"><a href="matrix-decomposition-and-applications.html#cb987-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">9</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span>
 <span id="cb987-2"><a href="matrix-decomposition-and-applications.html#cb987-2" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]   16   91   14
-## [2,]   28   20   54
-## [3,]   25   62   60</code></pre>
+## [1,]   43   16   83
+## [2,]   91   22   39
+## [3,]   62    9   58</code></pre>
 <div class="sourceCode" id="cb989"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb989-1"><a href="matrix-decomposition-and-applications.html#cb989-1" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">eigen</span>(A)<span class="sc">$</span>vectors</span>
 <span id="cb989-2"><a href="matrix-decomposition-and-applications.html#cb989-2" tabindex="-1"></a>Lam <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">eigen</span>(A)<span class="sc">$</span>values)</span>
 <span id="cb989-3"><a href="matrix-decomposition-and-applications.html#cb989-3" tabindex="-1"></a></span>
 <span id="cb989-4"><a href="matrix-decomposition-and-applications.html#cb989-4" tabindex="-1"></a><span class="co"># Inverse of A</span></span>
 <span id="cb989-5"><a href="matrix-decomposition-and-applications.html#cb989-5" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code></pre></div>
-<pre><code>##              [,1]        [,2]        [,3]
-## [1,]  0.045610906  0.09750711 -0.09839895
-## [2,]  0.007007262 -0.01295282  0.01002251
-## [3,] -0.026245382 -0.02724339  0.04730964</code></pre>
+<pre><code>##             [,1]         [,2]         [,3]
+## [1,] -0.01805935  0.003533776  0.023467396
+## [2,]  0.05583756  0.051776650 -0.114720812
+## [3,]  0.01064037 -0.011811792  0.009957048</code></pre>
 <div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb991-1"><a href="matrix-decomposition-and-applications.html#cb991-1" tabindex="-1"></a><span class="co"># And</span></span>
 <span id="cb991-2"><a href="matrix-decomposition-and-applications.html#cb991-2" tabindex="-1"></a>V <span class="sc">%*%</span> <span class="fu">solve</span>(Lam) <span class="sc">%*%</span> <span class="fu">solve</span>(V)</span></code></pre></div>
-<pre><code>##              [,1]        [,2]        [,3]
-## [1,]  0.045610906  0.09750711 -0.09839895
-## [2,]  0.007007262 -0.01295282  0.01002251
-## [3,] -0.026245382 -0.02724339  0.04730964</code></pre>
+<pre><code>##             [,1]         [,2]         [,3]
+## [1,] -0.01805935  0.003533776  0.023467396
+## [2,]  0.05583756  0.051776650 -0.114720812
+## [3,]  0.01064037 -0.011811792  0.009957048</code></pre>
 <p>The inverse of <span class="math inline">\(\mathbf{\Lambda}\)</span> is just the inverse of each diagonal element (the eigenvalues). But, this can only be done if a matrix is diagonalizable. So if <span class="math inline">\(\mathbf{A}\)</span> is not <span class="math inline">\(n \times n\)</span>, then we can use <span class="math inline">\(\mathbf{A&#39;A}\)</span> or <span class="math inline">\(\mathbf{AA&#39;}\)</span>, both symmetric now.</p>
 <p>Example:
 <span class="math display">\[

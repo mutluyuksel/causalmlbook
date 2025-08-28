@@ -1,4 +1,32 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
+# Ignore everything
+*
+
+# But not these!
+!.gitignore
+!.nojekyll
+!_book/
+!_book/**
+
+# Optional: Ignore RStudio project/session files
+*.Rproj.user/
+*.Rhistory
+*.RData
+*.Rprofile
+
+# Ignore old folders, data, etc.
+old/
+data/
+SLIDES/
+my_dir/
+workingniceversion/
+_bookdown_files/
+*.Rmd
+*.bib
+*.csv
+*.rds
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.xlsx
+*.txt
