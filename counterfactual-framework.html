@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 16 Counterfactual Framework | Causal Inference and Machine Learning In Economics, Social, and Health Sciences</title>
+  <meta name="description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 16 Counterfactual Framework | Causal Inference and Machine Learning In Economics, Social, and Health Sciences" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 16 Counterfactual Framework | Causal Inference and Machine Learning In Economics, Social, and Health Sciences" />
+  
+  <meta name="twitter:description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+<meta name="author" content="Mutlu Yuksel and Yigit Aydede" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="boosting-1.html"/>
+<link rel="next" href="randomized-controlled-trials.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference and Machine Learning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#why-this-book-why-now"><i class="fa fa-check"></i>Why This Book, Why Now</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#who-can-use-this-book"><i class="fa fa-check"></i>Who Can Use This Book?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#prediction-vs.-estimation"><i class="fa fa-check"></i><b>1.1</b> Prediction vs. Estimation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#applications-of-machine-learning-in-economics-and-social-sciences"><i class="fa fa-check"></i><b>1.2</b> Applications of Machine Learning in Economics and Social Sciences</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#machine-learning-and-econometrics-complementary-roles"><i class="fa fa-check"></i><b>1.3</b> Machine Learning and Econometrics: Complementary Roles</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#core-modeling-frameworks"><i class="fa fa-check"></i><b>1.4</b> Core Modeling Frameworks</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#statistical-vs.-machine-learning-paradigms"><i class="fa fa-check"></i><b>1.4.1</b> Statistical vs. Machine Learning Paradigms</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#parametric-and-nonparametric-models"><i class="fa fa-check"></i><b>1.4.2</b> Parametric and Nonparametric Models:</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#predictive-vs.-causal-thinking"><i class="fa fa-check"></i><b>1.4.3</b> Predictive vs. Causal Thinking</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#model-selection"><i class="fa fa-check"></i><b>1.4.4</b> Model Selection:</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#the-role-of-simulation"><i class="fa fa-check"></i><b>1.4.5</b> The Role of Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#concluding-remarks"><i class="fa fa-check"></i><b>1.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html"><i class="fa fa-check"></i><b>2</b> From Data to Causality</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#qualitative-and-quantitative-research-methods"><i class="fa fa-check"></i><b>2.1</b> Qualitative and Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#quantitative-research-methods"><i class="fa fa-check"></i><b>2.2</b> Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#data-and-visualization"><i class="fa fa-check"></i><b>2.3</b> Data and Visualization</a></li>
+<li class="chapter" data-level="2.4" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation"><i class="fa fa-check"></i><b>2.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation-and-regression"><i class="fa fa-check"></i><b>2.4.1</b> Correlation and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#effect-of-x-on-y-regression"><i class="fa fa-check"></i><b>2.5</b> Effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> / Regression</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#how-can-we-estimate-the-population-parameters-beta_0-and-beta_1"><i class="fa fa-check"></i><b>2.5.1</b> How Can We Estimate the Population Parameters, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#from-estimation-to-prediction"><i class="fa fa-check"></i><b>2.5.2</b> From Estimation to Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#causal-effect"><i class="fa fa-check"></i><b>2.6</b> Causal Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="learning-systems.html"><a href="learning-systems.html"><i class="fa fa-check"></i><b>3</b> Learning Systems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="learning-systems.html"><a href="learning-systems.html#learning-systems-1"><i class="fa fa-check"></i><b>3.1</b> Learning Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>4</b> Error</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="error.html"><a href="error.html#estimation-error"><i class="fa fa-check"></i><b>4.1</b> Estimation error</a></li>
+<li class="chapter" data-level="4.2" data-path="error.html"><a href="error.html#efficiency"><i class="fa fa-check"></i><b>4.2</b> Efficiency</a></li>
+<li class="chapter" data-level="4.3" data-path="error.html"><a href="error.html#mean-square-error"><i class="fa fa-check"></i><b>4.3</b> Mean Square Error</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="error.html"><a href="error.html#from-one-random-sample-to-population-parameters"><i class="fa fa-check"></i><b>4.3.1</b> From one random sample to population parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="error.html"><a href="error.html#prediction-error--mspe"><i class="fa fa-check"></i><b>4.4</b> Prediction error- MSPE</a></li>
+<li class="chapter" data-level="4.5" data-path="error.html"><a href="error.html#technical-points-and-proofs"><i class="fa fa-check"></i><b>4.5</b> Technical points and proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html"><i class="fa fa-check"></i><b>5</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>5.1</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-polynomial-regression"><i class="fa fa-check"></i><b>5.1.1</b> Simulation for Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-population-parameter"><i class="fa fa-check"></i><b>5.2</b> Simulation for Population Parameter</a></li>
+<li class="chapter" data-level="5.3" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#biased-estimator-as-a-predictor"><i class="fa fa-check"></i><b>5.3</b> Biased estimator as a predictor</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="overfitting.html"><a href="overfitting.html"><i class="fa fa-check"></i><b>6</b> Overfitting</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="overfitting.html"><a href="overfitting.html#out-sample-mspe"><i class="fa fa-check"></i><b>6.1</b> Out-sample MSPE</a></li>
+<li class="chapter" data-level="6.2" data-path="overfitting.html"><a href="overfitting.html#technical-points-about-out-sample-and-in-sample-mspe"><i class="fa fa-check"></i><b>6.2</b> Technical Points about Out-sample and In-sample MSPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html"><i class="fa fa-check"></i><b>7</b> Parametric Estimation - Basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#the-dichotomy-of-statistical-modeling"><i class="fa fa-check"></i><b>7.1</b> The Dichotomy of Statistical Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#data-versus-algorithmic-approaches"><i class="fa fa-check"></i><b>7.1.1</b> Data versus Algorithmic Approaches:</a></li>
+<li class="chapter" data-level="7.1.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-versus-nonparametric-models"><i class="fa fa-check"></i><b>7.1.2</b> Parametric versus Nonparametric Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-estimations"><i class="fa fa-check"></i><b>7.2</b> Parametric Estimations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-probability-model-lpm"><i class="fa fa-check"></i><b>7.2.1</b> Linear Probability Model (LPM)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#logistic-regression"><i class="fa fa-check"></i><b>7.2.2</b> Logistic Regression</a></li>
+<li class="chapter" data-level="7.2.3" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-vs.-logistic-probability-models"><i class="fa fa-check"></i><b>7.2.3</b> Linear vs. Logistic Probability Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html"><i class="fa fa-check"></i><b>8</b> Nonparametric Estimations - Basics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#density-estimation"><i class="fa fa-check"></i><b>8.1</b> Density Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#histogram-density-estimation"><i class="fa fa-check"></i><b>8.1.1</b> Histogram Density Estimation</a></li>
+<li class="chapter" data-level="8.1.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#naive-estimator-parzen-windows"><i class="fa fa-check"></i><b>8.1.2</b> Naive Estimator (Parzen Windows)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-density-estimation-kde"><i class="fa fa-check"></i><b>8.2</b> Kernel Density Estimation (KDE)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kde-vs-histogram"><i class="fa fa-check"></i><b>8.2.1</b> Simulation: KDE vs Histogram</a></li>
+<li class="chapter" data-level="8.2.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#prediction-with-kernel-density-estimation"><i class="fa fa-check"></i><b>8.2.2</b> Prediction with Kernel Density Estimation</a></li>
+<li class="chapter" data-level="8.2.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-regression"><i class="fa fa-check"></i><b>8.2.3</b> Kernel Regression</a></li>
+<li class="chapter" data-level="8.2.4" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kernel-regression-example"><i class="fa fa-check"></i><b>8.2.4</b> Simulation: Kernel Regression Example</a></li>
+<li class="chapter" data-level="8.2.5" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#multivariate-and-additive-models"><i class="fa fa-check"></i><b>8.2.5</b> Multivariate and Additive Models</a></li>
+<li class="chapter" data-level="8.2.6" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#bandwidth-selection-in-kernel-density-estimation-and-kernel-regression"><i class="fa fa-check"></i><b>8.2.6</b> Bandwidth Selection in Kernel Density Estimation and Kernel Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#conclusion-remarks"><i class="fa fa-check"></i><b>8.3</b> Conclusion Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html"><i class="fa fa-check"></i><b>9</b> Hyperparameter Tuning</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#training-validation-and-test-data-sets"><i class="fa fa-check"></i><b>9.1</b> Training, Validation, and Test Data Sets</a></li>
+<li class="chapter" data-level="9.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#data-splitting"><i class="fa fa-check"></i><b>9.2</b> Data Splitting</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#how-can-we-split-the-data-randomly"><i class="fa fa-check"></i><b>9.2.1</b> How can we split the data randomly?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3</b> k-Fold Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#what-is-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> What is k-Fold Cross-Validation?</a></li>
+<li class="chapter" data-level="9.3.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#building-a-simple-k-fold-cross-validation-loop"><i class="fa fa-check"></i><b>9.3.2</b> Building a Simple k-Fold Cross-Validation Loop</a></li>
+<li class="chapter" data-level="9.3.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#advantages-of-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.3</b> Advantages of k-Fold Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#grid-search"><i class="fa fa-check"></i><b>9.4</b> Grid Search</a></li>
+<li class="chapter" data-level="9.5" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#simulation-of-grid-search-with-cross-validation"><i class="fa fa-check"></i><b>9.5</b> Simulation of Grid Search With Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>10</b> Classification</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="classification.html"><a href="classification.html#classifying-handwritten-digits"><i class="fa fa-check"></i><b>10.1</b> Classifying Handwritten Digits</a></li>
+<li class="chapter" data-level="10.2" data-path="classification.html"><a href="classification.html#linear-classifiers"><i class="fa fa-check"></i><b>10.2</b> Linear Classifiers</a></li>
+<li class="chapter" data-level="10.3" data-path="classification.html"><a href="classification.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>10.3</b> k-Nearest Neighbors</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="classification.html"><a href="classification.html#example-finding-nearest-neighbors-with-k-2"><i class="fa fa-check"></i><b>10.3.1</b> Example: Finding Nearest Neighbors with <span class="math inline">\(k = 2\)</span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="classification.html"><a href="classification.html#more-realistic-example"><i class="fa fa-check"></i><b>10.3.2</b> More Realistic Example</a></li>
+<li class="chapter" data-level="10.3.3" data-path="classification.html"><a href="classification.html#mnist_27-dataset"><i class="fa fa-check"></i><b>10.3.3</b> <code>mnist_27</code> dataset</a></li>
+<li class="chapter" data-level="10.3.4" data-path="classification.html"><a href="classification.html#single-run-grid-search-for-k"><i class="fa fa-check"></i><b>10.3.4</b> Single-run grid search for k</a></li>
+<li class="chapter" data-level="10.3.5" data-path="classification.html"><a href="classification.html#multi-run-grid-search-training-the-model-for-k"><i class="fa fa-check"></i><b>10.3.5</b> Multi-run grid search (training the model) for k</a></li>
+<li class="chapter" data-level="10.3.6" data-path="classification.html"><a href="classification.html#grid-search-with-parallel-computing-mclapply"><i class="fa fa-check"></i><b>10.3.6</b> Grid search with parallel computing (<code>mclapply</code>)</a></li>
+<li class="chapter" data-level="10.3.7" data-path="classification.html"><a href="classification.html#knn3-from-caret-single-vs-parallel-core-application"><i class="fa fa-check"></i><b>10.3.7</b> <code>knn3</code> from <code>caret</code>: Single vs Parallel Core Application</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="classification.html"><a href="classification.html#tuning-in-classification"><i class="fa fa-check"></i><b>10.4</b> Tuning in Classification</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="classification.html"><a href="classification.html#confusion-matrix"><i class="fa fa-check"></i><b>10.4.1</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="10.4.2" data-path="classification.html"><a href="classification.html#why-accuracy-can-be-misleading"><i class="fa fa-check"></i><b>10.4.2</b> Why Accuracy Can Be Misleading</a></li>
+<li class="chapter" data-level="10.4.3" data-path="classification.html"><a href="classification.html#performance-measures-beyond-accuracy"><i class="fa fa-check"></i><b>10.4.3</b> Performance Measures Beyond Accuracy</a></li>
+<li class="chapter" data-level="10.4.4" data-path="classification.html"><a href="classification.html#kappa-statistic"><i class="fa fa-check"></i><b>10.4.4</b> Kappa Statistic</a></li>
+<li class="chapter" data-level="10.4.5" data-path="classification.html"><a href="classification.html#youdens-j-statistic"><i class="fa fa-check"></i><b>10.4.5</b> Youden’s J Statistic</a></li>
+<li class="chapter" data-level="10.4.6" data-path="classification.html"><a href="classification.html#roc-curve"><i class="fa fa-check"></i><b>10.4.6</b> ROC Curve</a></li>
+<li class="chapter" data-level="10.4.7" data-path="classification.html"><a href="classification.html#roc-curve-and-auc"><i class="fa fa-check"></i><b>10.4.7</b> ROC Curve and AUC</a></li>
+<li class="chapter" data-level="10.4.8" data-path="classification.html"><a href="classification.html#using-rocr-and-proc-packages"><i class="fa fa-check"></i><b>10.4.8</b> Using <code>ROCR</code> and <code>pROC</code> packages</a></li>
+<li class="chapter" data-level="10.4.9" data-path="classification.html"><a href="classification.html#tuning-knn-with-auc"><i class="fa fa-check"></i><b>10.4.9</b> Tuning kNN with AUC</a></li>
+<li class="chapter" data-level="10.4.10" data-path="classification.html"><a href="classification.html#test-score-and-threshold"><i class="fa fa-check"></i><b>10.4.10</b> Test Score and Threshold</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="classification.html"><a href="classification.html#conclusion"><i class="fa fa-check"></i><b>10.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html"><i class="fa fa-check"></i><b>11</b> Model Selection and Sparsity</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-econometrics"><i class="fa fa-check"></i><b>11.1</b> Model Selection in Econometrics</a></li>
+<li class="chapter" data-level="11.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-assessment-criteria"><i class="fa fa-check"></i><b>11.2</b> Model Assessment Criteria</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#adjusted-r2-as-a-model-selection-criterion"><i class="fa fa-check"></i><b>11.2.1</b> Adjusted <span class="math inline">\(R^2\)</span> as a Model Selection Criterion</a></li>
+<li class="chapter" data-level="11.2.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#mallows-c_p-statistic"><i class="fa fa-check"></i><b>11.2.2</b> Mallows’ <span class="math inline">\(C_p\)</span> Statistic</a></li>
+<li class="chapter" data-level="11.2.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>11.2.3</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>11.2.4</b> Bayesian Information Criterion (BIC)</a></li>
+<li class="chapter" data-level="11.2.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#cross-validation-and-bootstrap-methods"><i class="fa fa-check"></i><b>11.2.5</b> Cross-Validation and Bootstrap Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#subset-variable-selection-methods"><i class="fa fa-check"></i><b>11.3</b> Subset Variable Selection Methods</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#best-subset-selection"><i class="fa fa-check"></i><b>11.3.1</b> Best Subset Selection</a></li>
+<li class="chapter" data-level="11.3.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#forward-selection"><i class="fa fa-check"></i><b>11.3.2</b> Forward Selection</a></li>
+<li class="chapter" data-level="11.3.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#backward-selection"><i class="fa fa-check"></i><b>11.3.3</b> Backward Selection</a></li>
+<li class="chapter" data-level="11.3.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#hybrid-stepwise-selection"><i class="fa fa-check"></i><b>11.3.4</b> Hybrid (Stepwise) Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#selecting-functional-form-in-econometric-models"><i class="fa fa-check"></i><b>11.4</b> Selecting Functional Form in Econometric Models</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#functional-forms-and-transformations"><i class="fa fa-check"></i><b>11.4.1</b> Functional Forms and Transformations</a></li>
+<li class="chapter" data-level="11.4.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#models-with-structural-changes-piecewise-linear-models"><i class="fa fa-check"></i><b>11.4.2</b> Models with Structural Changes: Piecewise Linear Models</a></li>
+<li class="chapter" data-level="11.4.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#extensions-and-alternative-methods"><i class="fa fa-check"></i><b>11.4.3</b> Extensions and Alternative Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-machine-learning"><i class="fa fa-check"></i><b>11.5</b> Model Selection in Machine Learning</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#comparing-prediction-models"><i class="fa fa-check"></i><b>11.5.1</b> Comparing Prediction Models</a></li>
+<li class="chapter" data-level="11.5.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#balancing-interpretability-and-predictive-accuracy"><i class="fa fa-check"></i><b>11.5.2</b> Balancing Interpretability and Predictive Accuracy</a></li>
+<li class="chapter" data-level="11.5.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#practical-guidelines"><i class="fa fa-check"></i><b>11.5.3</b> Practical Guidelines:</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#sparsity-in-model-selection"><i class="fa fa-check"></i><b>11.6</b> Sparsity in Model Selection</a></li>
+<li class="chapter" data-level="11.7" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#oracle-properties-in-model-selection"><i class="fa fa-check"></i><b>11.7</b> Oracle Properties in Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html"><i class="fa fa-check"></i><b>12</b> Penalized Regression Methods</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>12.1</b> Ridge Regression</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#standardization-of-predictors"><i class="fa fa-check"></i><b>12.1.1</b> Standardization of Predictors</a></li>
+<li class="chapter" data-level="12.1.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-ridge-regression"><i class="fa fa-check"></i><b>12.1.2</b> Implementation and Simulation of Ridge Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>12.2</b> Lasso Regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#coordinate-descent-for-lasso-regression"><i class="fa fa-check"></i><b>12.2.1</b> Coordinate Descent for Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#least-angle-regression-lars-for-lasso"><i class="fa fa-check"></i><b>12.2.2</b> Least Angle Regression (LARS) for Lasso</a></li>
+<li class="chapter" data-level="12.2.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#differences-between-coordinate-descent-and-lars"><i class="fa fa-check"></i><b>12.2.3</b> Differences Between Coordinate Descent and LARS</a></li>
+<li class="chapter" data-level="12.2.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-lasso-regression"><i class="fa fa-check"></i><b>12.2.4</b> Implementation and Simulation of Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#the-relationship-between-the-lasso-and-ols-coefficient-estimates"><i class="fa fa-check"></i><b>12.2.5</b> The relationship between the Lasso and OLS coefficient estimates</a></li>
+<li class="chapter" data-level="12.2.6" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-1"><i class="fa fa-check"></i><b>12.2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#adaptive-lasso"><i class="fa fa-check"></i><b>12.3</b> Adaptive Lasso</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#steps-in-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.1</b> Steps in Adaptive Lasso:</a></li>
+<li class="chapter" data-level="12.3.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.2</b> Implementation and Simulation of Adaptive Lasso</a></li>
+<li class="chapter" data-level="12.3.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-2"><i class="fa fa-check"></i><b>12.3.3</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#elastic-net-regression"><i class="fa fa-check"></i><b>12.4</b> Elastic Net Regression</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-elastic-net"><i class="fa fa-check"></i><b>12.4.1</b> Implementation and Simulation of Elastic Net</a></li>
+<li class="chapter" data-level="12.4.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-3"><i class="fa fa-check"></i><b>12.4.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#technical-derivation-of-ridge-regression-estimator"><i class="fa fa-check"></i><b>12.5</b> Technical: Derivation of Ridge Regression Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html"><i class="fa fa-check"></i><b>13</b> Classification and Regression Trees (CART)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#basic-concepts"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#gini-index---impurity-measure"><i class="fa fa-check"></i><b>13.1.1</b> Gini index - Impurity measure</a></li>
+<li class="chapter" data-level="13.1.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#finding-the-split"><i class="fa fa-check"></i><b>13.1.2</b> Finding the split</a></li>
+<li class="chapter" data-level="13.1.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#can-we-find-a-better-split"><i class="fa fa-check"></i><b>13.1.3</b> Can we find a better split?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#function-to-find-the-important-variables-and-gains"><i class="fa fa-check"></i><b>13.1.4</b> Function to find the important variables and gains</a></li>
+<li class="chapter" data-level="13.1.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#the-second-split"><i class="fa fa-check"></i><b>13.1.5</b> The Second Split</a></li>
+<li class="chapter" data-level="13.1.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#variable-importance---easy-and-heuristic-way"><i class="fa fa-check"></i><b>13.1.6</b> Variable Importance - Easy and heuristic way</a></li>
+<li class="chapter" data-level="13.1.7" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#recursive-partitioning---the-tree-model"><i class="fa fa-check"></i><b>13.1.7</b> Recursive partitioning - The tree model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#step-by-step-tree-construction-for-binary-classification"><i class="fa fa-check"></i><b>13.2</b> Step-by-Step Tree Construction for Binary Classification</a></li>
+<li class="chapter" data-level="13.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#classification-decision-trees-with-rpart"><i class="fa fa-check"></i><b>13.3</b> Classification Decision Trees with <code>rpart</code></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#pruning-the-tree"><i class="fa fa-check"></i><b>13.3.1</b> Pruning the Tree</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#regression-trees"><i class="fa fa-check"></i><b>13.4</b> Regression Trees</a></li>
+<li class="chapter" data-level="13.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#building-and-interpreting-regression-trees-with-rpart-a-step-by-step-guide"><i class="fa fa-check"></i><b>13.5</b> Building and Interpreting Regression Trees with <code>rpart</code>: A Step-by-Step Guide</a></li>
+<li class="chapter" data-level="13.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#additional-considerations-and-extensions-for-regression-trees"><i class="fa fa-check"></i><b>13.6</b> Additional Considerations and Extensions for Regression Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html"><i class="fa fa-check"></i><b>14</b> Ensemble Learning and Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#bagging-bootstrap-aggregating"><i class="fa fa-check"></i><b>14.1</b> Bagging (Bootstrap Aggregating)</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#application-with-multiple-splits"><i class="fa fa-check"></i><b>14.1.1</b> Application with multiple splits</a></li>
+<li class="chapter" data-level="14.1.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#tuning"><i class="fa fa-check"></i><b>14.1.2</b> Tuning?</a></li>
+<li class="chapter" data-level="14.1.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#using-out-of-bag-oob-error"><i class="fa fa-check"></i><b>14.1.3</b> Using Out-of-Bag (OOB) Error</a></li>
+<li class="chapter" data-level="14.1.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#oob-error-rate"><i class="fa fa-check"></i><b>14.1.4</b> OOB error rate</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>14.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest-like-variable-selection"><i class="fa fa-check"></i><b>14.2.1</b> Random Forest-like Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#implementing-random-forest-in-r"><i class="fa fa-check"></i><b>14.3</b> Implementing Random Forest in R</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#building-a-random-forest-model-on-titanic-data"><i class="fa fa-check"></i><b>14.3.1</b> Building a Random Forest Model on Titanic Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#auc"><i class="fa fa-check"></i><b>14.3.2</b> AUC</a></li>
+<li class="chapter" data-level="14.3.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#regression-hitters"><i class="fa fa-check"></i><b>14.3.3</b> Regression: Hitters</a></li>
+<li class="chapter" data-level="14.3.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#importance-of-variables"><i class="fa fa-check"></i><b>14.3.4</b> Importance of Variables</a></li>
+<li class="chapter" data-level="14.3.5" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#local-importance"><i class="fa fa-check"></i><b>14.3.5</b> Local Importance</a></li>
+<li class="chapter" data-level="14.3.6" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#randomforestexplainer"><i class="fa fa-check"></i><b>14.3.6</b> <code>randomForestExplainer</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boosting-1.html"><a href="boosting-1.html"><i class="fa fa-check"></i><b>15</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="boosting-1.html"><a href="boosting-1.html#types-of-boosting-models"><i class="fa fa-check"></i><b>15.1</b> Types of Boosting Models</a></li>
+<li class="chapter" data-level="15.2" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-machines-gbm"><i class="fa fa-check"></i><b>15.2</b> Gradient Boosting Machines (GBM)</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-algorithm-steps"><i class="fa fa-check"></i><b>15.2.1</b> Gradient Boosting Algorithm Steps</a></li>
+<li class="chapter" data-level="15.2.2" data-path="boosting-1.html"><a href="boosting-1.html#hyperparameter-tuning-in-gbm"><i class="fa fa-check"></i><b>15.2.2</b> Hyperparameter Tuning in GBM</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="boosting-1.html"><a href="boosting-1.html#gbm-in-r"><i class="fa fa-check"></i><b>15.3</b> GBM in R</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="boosting-1.html"><a href="boosting-1.html#variable-importance-in-gbm"><i class="fa fa-check"></i><b>15.3.1</b> Variable Importance in GBM</a></li>
+<li class="chapter" data-level="15.3.2" data-path="boosting-1.html"><a href="boosting-1.html#external-training"><i class="fa fa-check"></i><b>15.3.2</b> External Training</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="boosting-1.html"><a href="boosting-1.html#adaboost"><i class="fa fa-check"></i><b>15.4</b> AdaBoost</a></li>
+<li class="chapter" data-level="15.5" data-path="boosting-1.html"><a href="boosting-1.html#xgboost"><i class="fa fa-check"></i><b>15.5</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="boosting-1.html"><a href="boosting-1.html#regression-example"><i class="fa fa-check"></i><b>15.5.1</b> Regression Example</a></li>
+<li class="chapter" data-level="15.5.2" data-path="boosting-1.html"><a href="boosting-1.html#classification-example"><i class="fa fa-check"></i><b>15.5.2</b> Classification Example</a></li>
+<li class="chapter" data-level="15.5.3" data-path="boosting-1.html"><a href="boosting-1.html#tuning-in-xgboost"><i class="fa fa-check"></i><b>15.5.3</b> Tuning in XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="boosting-1.html"><a href="boosting-1.html#the-implementation-of-boosting-methods"><i class="fa fa-check"></i><b>15.6</b> The Implementation of Boosting Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html"><i class="fa fa-check"></i><b>16</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#counterfactual-framework-1"><i class="fa fa-check"></i><b>16.1</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#assumptions-of-the-rubin-causal-model"><i class="fa fa-check"></i><b>16.1.1</b> Assumptions of the Rubin Causal Model:</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#average-treatment-effects"><i class="fa fa-check"></i><b>16.2</b> Average Treatment Effects:</a></li>
+<li class="chapter" data-level="16.3" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#selection-bias-and-heterogeneous-treatment-effect-bias"><i class="fa fa-check"></i><b>16.3</b> Selection Bias and Heterogeneous Treatment Effect Bias</a></li>
+<li class="chapter" data-level="16.4" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#limitations-of-rcm"><i class="fa fa-check"></i><b>16.4</b> Limitations of RCM:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html"><i class="fa fa-check"></i><b>17</b> Randomized Controlled Trials</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#key-assumptions"><i class="fa fa-check"></i><b>17.1</b> Key Assumptions</a></li>
+<li class="chapter" data-level="17.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#randomization-inference"><i class="fa fa-check"></i><b>17.2</b> Randomization Inference</a></li>
+<li class="chapter" data-level="17.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#linear-regression-in-rcts"><i class="fa fa-check"></i><b>17.3</b> Linear Regression in RCTs</a></li>
+<li class="chapter" data-level="17.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-adjustment-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4</b> Regression Adjustment in Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#residual-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.1</b> Residual strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.2</b> Regression strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#single-regression-with-covariate-adjustment"><i class="fa fa-check"></i><b>17.4.3</b> Single Regression with Covariate Adjustment</a></li>
+<li class="chapter" data-level="17.4.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#simulation-covariate-adjustment-in-rcts"><i class="fa fa-check"></i><b>17.4.4</b> Simulation: Covariate Adjustment in RCTs</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#fishers-randomization-inference"><i class="fa fa-check"></i><b>17.5</b> Fisher’s Randomization Inference</a></li>
+<li class="chapter" data-level="17.6" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#challenges-in-randomized-controlled-trials"><i class="fa fa-check"></i><b>17.6</b> Challenges in Randomized Controlled Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="selection-on-observables.html"><a href="selection-on-observables.html"><i class="fa fa-check"></i><b>18</b> Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#assumptions-and-definitions-behind-selection-on-observables"><i class="fa fa-check"></i><b>18.1</b> Assumptions and Definitions Behind Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#conditional-independence-assumption-unconfoundedness"><i class="fa fa-check"></i><b>18.1.1</b> Conditional Independence Assumption (Unconfoundedness)</a></li>
+<li class="chapter" data-level="18.1.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#common-support-assumption-overlap-condition"><i class="fa fa-check"></i><b>18.1.2</b> Common Support Assumption (Overlap Condition)</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#defining-the-conditional-average-treatment-effect"><i class="fa fa-check"></i><b>18.2</b> Defining the (Conditional) Average Treatment Effect</a></li>
+<li class="chapter" data-level="18.3" data-path="selection-on-observables.html"><a href="selection-on-observables.html#regression-based-estimation-methods"><i class="fa fa-check"></i><b>18.3</b> Regression-Based Estimation Methods</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#separate-regressions-for-treated-and-control-groups"><i class="fa fa-check"></i><b>18.3.1</b> Separate Regressions for Treated and Control Groups</a></li>
+<li class="chapter" data-level="18.3.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#single-regression-with-covariate-adjustment-1"><i class="fa fa-check"></i><b>18.3.2</b> Single Regression with Covariate Adjustment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="double-machine-learning.html"><a href="double-machine-learning.html"><i class="fa fa-check"></i><b>19</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#double-machine-learning-1"><i class="fa fa-check"></i><b>19.1</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#brief-practical-framework-dml1-dml2-for-lasso"><i class="fa fa-check"></i><b>19.1.1</b> Brief Practical Framework (DML1 &amp; DML2 for LASSO)</a></li>
+<li class="chapter" data-level="19.1.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#inference-and-robust-standard-errors"><i class="fa fa-check"></i><b>19.1.2</b> Inference and Robust Standard Errors</a></li>
+<li class="chapter" data-level="19.1.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-dm1-lasso-and-simulation"><i class="fa fa-check"></i><b>19.1.3</b> Step-by-step DM1-LASSO and Simulation</a></li>
+<li class="chapter" data-level="19.1.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml1"><i class="fa fa-check"></i><b>19.1.4</b> Simulation for DML1:</a></li>
+<li class="chapter" data-level="19.1.5" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-procedure-for-dml2-lasso"><i class="fa fa-check"></i><b>19.1.5</b> Step-by-step procedure for DML2-LASSO:</a></li>
+<li class="chapter" data-level="19.1.6" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2"><i class="fa fa-check"></i><b>19.1.6</b> Simulation for DML2:</a></li>
+<li class="chapter" data-level="19.1.7" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2-lasso-with-the-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.7</b> DML2-Lasso with the Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.8" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2-with-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.8</b> Simulation for DML2 with Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.9" data-path="double-machine-learning.html"><a href="double-machine-learning.html#sparsity-in-dml-lasso"><i class="fa fa-check"></i><b>19.1.9</b> Sparsity in DML-Lasso:</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2--decision-trees"><i class="fa fa-check"></i><b>19.2</b> DML2 -Decision Trees</a></li>
+<li class="chapter" data-level="19.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2---random-forest"><i class="fa fa-check"></i><b>19.3</b> DML2 - Random Forest</a></li>
+<li class="chapter" data-level="19.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#technical-notes-from-fwl-to-dml"><i class="fa fa-check"></i><b>19.4</b> Technical Notes: From FWL to DML</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#frisch-waugh-lovell-theorem"><i class="fa fa-check"></i><b>19.4.1</b> Frisch-Waugh-Lovell Theorem</a></li>
+<li class="chapter" data-level="19.4.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#from-fwl-to-double-machine-learning-dml"><i class="fa fa-check"></i><b>19.4.2</b> From FWL to Double Machine Learning (DML):</a></li>
+<li class="chapter" data-level="19.4.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#debiased-lasso"><i class="fa fa-check"></i><b>19.4.3</b> Debiased LASSO</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="matching-methods.html"><a href="matching-methods.html"><i class="fa fa-check"></i><b>20</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="matching-methods.html"><a href="matching-methods.html#subclassification-or-stratification"><i class="fa fa-check"></i><b>20.1</b> Subclassification or Stratification</a></li>
+<li class="chapter" data-level="20.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-1"><i class="fa fa-check"></i><b>20.2</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="matching-methods.html"><a href="matching-methods.html#factors-influence-the-implementation-of-matching-methods"><i class="fa fa-check"></i><b>20.2.1</b> Factors influence the implementation of matching methods:</a></li>
+<li class="chapter" data-level="20.2.2" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance"><i class="fa fa-check"></i><b>20.2.2</b> Assessing Balance</a></li>
+<li class="chapter" data-level="20.2.3" data-path="matching-methods.html"><a href="matching-methods.html#matching-benefits-and-limitations"><i class="fa fa-check"></i><b>20.2.3</b> Matching: Benefits and Limitations</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="matching-methods.html"><a href="matching-methods.html#propensity-score-matching-psm"><i class="fa fa-check"></i><b>20.3</b> Propensity Score Matching (PSM)</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="matching-methods.html"><a href="matching-methods.html#estimating-the-propensity-score"><i class="fa fa-check"></i><b>20.3.1</b> Estimating the Propensity Score</a></li>
+<li class="chapter" data-level="20.3.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-in-psm"><i class="fa fa-check"></i><b>20.3.2</b> Matching Methods in PSM</a></li>
+<li class="chapter" data-level="20.3.3" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance-in-psm"><i class="fa fa-check"></i><b>20.3.3</b> Assessing Balance in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="matching-methods.html"><a href="matching-methods.html#calculation-of-treatment-effects"><i class="fa fa-check"></i><b>20.4</b> Calculation of Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="matching-methods.html"><a href="matching-methods.html#regression-adjustment-including-propensity-score"><i class="fa fa-check"></i><b>20.4.1</b> Regression Adjustment Including Propensity Score</a></li>
+<li class="chapter" data-level="20.4.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-and-stratification-on-propensity-score"><i class="fa fa-check"></i><b>20.4.2</b> Matching and Stratification on Propensity Score</a></li>
+<li class="chapter" data-level="20.4.3" data-path="matching-methods.html"><a href="matching-methods.html#estimation-of-standard-errors-in-psm"><i class="fa fa-check"></i><b>20.4.3</b> Estimation of Standard Errors in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="matching-methods.html"><a href="matching-methods.html#integrating-xgboost-with-matchit-for-propensity-score-matching"><i class="fa fa-check"></i><b>20.5</b> Integrating XGBoost with MatchIt for Propensity Score Matching</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html"><i class="fa fa-check"></i><b>21</b> Inverse Weighting and Doubly Robust Estimation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#inverse-probability-weighting-ipw"><i class="fa fa-check"></i><b>21.1</b> Inverse Probability Weighting (IPW)</a></li>
+<li class="chapter" data-level="21.2" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#doubly-robust-estimators---aipw"><i class="fa fa-check"></i><b>21.2</b> Doubly Robust Estimators - AIPW</a></li>
+<li class="chapter" data-level="21.3" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#challenges-of-selection-on-observables"><i class="fa fa-check"></i><b>21.3</b> Challenges of Selection on Observables</a></li>
+<li class="chapter" data-level="21.4" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#technical-note-derivation-and-doubly-robust-of-the-aipw-estimator"><i class="fa fa-check"></i><b>21.4</b> Technical Note: Derivation and Doubly robust of the AIPW Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html"><i class="fa fa-check"></i><b>22</b> Selection on Unobservables and DML-IV</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>22.1</b> Instrumental Variables (IV):</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#core-iv-concepts"><i class="fa fa-check"></i><b>22.1.1</b> Core IV Concepts</a></li>
+<li class="chapter" data-level="22.1.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-potential-outcomes-framework-and-rcts"><i class="fa fa-check"></i><b>22.1.2</b> IV in the Potential Outcomes Framework and RCTs</a></li>
+<li class="chapter" data-level="22.1.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-observational-data"><i class="fa fa-check"></i><b>22.1.3</b> IV in the Observational Data</a></li>
+<li class="chapter" data-level="22.1.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#weak-instrument"><i class="fa fa-check"></i><b>22.1.4</b> Weak Instrument</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-iv-dml-iv"><i class="fa fa-check"></i><b>22.2</b> Double Machine Learning IV (DML-IV)</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#structural-model-and-instrumental-variables-estimation"><i class="fa fa-check"></i><b>22.2.1</b> Structural Model and Instrumental Variables Estimation</a></li>
+<li class="chapter" data-level="22.2.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-dml-iv-estimation"><i class="fa fa-check"></i><b>22.2.2</b> Double Machine Learning (DML-IV) Estimation</a></li>
+<li class="chapter" data-level="22.2.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#neyman-orthogonality-and-robustness"><i class="fa fa-check"></i><b>22.2.3</b> Neyman Orthogonality and Robustness</a></li>
+<li class="chapter" data-level="22.2.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#algorithm-dml-iv"><i class="fa fa-check"></i><b>22.2.4</b> Algorithm: DML-IV</a></li>
+<li class="chapter" data-level="22.2.5" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-lasso"><i class="fa fa-check"></i><b>22.2.5</b> DML2-IV Simulation using LASSO</a></li>
+<li class="chapter" data-level="22.2.6" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-random-forest"><i class="fa fa-check"></i><b>22.2.6</b> DML2-IV Simulation using RANDOM FOREST</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#closing-remarks-ml-for-iv"><i class="fa fa-check"></i><b>22.3</b> Closing Remarks: ML for IV</a></li>
+<li class="chapter" data-level="22.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#technical-connecting-iv-to-potential-outcomes-to-2sls"><i class="fa fa-check"></i><b>22.4</b> Technical: Connecting IV to potential outcomes to 2sls</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html"><i class="fa fa-check"></i><b>23</b> Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-approaches-to-estimating-heterogeneous-treatment-effects"><i class="fa fa-check"></i><b>23.1</b> Parametric Approaches to Estimating Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#interaction-models-in-linear-regression"><i class="fa fa-check"></i><b>23.1.1</b> Interaction Models in Linear Regression</a></li>
+<li class="chapter" data-level="23.1.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#stratified-or-subgroup-analysis"><i class="fa fa-check"></i><b>23.1.2</b> Stratified or Subgroup Analysis</a></li>
+<li class="chapter" data-level="23.1.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-generalized-linear-models-glms"><i class="fa fa-check"></i><b>23.1.3</b> Parametric Generalized Linear Models (GLMs)</a></li>
+<li class="chapter" data-level="23.1.4" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#random-coefficients-models"><i class="fa fa-check"></i><b>23.1.4</b> Random Coefficients Models</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#double-machine-learning-for-conditional-average-treatment-effects-cate"><i class="fa fa-check"></i><b>23.2</b> Double Machine Learning for Conditional Average Treatment Effects (CATE)</a></li>
+<li class="chapter" data-level="23.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#fully-nonparametric-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3</b> Fully Nonparametric Methods for HTE Estimation</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#matching-and-weighting-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.1</b> Matching and Weighting Methods for HTE Estimation</a></li>
+<li class="chapter" data-level="23.3.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#kernel-based-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.2</b> Kernel-Based Methods for HTE Estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html"><i class="fa fa-check"></i><b>24</b> Causal Trees and Forests</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#honest-causal-tree-ct-h-method"><i class="fa fa-check"></i><b>24.1</b> Honest Causal Tree (CT-H) Method</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#ct-h-algorithm"><i class="fa fa-check"></i><b>24.1.1</b> CT-H Algorithm:</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-honest-causal-tree"><i class="fa fa-check"></i><b>24.1.2</b> Simulation: Honest Causal Tree</a></li>
+<li class="chapter" data-level="24.1.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#causal-random-forests-ensemble-methods-for-hte-and-inference"><i class="fa fa-check"></i><b>24.1.3</b> “Causal” Random Forests: Ensemble Methods for HTE and Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#generalized-random-forests-grf"><i class="fa fa-check"></i><b>24.2</b> Generalized Random Forests (GRF)</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#grf-algorithm"><i class="fa fa-check"></i><b>24.2.1</b> GRF Algorithm:</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-with-grf-package-in-r"><i class="fa fa-check"></i><b>24.2.2</b> Simulation with GRF package in R:</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#application-of-causal-forests-in-economics-health-and-social-sciences"><i class="fa fa-check"></i><b>24.3</b> Application of Causal Forests in Economics, Health and Social Sciences</a></li>
+<li class="chapter" data-level="24.4" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#technical-optimizing-causal-forests-and-derivations"><i class="fa fa-check"></i><b>24.4</b> Technical: Optimizing Causal Forests and Derivations</a>
+<ul>
+<li class="chapter" data-level="24.4.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#equivalence-of-step-4-estimators-in-the-grf-algorithm-for-the-causal-forest"><i class="fa fa-check"></i><b>24.4.1</b> Equivalence of Step 4 Estimators in the <code>grf</code> Algorithm for the Causal Forest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html"><i class="fa fa-check"></i><b>25</b> Meta Learners for Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#meta-learners-and-cate"><i class="fa fa-check"></i><b>25.1</b> Meta Learners and CATE</a></li>
+<li class="chapter" data-level="25.2" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#s-learner-single-model-approach"><i class="fa fa-check"></i><b>25.2</b> S-Learner (Single Model Approach)</a></li>
+<li class="chapter" data-level="25.3" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#t-learner-separate-models-for-treatment-and-control"><i class="fa fa-check"></i><b>25.3</b> T-Learner (Separate Models for Treatment and Control)</a>
+<ul>
+<li class="chapter" data-level="25.3.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-s-learner-and-t-learner"><i class="fa fa-check"></i><b>25.3.1</b> Simulation of S-Learner and T-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.4" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#x-learner-cross-fitting"><i class="fa fa-check"></i><b>25.4</b> X-Learner (Cross-Fitting)</a>
+<ul>
+<li class="chapter" data-level="25.4.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-x-learner"><i class="fa fa-check"></i><b>25.4.1</b> Simulation of X-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.5" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#r-learner-residualized-estimation"><i class="fa fa-check"></i><b>25.5</b> R-Learner (Residualized Estimation)</a></li>
+<li class="chapter" data-level="25.6" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#dr-learner-doubly-robust-learner"><i class="fa fa-check"></i><b>25.6</b> DR-Learner (Doubly Robust Learner)</a></li>
+<li class="chapter" data-level="25.7" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#cate-vs.-ite"><i class="fa fa-check"></i><b>25.7</b> CATE vs. ITE</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html"><i class="fa fa-check"></i><b>26</b> Difference in Differences and DML-DiD</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#panel-data-fixed-effects-and-causal-inference"><i class="fa fa-check"></i><b>26.1</b> Panel Data, Fixed Effects, and Causal Inference</a></li>
+<li class="chapter" data-level="26.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#difference-in-differences-did"><i class="fa fa-check"></i><b>26.2</b> Difference-in-Differences (DiD)</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#controlling-for-additional-covariates-in-did"><i class="fa fa-check"></i><b>26.2.1</b> Controlling for Additional Covariates in DiD</a></li>
+<li class="chapter" data-level="26.2.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#two-way-fixed-effects-twfe-with-covariates"><i class="fa fa-check"></i><b>26.2.2</b> Two-Way Fixed Effects (TWFE) with Covariates</a></li>
+<li class="chapter" data-level="26.2.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#event-study-designs"><i class="fa fa-check"></i><b>26.2.3</b> Event Study Designs</a></li>
+<li class="chapter" data-level="26.2.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#heterogeneous-treatment-effects-in-did"><i class="fa fa-check"></i><b>26.2.4</b> Heterogeneous Treatment Effects in DiD</a></li>
+<li class="chapter" data-level="26.2.5" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#where-to-go-next-tools-resources-and-recent-advances"><i class="fa fa-check"></i><b>26.2.5</b> Where to Go Next: Tools, Resources, and Recent Advances</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-for-did-estimation"><i class="fa fa-check"></i><b>26.3</b> Double Machine Learning for DiD Estimation</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#step-by-step-implementation"><i class="fa fa-check"></i><b>26.3.1</b> Step-by-Step Implementation</a></li>
+<li class="chapter" data-level="26.3.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-did-simulation"><i class="fa fa-check"></i><b>26.3.2</b> Double-Machine Learning DiD Simulation</a></li>
+<li class="chapter" data-level="26.3.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#extension-of-dml-did-to-multiple-time-periods"><i class="fa fa-check"></i><b>26.3.3</b> Extension of DML-DiD to multiple time periods</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#time-varying-continuous-treatments"><i class="fa fa-check"></i><b>26.4</b> Time-varying Continuous Treatments</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html"><i class="fa fa-check"></i><b>27</b> Synthetic DiD and Regression Discontinuity</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#the-synthetic-control-method"><i class="fa fa-check"></i><b>27.1</b> The Synthetic Control Method</a>
+<ul>
+<li class="chapter" data-level="27.1.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#generalized-synthetic-control-method-gscm"><i class="fa fa-check"></i><b>27.1.1</b> Generalized Synthetic Control Method (GSCM)</a></li>
+<li class="chapter" data-level="27.1.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#augmented-synthetic-control-method-ascm"><i class="fa fa-check"></i><b>27.1.2</b> Augmented Synthetic Control Method (ASCM)</a></li>
+</ul></li>
+<li class="chapter" data-level="27.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#synthetic-difference-in-differences-sdid"><i class="fa fa-check"></i><b>27.2</b> Synthetic Difference-in-Differences (SDiD)</a></li>
+<li class="chapter" data-level="27.3" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#regression-discontinuity-designs-rdd"><i class="fa fa-check"></i><b>27.3</b> Regression Discontinuity Designs (RDD)</a>
+<ul>
+<li class="chapter" data-level="27.3.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#rdd-simulation"><i class="fa fa-check"></i><b>27.3.1</b> RDD Simulation</a></li>
+<li class="chapter" data-level="27.3.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#credibility-and-extensions-in-rdd-applications"><i class="fa fa-check"></i><b>27.3.2</b> Credibility and Extensions in RDD Applications</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html"><i class="fa fa-check"></i><b>28</b> Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#arima-a-statistical-model-for-time-series-forecasting"><i class="fa fa-check"></i><b>28.1</b> ARIMA: A Statistical Model for Time Series Forecasting</a></li>
+<li class="chapter" data-level="28.2" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#hyndman-khandakar-algorithm"><i class="fa fa-check"></i><b>28.2</b> Hyndman-Khandakar algorithm</a></li>
+<li class="chapter" data-level="28.3" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#ts-plots"><i class="fa fa-check"></i><b>28.3</b> TS Plots</a></li>
+<li class="chapter" data-level="28.4" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#box-cox-transformation"><i class="fa fa-check"></i><b>28.4</b> Box-Cox transformation</a></li>
+<li class="chapter" data-level="28.5" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#stationarity"><i class="fa fa-check"></i><b>28.5</b> Stationarity</a></li>
+<li class="chapter" data-level="28.6" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#modeling-arima"><i class="fa fa-check"></i><b>28.6</b> Modeling ARIMA</a></li>
+<li class="chapter" data-level="28.7" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#grid-search-for-arima"><i class="fa fa-check"></i><b>28.7</b> Grid search for ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html"><i class="fa fa-check"></i><b>29</b> Direct Forecasting with Random Forests</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#time-series-embedding-for-direct-forecasting"><i class="fa fa-check"></i><b>29.1</b> Time Series Embedding for Direct Forecasting</a></li>
+<li class="chapter" data-level="29.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#var-for-recursive-forecasting"><i class="fa fa-check"></i><b>29.2</b> VAR for Recursive Forecasting</a></li>
+<li class="chapter" data-level="29.3" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#embedding-for-direct-forecast"><i class="fa fa-check"></i><b>29.3</b> Embedding for Direct Forecast</a></li>
+<li class="chapter" data-level="29.4" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#random-forest-with-time-series"><i class="fa fa-check"></i><b>29.4</b> Random Forest with Time Series</a>
+<ul>
+<li class="chapter" data-level="29.4.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#univariate"><i class="fa fa-check"></i><b>29.4.1</b> Univariate</a></li>
+<li class="chapter" data-level="29.4.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#multivariate"><i class="fa fa-check"></i><b>29.4.2</b> Multivariate</a></li>
+</ul></li>
+<li class="chapter" data-level="29.5" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#rolling-and-expanding-windows"><i class="fa fa-check"></i><b>29.5</b> Rolling and expanding windows</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html"><i class="fa fa-check"></i><b>30</b> Neural Networks &amp; Deep Learning</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---the-idea"><i class="fa fa-check"></i><b>30.1</b> Neural Network - the idea</a></li>
+<li class="chapter" data-level="30.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#backpropagation"><i class="fa fa-check"></i><b>30.2</b> Backpropagation</a></li>
+<li class="chapter" data-level="30.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---more-inputs"><i class="fa fa-check"></i><b>30.3</b> Neural Network - More inputs</a></li>
+<li class="chapter" data-level="30.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning"><i class="fa fa-check"></i><b>30.4</b> Deep Learning</a></li>
+<li class="chapter" data-level="30.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning-with-keras-package"><i class="fa fa-check"></i><b>30.5</b> Deep Learning with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.5.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#setting-up-a-keras-model"><i class="fa fa-check"></i><b>30.5.1</b> Setting up a Keras Model</a></li>
+<li class="chapter" data-level="30.5.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-with-python"><i class="fa fa-check"></i><b>30.5.2</b> Keras with Python</a></li>
+<li class="chapter" data-level="30.5.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#tuning-a-keras-model"><i class="fa fa-check"></i><b>30.5.3</b> Tuning a Keras Model</a></li>
+<li class="chapter" data-level="30.5.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#visualizing-model-performance"><i class="fa fa-check"></i><b>30.5.4</b> Visualizing Model Performance</a></li>
+<li class="chapter" data-level="30.5.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-keras-tuner"><i class="fa fa-check"></i><b>30.5.5</b> Grid Search with Keras Tuner</a></li>
+<li class="chapter" data-level="30.5.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-r"><i class="fa fa-check"></i><b>30.5.6</b> Grid Search with R</a></li>
+</ul></li>
+<li class="chapter" data-level="30.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#clasification-with-keras-package"><i class="fa fa-check"></i><b>30.6</b> Clasification with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.6.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#model-outcome-and-activation-function"><i class="fa fa-check"></i><b>30.6.1</b> Model Outcome and Activation Function</a></li>
+<li class="chapter" data-level="30.6.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#probabilistic-model-and-thresholding"><i class="fa fa-check"></i><b>30.6.2</b> Probabilistic Model and Thresholding</a></li>
+<li class="chapter" data-level="30.6.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-package"><i class="fa fa-check"></i><b>30.6.3</b> <code>keras</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="30.7" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#pytorch-and-keras"><i class="fa fa-check"></i><b>30.7</b> PyTorch and Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html"><i class="fa fa-check"></i><b>31</b> Matrix Decomposition and Applications</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>31.1</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="31.2" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#single-value-decomposition"><i class="fa fa-check"></i><b>31.2</b> Single Value Decomposition</a></li>
+<li class="chapter" data-level="31.3" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#rankr-approximations"><i class="fa fa-check"></i><b>31.3</b> Rank(<span class="math inline">\(r\)</span>) Approximations</a></li>
+<li class="chapter" data-level="31.4" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#moore-penrose-inverse"><i class="fa fa-check"></i><b>31.4</b> Moore-Penrose Inverse</a></li>
+<li class="chapter" data-level="31.5" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#principle-component-analysis"><i class="fa fa-check"></i><b>31.5</b> Principle Component Analysis</a></li>
+<li class="chapter" data-level="31.6" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#factor-analysis"><i class="fa fa-check"></i><b>31.6</b> Factor Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html"><i class="fa fa-check"></i><b>32</b> Optimization Algorithms - Basics</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#brute-force-optimization"><i class="fa fa-check"></i><b>32.1</b> Brute-force optimization</a></li>
+<li class="chapter" data-level="32.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#derivative-based-methods"><i class="fa fa-check"></i><b>32.2</b> Derivative-based methods</a></li>
+<li class="chapter" data-level="32.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#ml-estimation-with-logistic-regression"><i class="fa fa-check"></i><b>32.3</b> ML Estimation with logistic regression</a></li>
+<li class="chapter" data-level="32.4" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#gradient-descent-algorithm"><i class="fa fa-check"></i><b>32.4</b> Gradient Descent Algorithm</a>
+<ul>
+<li class="chapter" data-level="32.4.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#one-variable"><i class="fa fa-check"></i><b>32.4.1</b> One-variable</a></li>
+<li class="chapter" data-level="32.4.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#adjustable-lr-and-sgd"><i class="fa fa-check"></i><b>32.4.2</b> Adjustable <code>lr</code> and SGD</a></li>
+<li class="chapter" data-level="32.4.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#multivariable"><i class="fa fa-check"></i><b>32.4.3</b> Multivariable</a></li>
+</ul></li>
+<li class="chapter" data-level="32.5" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#optimization-with-r"><i class="fa fa-check"></i><b>32.5</b> Optimization with R</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>33</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Causal Inference and Machine Learning In Economics, Social, and Health Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="counterfactual-framework" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Counterfactual Framework<a href="counterfactual-framework.html#counterfactual-framework" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Causal inference lies at the heart of understanding the effects of interventions, policies, or treatments. The term “causal inference” is sometimes misused in informal contexts to mean identifying variables/features associated with an outcome rather than establishing “true” cause-and-effect relationships. This confusion appears in some blogs, online tutorials, and discussions in data science communities, where they refer feature importance or explanatory variables as evidence of causality. As discussed in detail in Chapter 2, one of the key motivations for causal inference is the fundamental distinction between correlation and causation. While correlation can identify patterns and associations, causation establishes whether one variable influences another. This distinction is essential for guiding decisions in fields like economics, health, and social sciences, where policymakers and practitioners require actionable insights.</p>
+<p>It is important to clarify key conceptual issues before we start the causal inference chapters. While we may observe differences in outcomes between two groups, we cannot directly attribute these differences to group-specific characteristics alone, as confounding factors, which lead to omitted variable bias, selection bias, or unobserved variables, may be driving the observed differences. Also, we cannot say for sure that a specific characteristic caused those outcome differences directly. Simply observing differences or identifying an association does not establish causality; for a characteristic, event, or variable to be considered causal, it must be possible to manipulate, treat, or intervene in it. For example, as discussed in Simpson’s paradox in Chapter 2, we cannot conclude that being older directly causes lower income because age itself cannot be manipulated. The same applies to characteristics such as gender or race—observed differences in outcomes may result from structural factors, confounding variables, or other unobservable variables rather than the characteristic itself. However, if we introduce an intervention—such as providing older workers with special security training or equipment—and observe that they can work night shifts more often, leading to higher earnings, then we can say that the special training or equipment caused the increase in income among older workers. The key distinction is that the treatment (training or equipment) is manipulable, allowing us to assess its causal effect on the outcome. This is the essence of causal inference: understanding the effect of an intervention, policy or treatment on an outcome by comparing the observed outcome with the outcome that would have been observed under a different treatment. Causal inference relies on several assumptions, and in these chapters, we will cover both the methods and the assumptions required for valid causal analysis.</p>
+<p>In policymaking and business, understanding causal relationships is critical. Decisions, such as whether increasing education funding improves student outcomes or raising the minimum wage reduces poverty, hinge on knowing the direction and magnitude of these effects. In healthcare, policymakers must determine whether expanding access to preventive care reduces long-term hospitalizations or whether a new drug truly improves patient recovery rates rather than just correlating with better outcomes. Similarly, firms must evaluate whether advertising campaigns boost sales or if seasonal trends are the real cause. Causal inference provides the rigorous framework needed to evaluate such policies, going beyond mere observation of statistical associations to uncover real cause-and-effect relationships.</p>
+<p>Traditional machine learning methods, which are typically optimized for prediction, are not inherently designed to answer causal questions. Predictive models may identify spurious correlations or overlook confounding variables, leading to misleading inferences about cause and effect. To overcome these limitations, causal ML techniques—such as double/debiased machine learning, causal forests, and methods that integrate causal graphs—have been developed. These approaches bridge the gap between prediction and causation by enabling the estimation of causal effects while leveraging ML’s strengths in handling high-dimensional, complex data.</p>
+<p>For readers unfamiliar with the foundational concepts of causal inference, we recommend reviewing Chapter 2, where these topics, including the distinction between correlation, regression, and the causal effect, are explored in depth. This chapter will build on those concepts, focusing on methods and their practical applications. It will cover the counterfactual framework, including the definition of counterfactuals, the challenges of missing data and state, and how machine learning methods can estimate counterfactuals under identification assumptions. The chapter will also explore the fundamental problem of causal inference by examining the role of randomization and the interplay between experimental and observational data. Randomized controlled trials, cluster randomization, and adaptive experimental designs optimized through machine learning will also be discussed, as will partial effects, focusing on marginal effects in linear and nonlinear models and their estimation through machine learning-based predictions. <!-- this sentence will be removed if cannot mention this in RCT section --></p>
+<p>Selection on observables will then be examined in detail, covering matching methods, weighting strategies, and other approaches such as doubly robust. These methods address challenges posed by confounding factors when causal inference relies on observational data. Finally, the next chapter will focus on selection on unobservables, explore techniques like instrumental variables, difference-in-differences, regression discontinuity designs, and synthetic control methods. One chapter later, we will discuss heterogeneous causal methods such as double machine learning, causal forests, and related approaches. Together, these chapters provide a comprehensive understanding of causal inference techniques based on potential outcome framework and their integration with machine learning.</p>
+<p>For readers seeking a deeper understanding of causal inference methods in economics, we recommend widely regarded texts such as Causal Inference: The Mixtape by Scott Cunningham, The Effect by Nick Huntington-Klein, and Mostly Harmless Econometrics by Angrist and Pischke, A First Course in Causal Inference by Peng Ding. These books provide excellent coverage of foundational concepts and techniques, from randomized controlled trials to instrumental variables, regression discontinuity, and difference-in-differences. While the purpose of these chapters is to offer a comprehensive overview of these methods, the primary focus is to demonstrate how machine learning can complement and improve traditional approaches. By providing intuitive explanations and practical insights, we aim to show how ML methods can improve causal inference in areas like high-dimensional data, flexible modeling, and estimating heterogeneous treatment effects. Let’s start our discussion with the counterfactual framework.</p>
+<div id="counterfactual-framework-1" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> Counterfactual Framework<a href="counterfactual-framework.html#counterfactual-framework-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagine studying the “causal” effect of obtaining a college degree on earnings. For an individual with a degree, we observe their income <span class="math inline">\(Y_i(1)\)</span> but not the counterfactual income <span class="math inline">\(Y_i(0)\)</span> they would have earned without the college degree; similarly, for someone without a degree, we observe their income <span class="math inline">\(Y_i(0)\)</span> but not the income <span class="math inline">\(Y_i(1)\)</span> they might have earned with a degree. In theory, the “causal” effect for each person is <span class="math inline">\(Y_i(1) - Y_i(0)\)</span>, but since both states cannot be observed simultaneously, individual causal effects remain unmeasurable. Now, consider a population of <span class="math inline">\(N\)</span> individuals—say, a quarter have a degree—and imagine a parallel universe where each person’s potential outcomes (income with a degree in one universe/state; income without a degree in another universe/state) are observable. In that case, the causal effect of a college degree for each person could be determined by calculating the difference between their incomes in the actual and counterfactual states, <span class="math inline">\(Y_i(1) - Y_i(0)\)</span>. By aggregating these individual causal effects across the entire population, we could compute the Average Treatment/Causal Effect of treatment (college degree, here) on outcome (income, here) as the mean of these differences, <span class="math inline">\(\mathbb{E}[Y_{i}(1) - Y_{i}(0)]\)</span>. In this scenario, the Average Treatment Effect (ATE) can also be computed as <span class="math inline">\(\mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]\)</span>, which is equivalent to the difference between the average income if everyone had a degree and if no one did. This framework precisely defines the population-level average treatment/causal effect of education on earnings. However, there are other causal effect measures, which we will cover in later sections.</p>
+<p>Because of the inability to observe the outcome in both the treated state and the control state for the same individual, as well as the confounding factors that complicate causal interpretation, Donald Rubin and others developed the Rubin Causal Model (RCM) (Rubin, 1974; Holland, 1986). The RCM provides a formal framework for defining and estimating causal effects in the presence of the fundamental problem of causal inference, which is defined as “for each unit, only one of the two potential outcomes—<span class="math inline">\(Y_i(1)\)</span> (if treated) or <span class="math inline">\(Y_i(0)\)</span> (if untreated)—can be observed, depending on the treatment assignment. The other outcome remains unobservable, referred to as the counterfactual, creating a missing data problem. The potential outcomes framework is also known as the”counterfactual framework”.<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a> As a result, direct calculation of the causal effects at the individual or population level is impossible. This challenge forces researchers to rely on assumptions and robust designs to approximate the unobservable counterfactuals and isolate causal effects.</p>
+<p>A key concept in causal inference is that the unit of analysis may differ from the physical unit being studied. Consider the effect of a college degree on income: if I initially earned a low salary without a degree and later earned more after obtaining one, it might seem that we observe both potential outcomes—<span class="math inline">\(Y_i(0)\)</span> (without a degree) and <span class="math inline">\(Y_i(1)\)</span> (with a degree)—allowing us to estimate the causal effect. However, this reasoning is flawed because my “before” and “after” measurements represent two distinct units, meaning we have four potential outcomes—<span class="math inline">\(Y_{i,\text{before}}(0)\)</span>, <span class="math inline">\(Y_{i,\text{before}}(1)\)</span>, <span class="math inline">\(Y_{i,\text{after}}(0)\)</span>, and <span class="math inline">\(Y_{i,\text{after}}(1)\)</span>—with only two observed, and two missing. For instance, if my income increased over time without obtaining a degree, one might erroneously conclude that a college degree has no effect; similarly, if my income decreased after earning a degree, the effect might be falsely deemed negative. This example highlights the need to clearly define the unit in causal analysis. Causal inference requires multiple units exposed to different treatments, either by observing the same unit over time or different units simultaneously. However, having multiple units alone does not resolve the fundamental problem of causal inference.</p>
+<p>The RCM assumes that each unit has a well-defined treatment status (<span class="math inline">\(D_i\)</span>) and potential outcomes (<span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>). The observed outcome (<span class="math inline">\(Y_i\)</span>) depends on the treatment received, given by:</p>
+<p><span class="math display">\[\begin{equation}
+Y_i = D_i \cdot Y_i(1) + (1-D_i) \cdot Y_i(0)
+\label{eq:potential_outcome}
+\end{equation}\]</span></p>
+<p>This equation states that if <span class="math inline">\(D_i = 1\)</span>, the observed outcome is the potential outcome in the treatment state (<span class="math inline">\(Y_i = Y_i(1)\)</span>), and if <span class="math inline">\(D_i = 0\)</span>, it is the potential outcome in the control state (<span class="math inline">\(Y_i = Y_i(0)\)</span>). If both potential outcomes were observable, identifying individual treatment effects (<span class="math inline">\(Y_i(1) - Y_i(0)\)</span>) and computing the population-level average treatment effect (<span class="math inline">\(\mathbb{E}[Y_i(1) - Y_i(0)]\)</span>) would be straightforward.</p>
+<!--\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5} % Increases row spacing
+    \caption{Potential Outcomes and Individual Treatment Effects} % Table title
+    \label{tab:potential_outcomes} % Table label for referencing
+    \vspace{0.5cm} % Adds space before the table
+    \resizebox{1\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $D$ & $Y(1)$ Potential Outcome  & $Y(0)$ Potential Outcome  & Individual Treatment  & $Y$ Observed  \\
+         & Treatment state&  NO Treatment(Control) state & Effect & Outcome \\
+        \hline
+        1 & $Y_T(1) \text{ observed}$ & $Y_T(0) \text{ what-if}$ & $Y_T(1) - Y_T(0)$ & $Y_T$ \\
+        \hline
+        1 & $Y_T(1) \text{ observed}$ & $Y_T(0) \text{ what-if}$ & $Y_T(1) - Y_T(0)$ & $Y_T$ \\
+        \hline
+        1 & $Y_T(1) \text{ observed}$ & $Y_T(0) \text{ what-if}$ & $Y_T(1) - Y_T(0)$ & $Y_T$ \\
+        \hline
+        0 & $Y_C(1) \text{ what-if}$ & $Y_C(0) \text{ observed}$ & $Y_C(1) - Y_C(0)$ & $Y_C$ \\
+        \hline
+        0 & $Y_C(1) \text{ what-if}$ & $Y_C(0) \text{ observed}$ & $Y_C(1) - Y_C(0)$ & $Y_C$ \\
+        \hline
+        0 & $Y_C(1) \text{ what-if}$ & $Y_C(0) \text{ observed}$ & $Y_C(1) - Y_C(0)$ & $Y_C$ \\
+        \hline
+    \end{tabular}%
+    }
+\end{table}-->
+<table>
+<caption><span id="tab:unnamed-chunk-1">TABLE 16.1: </span>Potential Outcomes and Individual Treatment Effects</caption>
+<colgroup>
+<col width="1%" />
+<col width="27%" />
+<col width="27%" />
+<col width="23%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right"><span class="math inline">\(D\)</span></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(Y(1)\)</span> <br> Potential Outcome<br>Treatment state</span></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(Y(0)\)</span> <br> Potential Outcome<br>No Treatment state</span></th>
+<th align="left"><span style="font-weight:normal;">Individual <br> Treatment <br> Effect</span></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(Y\)</span> <br> Observed Outcome</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left"><span class="math inline">\(Y_{T}(1)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{T}(0)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{T}(1) - Y_{T}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{T}\)</span></td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left"><span class="math inline">\(Y_{T}(1)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{T}(0)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{T}(1) - Y_{T}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{T}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left"><span class="math inline">\(Y_{T}(1)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{T}(0)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{T}(1) - Y_{T}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{T}\)</span></td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left"><span class="math inline">\(Y_{C}(1)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{C}(0)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{C}(1) - Y_{C}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{C}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left"><span class="math inline">\(Y_{C}(1)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{C}(0)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{C}(1) - Y_{C}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{C}\)</span></td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left"><span class="math inline">\(Y_{C}(1)\)</span> what-if</td>
+<td align="left"><span class="math inline">\(Y_{C}(0)\)</span> observed</td>
+<td align="left"><span class="math inline">\(Y_{C}(1) - Y_{C}(0)\)</span></td>
+<td align="left"><span class="math inline">\(Y_{C}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This table illustrates the notations we discussed above, helping us understand the estimation of treatment effects when only one outcome per individual is observed. Each unit (student) has two potential outcomes: one if they receive the scholarship (<span class="math inline">\(Y(1)\)</span>) and one if they do not (<span class="math inline">\(Y(0)\)</span>). The table separates individuals into two groups: those who receive the scholarship (<span class="math inline">\(D = 1\)</span>) and those who do not (<span class="math inline">\(D = 0\)</span>). For treated students, the observed outcome is <span class="math inline">\(Y_T(1)\)</span> (earnings after receiving the scholarship, while the counterfactual outcome <span class="math inline">\(Y_T(0)\)</span> (what their earnings would have been without the scholarship; labeled “what-if”)) is unobserved. In contrast, for the control group, we observe <span class="math inline">\(Y_C(0)\)</span> (earnings without the scholarship) and do not see <span class="math inline">\(Y_C(1)\)</span> (what their earnings would have been if they had received the scholarship; labeled “what-if”)). The individual treatment effect is defined as the difference <span class="math inline">\(Y(1) - Y(0)\)</span>. If both outcomes were observable for every student, averaging the differences would yield the Average Treatment Effect (ATE). However, because one outcome is always missing, we must estimate the ATE using observed data and statistical methods. This table therefore highlights the distinction between observed outcomes and unobserved counterfactuals, which is key for causal inference.</p>
+<!--\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5} % Increases row spacing
+    \caption{Expected Potential Outcomes and Treatment Effects} % Table title
+    \label{tab:expected_outcomes} % Table label for referencing
+    \vspace{0.5cm} % Adds space before the table
+    \resizebox{1\textwidth}{!}{%
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        & \(E[Y(1)]\) Expected Potential  & \(E[Y(0)]\) Expected Potential  & Difference & \(E[Y]\) \\
+        & Outcome at Treatment state & Outcome at Control state &  &  \\
+        \hline
+        \(\mathbf{D=1}\) & \(E[Y(1)|D=1]\) (Observable for Treated) & \(E[Y(0)|D=1]\) (Unobservable for Treated) & ATT & \(E[Y|D=1]\) \\
+        \(\mathbf{D=0}\) & \(E[Y(1)|D=0]\) (Unobservable for Control) & \(E[Y(0)|D=0]\) (Observable for Control) & ATU & \(E[Y|D=0]\) \\
+        \(\mathbf{Sample}\) & \(E[Y(1)]\) & \(E[Y(0)]\) & ATE &  \\
+        &  & Selection Bias: \(E[Y(0)|D=1] - E[Y(0)|D=0]\) &  & Simple Diff. \\
+        \hline
+    \end{tabular}%
+    }
+\end{table}-->
+<table>
+<caption><span id="tab:unnamed-chunk-2">TABLE 16.2: </span>Expected Potential Outcomes and Treatment Effects</caption>
+<colgroup>
+<col width="1%" />
+<col width="29%" />
+<col width="29%" />
+<col width="14%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(E[Y(1)]\)</span> <br> Expected Potential Outcome at<br>Treatment state</span></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(E[Y(0)]\)</span> <br> Expected Potential Outcome at<br>Control state</span></th>
+<th align="left"><span style="font-weight:normal;">Difference</span></th>
+<th align="left"><span style="font-weight:normal;"><span class="math inline">\(E[Y]\)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(D=1\)</span></td>
+<td align="left"><span class="math inline">\(E[Y(1)\mid D=1]\)</span> (Observable for Treated)</td>
+<td align="left"><span class="math inline">\(E[Y(0)\mid D=1]\)</span> (Unobservable for Treated)</td>
+<td align="left">ATT</td>
+<td align="left"><span class="math inline">\(E[Y\mid D=1]\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(D=0\)</span></td>
+<td align="left"><span class="math inline">\(E[Y(1) \mid D=0]\)</span> (Unobservable for Control)</td>
+<td align="left"><span class="math inline">\(E[Y(0) \mid D=0]\)</span> (Observable for Control)</td>
+<td align="left">ATU</td>
+<td align="left"><span class="math inline">\(E[Y \mid D=0]\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Sample</td>
+<td align="left"><span class="math inline">\(E[Y(1)]\)</span></td>
+<td align="left"><span class="math inline">\(E[Y(0)]\)</span></td>
+<td align="left">ATE</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Selection Bias: <span style="font-size:0.5em;"><span class="math inline">\(E[Y(0)\mid D=1] - E[Y(0)\mid D=0]\)</span></span></td>
+<td align="left"></td>
+<td align="left">Simple Differ.:<span style="font-size:0.5em;"><span class="math inline">\(E[Y\mid D=1] - E[Y \mid D=0]\)</span></span></td>
+</tr>
+</tbody>
+</table>
+<p>The table above links our data to the Rubin Causal Model by showing how we compute expected potential outcomes. For example, to calculate <span class="math inline">\(E[Y(1)|D=1]\)</span>, we take the observed outcomes for the treated group—the column showing <span class="math inline">\(Y(1)\)</span> for students who received the scholarship (<span class="math inline">\(D=1\)</span>s)—and compute their average. This average represents the expected outcome under treatment for the treated units. Similarly, for the control group, we average the observed outcomes in the <span class="math inline">\(Y(0)\)</span> column to obtain <span class="math inline">\(E[Y(0)|D=0]\)</span>, which is the expected outcome under no treatment for these units.</p>
+<p>The table also shows how these group-specific averages contribute to overall expectations. For instance, the overall expected potential outcome under treatment, <span class="math inline">\(E[Y(1)]\)</span>, is a weighted combination of <span class="math inline">\(E[Y(1)|D=1]\)</span> and <span class="math inline">\(E[Y(1)|D=0]\)</span>, even though for the control group the outcome <span class="math inline">\(Y(1)\)</span> is unobserved (thus, needs to be estimated). The same idea applies to <span class="math inline">\(E[Y(0)]\)</span> using <span class="math inline">\(E[Y(0)|D=1]\)</span> (unobserved for the treated) and <span class="math inline">\(E[Y(0)|D=0]\)</span> (observed for the control).</p>
+<p>This process of averaging helps us understand how we move from individual data points to group-level expectations and, ultimately, to estimates of causal effects. The table also highlights the difference in expectations, such as the simple difference between <span class="math inline">\(E[Y|D=1]\)</span> and <span class="math inline">\(E[Y|D=0]\)</span>, which provides a preliminary estimate of the treatment effect. However, since we only observe one potential outcome per student, unobserved counterfactuals can lead to selection bias. For instance, the difference <span class="math inline">\(E[Y(0)|D=1] - E[Y(0)|D=0]\)</span> represents how the unobserved outcomes among the treated differ from those in the control group.</p>
+<p>This visual framework is essential as we move forward. Next, we will discuss the assumptions that let us approximate these missing counterfactuals, formally define treatment effects such as ATE, ATT, and ATU, and address selection bias. Later in the chapter, we will also cover methods like randomization, regression, matching, and weighting, all of which rely on this framework to estimate causal effects accurately.</p>
+<div id="assumptions-of-the-rubin-causal-model" class="section level3 hasAnchor" number="16.1.1">
+<h3><span class="header-section-number">16.1.1</span> Assumptions of the Rubin Causal Model:<a href="counterfactual-framework.html#assumptions-of-the-rubin-causal-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Stable Unit Treatment Value Assumption (SUTVA) is essential for defining potential outcomes (Rubin, 1980). SUTVA consists of two key components: no interference and consistency. The no-interference assumption states that the potential outcomes of observation <span class="math inline">\(i\)</span> are independent of the treatment assignments of all other units. In other words, a unit’s potential outcomes are not affected by spillover or network effects from the treatment of others. This assumption rules out general equilibrium effects, which can be problematic in economic settings where policy interventions influence neighboring households or firms. When a treated group represents a large share of the population, assuming no spillovers may not be plausible. Consequently, policy recommendations based on randomized or natural experiments should be reassessed for broader populations, as small-sample studies may satisfy SUTVA while large-scale implementations violate it. Violations, such as spillovers or treatment diffusion, require alternative approaches, including network-based models and machine learning techniques for spillover detection.</p>
+<p>The consistency assumption states that the observed outcome for a unit under its actual treatment status equals the corresponding potential outcome: <span class="math inline">\(Y_i = D_i \cdot Y_i(1) + (1-D_i) \cdot Y_i(0)\)</span>. This ensures that the treatment received aligns exactly with the treatment assigned, ruling out hidden variations in treatment (e.g., different treatment intensities, misreporting, or noncompliance). If multiple versions of a treatment exist but are not accounted for, causal estimates may be biased. In practice, inconsistencies arise due to implementation errors, partial treatment uptake, or measurement issues. Machine learning methods, such as anomaly detection and data imputation, can help identify and mitigate such inconsistencies, improving the robustness of causal analysis.</p>
+<p>In the potential outcomes framework, causal identification relies on the ignorability (or unconfoundedness/conditional independence) assumption, i.e., <span class="math inline">\((Y_i(1), Y_i(0)) \perp D_i \mid X_i\)</span>, which asserts that treatment assignment is as good as random once conditioned on covariates <span class="math inline">\(X_i\)</span>. In another words, an assignment is unconfounded if the assignment mechanism does not depend on the potential
+outcomes and depend only on the pre-treatment covariates. A perfect randomized controlled trial would eliminate the need for this assumption. However, in observational studies, this assumption is required to employ statistical adjustments—such as matching, weighting, and regression—to mimic randomization. Machine learning further improves these methods by improving propensity score and outcome model estimation. In high-dimensional settings, ML-based variable selection (e.g., LASSO, random forests) effectively isolates relevant confounders, mitigating biases from model misspecification or omitted variables and bolstering the credibility of causal estimates when true randomization is not feasible.</p>
+<p>With these assumptions in place, we now turn to the most common linear causal estimand (target quantity, which is function of potential outcomes) in the RCM framework.</p>
+</div>
+</div>
+<div id="average-treatment-effects" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Average Treatment Effects:<a href="counterfactual-framework.html#average-treatment-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Even though we cannot observe the treatment effect for each individual, the collection of individual causal effects within a population forms a distribution. This distribution allows us to estimate key parameters such as the mean (Average Treatment Effect, ATE), variance, and other descriptive statistics.<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a></p>
+<p>The Average Treatment Effect (ATE) is the most common parameter of interest (i.e. estimand) in causal inference within the RCM framework. It represents the average of individual treatment effects, <span class="math inline">\(Y_i(1) - Y_i(0)\)</span>, serving as a crucial measure in policy evaluation, program assessment, and medical research. Formally, it is defined as:</p>
+<p><span class="math display">\[\begin{equation}
+\delta^{ATE} = \mathbb{E}[\delta_i] = \mathbb{E}[Y_i(1) - Y_i(0)] = \mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]
+\label{eq:ATE}
+\end{equation}\]</span></p>
+<p>To understand this intuitively, consider a government implementing a policy, an agency introducing a new regulation, or a doctor prescribing a medication. In each scenario, we can conceptualize two states: a treatment state where all units in the population are exposed to the intervention, and a control state where none are exposed. The equation <span class="math inline">\(\mathbb{E}[Y_i(1) - Y_i(0)]\)</span> represents the population average of the individual treatment effects, while <span class="math inline">\(\mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]\)</span> captures the difference in the expected outcomes for the entire population if all units were treated versus untreated. Under the SUTVA, which ensures no interference between units and consistent treatment effects, these two expressions are equivalent.</p>
+<p>However, like the individual-level treatment effect, the ATE is inherently unknowable because it requires knowledge of both potential outcomes, <span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span>, for each unit. Due to the fundamental problem of causal inference, only one of these outcomes is observable for any given unit. As a result, the ATE is not a quantity that can be directly calculated but rather one that can only be estimated with different methods (i.e. estimators) under certain statistical assumptions.<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a> Each method in the RCM framework aims to estimate the ATE by leveraging different assumptions and estimators to address missing counterfactuals and isolate causal effects. In the following sections, we will explore these estimation techniques in detail.</p>
+<p>Depending on the research question, we may also be interested in estimating other treatment effects beyond the ATE. The Average Treatment Effect on the Treated (ATT) measures the average treatment effect specifically for the subgroup of individuals who actually received the treatment. It is formally defined as:</p>
+<p><span class="math display">\[\begin{equation}
+ATT = \mathbb{E}[Y_{i}(1) \mid D=1] - \mathbb{E}[Y_{i}(0) \mid D=1]
+\label{eq:ATT}
+\end{equation}\]</span></p>
+<p>In observational data, the ATT almost always differs from the ATE because individuals tend to sort into treatment based on expected gains. For instance, individuals with higher anticipated benefits from a policy or intervention may be more likely to participate, introducing endogenous selection into the treatment group. Like the ATE, the ATT is unknowable because it requires knowledge of both potential outcomes for each treated individual, which is impossible to observe directly; thus, it must be estimated using causal inference methods.</p>
+<p>The Average Treatment Effect on the Untreated (ATU) measures the average treatment effect for those who did not receive the treatment (the control or untreated group). It is defined as:</p>
+<p><span class="math display">\[\begin{equation}
+ATU = \mathbb{E}[Y_{i}(1) \mid D=0] - \mathbb{E}[Y_{i}(0) \mid D=0]
+\label{eq:ATU}
+\end{equation}\]</span></p>
+<p>As with the ATT, the ATU is also unknowable in observational data, as it requires observing both potential outcomes for individuals in the control group. Furthermore, if treatment effects are heterogeneous, the ATU will differ from the ATT, reflecting the varying impacts of treatment across different subpopulations.</p>
+<p>Beyond the ATE, ATT, and ATU, additional parameters are used to estimate causal effects in specific contexts or with particular methods. These parameters such as CATE (Conditional Average Treatment Effect), LATE (Local Average Treatment Effect), and heteregeneous treatment effects will be explored in greater detail in the next chapter as we discuss approaches to causal inference tailored to different assumptions and data structures.</p>
+<p>Binary outcomes, common in medical and health studies, require specialized causal estimands due to their nature. In this context, we define <span class="math inline">\(\mu_1 = \text{Pr}(Y_i(1) = 1)\)</span> and <span class="math inline">\(\mu_0 = \text{Pr}(Y_i(0) = 1)\)</span>, representing the probabilities of an outcome under treatment and control, respectively, often referred to as causal risks in medical research. The three primary causal estimands for binary outcomes are the causal risk difference (<span class="math inline">\(\delta_{RD} = \mu_1 - \mu_0\)</span>, equivalent to the ATE), the causal risk ratio (<span class="math inline">\(\delta_{RR} = \mu_1 / \mu_0\)</span>), and the causal odds ratio (<span class="math inline">\(\delta_{OR} = \frac{\mu_1 / (1-\mu_1)}{\mu_0 / (1-\mu_0)}\)</span>). It is important to note that the ratio estimands (e.g., risk ratio and odds ratio) are not averages of individual causal effects unless the effects are homogeneous across individuals. These estimands provide nuanced insights into treatment effects for binary outcomes, extending beyond the simple ATE to address specific contexts, especially in medical and epidemiological research.</p>
+<p>Before we continue, we want to highlight an important causal estimands more common in medical and health studies. Binary outcomes require specialized causal estimands due to their nature. In this context, we define <span class="math inline">\(\mu_1 = \text{Pr}(Y_i(1) = 1)\)</span> and <span class="math inline">\(\mu_0 = \text{Pr}(Y_i(0) = 1)\)</span>, representing the probabilities of an outcome under treatment and control, respectively, often referred to as causal risks in medical research. The three primary causal estimands for binary outcomes are the causal risk difference (<span class="math inline">\(\delta_{RD} = \mu_1 - \mu_0\)</span>, equivalent to the ATE), the causal risk ratio (<span class="math inline">\(\delta_{RR} = \mu_1 / \mu_0\)</span>), and the causal odds ratio (<span class="math inline">\(\delta_{OR} = \frac{\mu_1 / (1-\mu_1)}{\mu_0 / (1-\mu_0)}\)</span>). It is important to note that the ratio estimands (e.g., risk ratio and odds ratio) are not averages of individual causal effects unless the effects are homogeneous across individuals. These estimands provide nuanced insights into treatment effects for binary outcomes, extending beyond the simple ATE to address specific contexts, especially in medical and epidemiological research.</p>
+</div>
+<div id="selection-bias-and-heterogeneous-treatment-effect-bias" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> Selection Bias and Heterogeneous Treatment Effect Bias<a href="counterfactual-framework.html#selection-bias-and-heterogeneous-treatment-effect-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The fundamental problem of causal inference prevents the direct calculation of causal effects, so researchers often rely on survey or administrative data to estimate them in economics, health, and social sciences. A common but flawed approach is interpreting raw differences in average outcomes between groups (e.g., treated versus untreated) as the Average Treatment Effect (ATE) of the treatment, intervention, or policy. This approach fails to account for confounding factors—factors that influence both treatment and outcome—and overlooks selection bias, arising from non-random assignment to the treatment group, as well as heterogeneous effects, caused by the differential impact of treatment on treated and control groups.</p>
+<p>Selection bias arises when the process determining treatment assignment is correlated with potential outcomes, leading to systematic differences between groups. For example, in observational studies, treatment is often not randomly assigned, and pre-existing differences between treated and untreated groups influence both the probability of receiving treatment and outcomes. As a result, the simple difference in average outcomes captures not just the treatment effect but also these underlying differences, conflating the two and biasing estimates.</p>
+<p>Our last table breaks down the observed and unobserved components of potential outcomes, helping us see how we calculate group averages and, ultimately, causal effects. For example, the column labeled <span class="math inline">\(E[Y(1)|D=1]\)</span> represents the average outcome for students who received the scholarship. We compute this by taking each treated student’s observed earnings and then averaging these values. Similarly, <span class="math inline">\(E[Y(0)|D=0]\)</span> is the average outcome for students who did not receive the scholarship, calculated by averaging their observed earnings.</p>
+<p>When we compute the simple difference <span class="math inline">\(E[Y|D=1] - E[Y|D=0]\)</span> (as shown in the “Simple Diff.” column), we are subtracting the average earnings of the control group from the treated group. However, this difference does not purely reflect the causal effect of the scholarship. Instead, it contains two components: the true treatment effect on the treated (ATT) and a term capturing selection bias.</p>
+<p>In our lasy table, the Average Treatment Effect on the Treated (ATT) focuses solely on the treated group. For students who receive the scholarship, the table shows their observed outcome under treatment—labeled as <span class="math inline">\(E[Y(1)|D=1]\)</span>—and it also reminds us that their potential outcome if they had not received the scholarship, <span class="math inline">\(E[Y(0)|D=1]\)</span>, is unobserved. The ATT captures the difference between these two values: it tells us how much, on average, the scholarship changes the earnings for the treated students compared to what their earnings would have been without the scholarship.</p>
+<p>We can express the simple difference by adding and subtracting the unobserved counterfactual average <span class="math inline">\(E[Y(0)|D=1]\)</span> from the treated group:</p>
+<p><span class="math display">\[\begin{align}
+\underbrace{\mathbb{E}[Y(1)\mid D=1] - \mathbb{E}[Y(0)\mid D=0]}_{\text{Simple Difference in average Outcomes (SDO)}}
+&amp;= \underbrace{\left(\mathbb{E}[Y(1)\mid D=1] - \mathbb{E}[Y(0)\mid D=1]\right)}_{\text{Average Treatment Effect on the Treated (ATT)}} \notag \\
+&amp;\quad + \underbrace{\left(\mathbb{E}[Y(0)\mid D=1] - \mathbb{E}[Y(0)\mid D=0]\right)}_{\text{Selection Bias}}
+\end{align}\]</span></p>
+<p>Here, the first term <span class="math inline">\(\{E[Y(1)|D=1]-E[Y(0)|D=1]\}\)</span> is the ATT—the true causal effect of receiving the scholarship for those who did. The second term <span class="math inline">\(\{E[Y(0)|D=1]-E[Y(0)|D=0]\}\)</span> is the selection bias, indicating that if treated students would have had different earnings than control students even without the scholarship, then part of the observed difference is due to these pre-existing differences rather than the treatment itself.</p>
+<p>For instance, if students who receive scholarships tend to come from backgrounds that predispose them to higher earnings (reflected in a higher <span class="math inline">\(E[Y(0)|D=1]\)</span> compared to <span class="math inline">\(E[Y(0)|D=0]\)</span>), then the selection bias term becomes positive. As a result, simply comparing average earnings would overstate the true effect of the scholarship. Similarly, in a health intervention study, individuals who choose to participate in a wellness program may already be more health-conscious and predisposed to better outcomes than those who opt out, regardless of the treatment itself. In both cases, observed differences in outcomes conflate the true causal effect with the effects of selection bias, making it impossible to interpret the results as causal without addressing this issue.</p>
+<p>In some cases, we can also relate the simple difference to the Average Treatment Effect (ATE) by a similar reasoning, leading to a decomposition where the naive difference equals the ATE plus a selection bias term that accounts for differences in potential outcomes between treated and control units.</p>
+<p>The goal of causal inference methods is to minimize or eliminate this bias by imposing identifying assumptions and using statistical techniques to adjust for these systematic differences. In the following chapters, we will explore these methods in detail, focusing on their ability to approximate the counterfactual outcomes for valid causal interpretation.</p>
+<p>Heterogeneous Treatment Effect Bias arises because treatments often affect individuals or groups differently. For example, a policy intervention may benefit some subgroups more than others, resulting in varying treatment effects across the population. The difference between the Average Treatment Effect on the Treated (ATT) and the Average Treatment Effect on the Untreated (ATU) reflects this heterogeneity. When multiplied by the proportion of the control group, <span class="math inline">\((1-\pi)(ATT - ATU)\)</span>, it quantifies the bias introduced by assuming homogeneous treatment effects.</p>
+<p>To simplify analysis, researchers often assume constant treatment effects (i.e., no heterogeneity), which eliminates this bias. Even though this is a strong assumption, this is very common and plausible in social sciences and economics as we want to analyze average effects, not individual effect. That average treatment/causal effect is presented either treatment effect for average person or “homogeneous” average treatment effect for everyone. However, recent advances in machine learning allow researchers to better capture and model heterogeneous treatment effects, enabling more granular and targeted policy insights.</p>
+<p>As we discussed above, the simple difference between the average outcomes of treated and untreated groups is often misinterpreted as the causal effect of treatment. This interpretation holds true only if selection bias and heterogeneous treatment effect bias are absent, which is rarely the case in practice. Addressing selection and heterogeneous treatment effect biases requires robust causal inference methods that impose appropriate identifying assumptions, helping to isolate the true treatment effect and ensure accurate estimates.</p>
+<p>This simple difference in outcomes between treated (<span class="math inline">\(D=1\)</span>) and untreated groups (<span class="math inline">\(D=0\)</span>) can be decomposed ATE, selection bias, and heterogeneous bias as:</p>
+<p><span class="math display">\[\begin{align}
+\underbrace{\mathbb{E}[Y_{i}(1) \mid D=1] - \mathbb{E}[Y_{i}(0) \mid D=0]}_{\text{Simple Difference in Outcomes (SDO)}}
+&amp;= \underbrace{\mathbb{E}[Y_{i}(1)] - \mathbb{E}[Y_{i}(0)]}_{\text{Average Treatment Effect (ATE)}} \notag \\
+&amp;\quad + \underbrace{\mathbb{E}[Y_{i}(0) \mid D=1] - \mathbb{E}[Y_{i}(0) \mid D=0]}_{\text{Selection Bias}} \notag \\
+&amp;\quad + \underbrace{(1-\pi)(ATT - ATU)}_{\text{Heterogeneous Treatment Effect Bias}}
+\end{align}\]</span></p>
+<p>where <span class="math inline">\((1-\pi)\)</span> is the proportion of the population in the control group.<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a> This decomposition highlights three key components: the true average treatment effect (ATE), selection bias, and heterogeneous treatment effect bias. ATE represents the true causal effect averaged over the entire population. It is the effect we aim to estimate but cannot observe directly due to the fundamental problem of causal inference—we only observe one potential outcome for each unit.The second and third term captures selection and heterogeneous treatment effect bias, which will be discussed below. These biases must be accounted for to estimate the true treatment effect accurately. All the methods in RCM framework we will discuss in the following sections and next chapter aim to address these biases and isolate the causal effect of treatment on the outcome. Let’s continue our discussion first discussing assumptions, then these biases and then with the parameters of interest in causal inference.</p>
+</div>
+<div id="limitations-of-rcm" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> Limitations of RCM:<a href="counterfactual-framework.html#limitations-of-rcm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The fundamental problem of causal inference makes ATE, ATT, ATU, LATE, and CATE unknowable since we can observe individuals in only one state (treated or untreated). To estimate these parameters, researchers rely on statistical methods under identifying assumptions by comparing treated and untreated groups. This estimation process raises several critical questions: Were units randomly assigned to treatment? Were the groups sufficiently large and similar? Was the treatment uniformly administered across all individuals? The answers to these questions determine the identification strategy and shape the choice of causal inference methods, which will be covered throughout this book. Each method seeks to overcome the limitations imposed by missing counterfactuals and to estimate treatment effects as accurately as possible given the data and assumptions at hand.</p>
+<p>Randomized Controlled Trials (RCTs) are the gold standard for causal inference, ensuring that treatment assignment is independent of potential outcomes. This eliminates selection bias, allowing direct estimation of causal effects with minimal assumptions. However, RCTs are often impractical due to ethical, logistical, or financial constraints. In such cases, researchers turn to quasi-experimental methods like matching, weighting, regression adjustment, instrumental variables, difference-in-differences, and regression discontinuity to approximate randomization and address selection bias.</p>
+<p>While the RCM is widely used in modern causal inference, it has limitations. One key criticism, highlighted by Heckman and Vytlacil (2007), its lack of external validity (cannot generalized to new settings or untested programs) and failure to provide insights into underlying mechanisms (treating interventions as “black boxes”) limit its generalizability. Angrist and Pischke (2010) argue that causal estimates under RCM are context-specific, requiring synthesis across studies for broader conclusions. Additionally, RCM estimands like ATE, ATT, and ATU may fail to guide marginal policy decisions or account for externalities, such as changes in scale or assignment mechanisms (Heckman et al., 1999).</p>
+<p>Alternative frameworks address some of these limitations. The Roy model incorporates self-selection by modeling individual decisions based on expected returns, enabling analysis of treatment effect heterogeneity. Directed Acyclic Graphs (DAGs), introduced by Judea Pearl, use graphical tools and “do-calculus” to represent causal relationships and identify effects. However, both frameworks have trade-offs. Roy models rely on strong parametric assumptions. DAGs are less common in economics due to their complexity, lack of focus on estimation, and challenges in modeling interference and simultaneity (Imbens, 2020).</p>
+<p>Finally, while machine learning cannot replace sound experimental design or credible assumptions, it improves causal analysis by improving flexibility, precision, and scalability, particularly in high-dimensional settings. As we transition to the next section on randomization, we will explore how RCTs address selection bias and why they remain the most robust method for identifying causal effects. For settings where randomization is not feasible, subsequent chapters will examine quasi-experimental methods to address the challenges of observational data and provide actionable insights for policy and research.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="38">
+<li id="fn38"><p>Counterfactual scenarios are a popular theme in literature, film, and TV, offering thought-provoking explorations of alternate realities. The movie <em>Sliding Doors</em> examines how a single missed train transforms a woman’s life, while Robert Frost’s poem <em>The Road Not Taken</em> poetically reflects on the choices that shape our paths. Similarly, <em>The Man in the High Castle</em> envisions a world where the Axis powers won World War II, and Philip Roth’s <em>The Plot Against America</em> reimagines U.S. history under a Lindbergh presidency. Documentaries like <em>The Fog of War</em> analyze pivotal decisions during conflicts, illustrating how alternative choices might have changed history. These examples mirror the counterfactual frameworks in causal inference, emphasizing how different “what if” scenarios reveal the impact of specific interventions or decisions.<a href="counterfactual-framework.html#fnref38" class="footnote-back">↩︎</a></p></li>
+<li id="fn39"><p>A distribution is simply a collection of data or scores on a variable, typically arranged from smallest to largest and often represented graphically. — Page 6, <em>Statistics in Plain English</em>, Third Edition, 2010.<a href="counterfactual-framework.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<li id="fn40"><p>Keep in my mind estimator is functions (statistics) of observed data, usually denote by a hat. For the same estimand, there can be multiple estimators. Desirable properties of estimators are Unbiased/Consistency and Efficiency (low variance).<a href="counterfactual-framework.html#fnref40" class="footnote-back">↩︎</a></p></li>
+<li id="fn41"><p>Detailed derivation of this equation is provided in section 4.1.3 of <em>Mixtape</em>. For more details, visit <a href="https://mixtape.scunning.com/04-potential_outcomes">https://mixtape.scunning.com/04-potential_outcomes</a>.<a href="counterfactual-framework.html#fnref41" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="boosting-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="randomized-controlled-trials.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/yihui/bookdown-crc/edit/master/16-Counterfactual.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown.pdf", "bookdown.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

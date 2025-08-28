@@ -1,32 +1,34 @@
-# Ignore everything
-*
+# Ignore source and working files not needed in the deployed site
 
-# But not these!
-!.gitignore
-!.nojekyll
-!_book/
-!_book/**
+# R/RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Rprofile
+*.Rproj
 
-# Optional: Ignore RStudio project/session files
-*.Rproj.user/
-*.Rhistory
-*.RData
-*.Rprofile
-
-# Ignore old folders, data, etc.
-old/
-data/
-SLIDES/
-my_dir/
-workingniceversion/
+# Bookdown build & project files
 _bookdown_files/
 *.Rmd
-*.bib
-*.csv
+*.R
 *.rds
+*.bib
 *.pdf
+*.csv
+*.xlsx
+*.txt
+*.docx
+
+# Source figures, working folders
 *.png
 *.jpg
 *.jpeg
-*.xlsx
-*.txt
+*.eps
+*.svg
+figure-html/
+old/
+data/
+workingniceversion/
+SLIDES/
+my_dir/
+

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 27 Synthetic DiD and Regression Discontinuity | Causal Inference and Machine Learning In Economics, Social, and Health Sciences</title>
+  <meta name="description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 27 Synthetic DiD and Regression Discontinuity | Causal Inference and Machine Learning In Economics, Social, and Health Sciences" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 27 Synthetic DiD and Regression Discontinuity | Causal Inference and Machine Learning In Economics, Social, and Health Sciences" />
+  
+  <meta name="twitter:description" content="Causal Inference and Machine Learning in Economics, Social, and Health Sciences" />
+  
+
+<meta name="author" content="Mutlu Yuksel and Yigit Aydede" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="difference-in-differences-and-dml-did.html"/>
+<link rel="next" href="time-series-forecasting.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference and Machine Learning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#why-this-book-why-now"><i class="fa fa-check"></i>Why This Book, Why Now</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#who-can-use-this-book"><i class="fa fa-check"></i>Who Can Use This Book?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#prediction-vs.-estimation"><i class="fa fa-check"></i><b>1.1</b> Prediction vs. Estimation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#applications-of-machine-learning-in-economics-and-social-sciences"><i class="fa fa-check"></i><b>1.2</b> Applications of Machine Learning in Economics and Social Sciences</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#machine-learning-and-econometrics-complementary-roles"><i class="fa fa-check"></i><b>1.3</b> Machine Learning and Econometrics: Complementary Roles</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#core-modeling-frameworks"><i class="fa fa-check"></i><b>1.4</b> Core Modeling Frameworks</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#statistical-vs.-machine-learning-paradigms"><i class="fa fa-check"></i><b>1.4.1</b> Statistical vs. Machine Learning Paradigms</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#parametric-and-nonparametric-models"><i class="fa fa-check"></i><b>1.4.2</b> Parametric and Nonparametric Models:</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#predictive-vs.-causal-thinking"><i class="fa fa-check"></i><b>1.4.3</b> Predictive vs. Causal Thinking</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#model-selection"><i class="fa fa-check"></i><b>1.4.4</b> Model Selection:</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#the-role-of-simulation"><i class="fa fa-check"></i><b>1.4.5</b> The Role of Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#concluding-remarks"><i class="fa fa-check"></i><b>1.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html"><i class="fa fa-check"></i><b>2</b> From Data to Causality</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#qualitative-and-quantitative-research-methods"><i class="fa fa-check"></i><b>2.1</b> Qualitative and Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#quantitative-research-methods"><i class="fa fa-check"></i><b>2.2</b> Quantitative Research Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#data-and-visualization"><i class="fa fa-check"></i><b>2.3</b> Data and Visualization</a></li>
+<li class="chapter" data-level="2.4" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation"><i class="fa fa-check"></i><b>2.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#correlation-and-regression"><i class="fa fa-check"></i><b>2.4.1</b> Correlation and Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#effect-of-x-on-y-regression"><i class="fa fa-check"></i><b>2.5</b> Effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> / Regression</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#how-can-we-estimate-the-population-parameters-beta_0-and-beta_1"><i class="fa fa-check"></i><b>2.5.1</b> How Can We Estimate the Population Parameters, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#from-estimation-to-prediction"><i class="fa fa-check"></i><b>2.5.2</b> From Estimation to Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="from-data-to-causality.html"><a href="from-data-to-causality.html#causal-effect"><i class="fa fa-check"></i><b>2.6</b> Causal Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="learning-systems.html"><a href="learning-systems.html"><i class="fa fa-check"></i><b>3</b> Learning Systems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="learning-systems.html"><a href="learning-systems.html#learning-systems-1"><i class="fa fa-check"></i><b>3.1</b> Learning Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>4</b> Error</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="error.html"><a href="error.html#estimation-error"><i class="fa fa-check"></i><b>4.1</b> Estimation error</a></li>
+<li class="chapter" data-level="4.2" data-path="error.html"><a href="error.html#efficiency"><i class="fa fa-check"></i><b>4.2</b> Efficiency</a></li>
+<li class="chapter" data-level="4.3" data-path="error.html"><a href="error.html#mean-square-error"><i class="fa fa-check"></i><b>4.3</b> Mean Square Error</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="error.html"><a href="error.html#from-one-random-sample-to-population-parameters"><i class="fa fa-check"></i><b>4.3.1</b> From one random sample to population parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="error.html"><a href="error.html#prediction-error--mspe"><i class="fa fa-check"></i><b>4.4</b> Prediction error- MSPE</a></li>
+<li class="chapter" data-level="4.5" data-path="error.html"><a href="error.html#technical-points-and-proofs"><i class="fa fa-check"></i><b>4.5</b> Technical points and proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html"><i class="fa fa-check"></i><b>5</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>5.1</b> Bias-Variance Trade-off</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-polynomial-regression"><i class="fa fa-check"></i><b>5.1.1</b> Simulation for Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#simulation-for-population-parameter"><i class="fa fa-check"></i><b>5.2</b> Simulation for Population Parameter</a></li>
+<li class="chapter" data-level="5.3" data-path="bias-variance-trade-off.html"><a href="bias-variance-trade-off.html#biased-estimator-as-a-predictor"><i class="fa fa-check"></i><b>5.3</b> Biased estimator as a predictor</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="overfitting.html"><a href="overfitting.html"><i class="fa fa-check"></i><b>6</b> Overfitting</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="overfitting.html"><a href="overfitting.html#out-sample-mspe"><i class="fa fa-check"></i><b>6.1</b> Out-sample MSPE</a></li>
+<li class="chapter" data-level="6.2" data-path="overfitting.html"><a href="overfitting.html#technical-points-about-out-sample-and-in-sample-mspe"><i class="fa fa-check"></i><b>6.2</b> Technical Points about Out-sample and In-sample MSPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html"><i class="fa fa-check"></i><b>7</b> Parametric Estimation - Basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#the-dichotomy-of-statistical-modeling"><i class="fa fa-check"></i><b>7.1</b> The Dichotomy of Statistical Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#data-versus-algorithmic-approaches"><i class="fa fa-check"></i><b>7.1.1</b> Data versus Algorithmic Approaches:</a></li>
+<li class="chapter" data-level="7.1.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-versus-nonparametric-models"><i class="fa fa-check"></i><b>7.1.2</b> Parametric versus Nonparametric Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#parametric-estimations"><i class="fa fa-check"></i><b>7.2</b> Parametric Estimations</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-probability-model-lpm"><i class="fa fa-check"></i><b>7.2.1</b> Linear Probability Model (LPM)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#logistic-regression"><i class="fa fa-check"></i><b>7.2.2</b> Logistic Regression</a></li>
+<li class="chapter" data-level="7.2.3" data-path="parametric-estimation---basics.html"><a href="parametric-estimation---basics.html#linear-vs.-logistic-probability-models"><i class="fa fa-check"></i><b>7.2.3</b> Linear vs. Logistic Probability Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html"><i class="fa fa-check"></i><b>8</b> Nonparametric Estimations - Basics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#density-estimation"><i class="fa fa-check"></i><b>8.1</b> Density Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#histogram-density-estimation"><i class="fa fa-check"></i><b>8.1.1</b> Histogram Density Estimation</a></li>
+<li class="chapter" data-level="8.1.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#naive-estimator-parzen-windows"><i class="fa fa-check"></i><b>8.1.2</b> Naive Estimator (Parzen Windows)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-density-estimation-kde"><i class="fa fa-check"></i><b>8.2</b> Kernel Density Estimation (KDE)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kde-vs-histogram"><i class="fa fa-check"></i><b>8.2.1</b> Simulation: KDE vs Histogram</a></li>
+<li class="chapter" data-level="8.2.2" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#prediction-with-kernel-density-estimation"><i class="fa fa-check"></i><b>8.2.2</b> Prediction with Kernel Density Estimation</a></li>
+<li class="chapter" data-level="8.2.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#kernel-regression"><i class="fa fa-check"></i><b>8.2.3</b> Kernel Regression</a></li>
+<li class="chapter" data-level="8.2.4" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#simulation-kernel-regression-example"><i class="fa fa-check"></i><b>8.2.4</b> Simulation: Kernel Regression Example</a></li>
+<li class="chapter" data-level="8.2.5" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#multivariate-and-additive-models"><i class="fa fa-check"></i><b>8.2.5</b> Multivariate and Additive Models</a></li>
+<li class="chapter" data-level="8.2.6" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#bandwidth-selection-in-kernel-density-estimation-and-kernel-regression"><i class="fa fa-check"></i><b>8.2.6</b> Bandwidth Selection in Kernel Density Estimation and Kernel Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="nonparametric-estimations---basics.html"><a href="nonparametric-estimations---basics.html#conclusion-remarks"><i class="fa fa-check"></i><b>8.3</b> Conclusion Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html"><i class="fa fa-check"></i><b>9</b> Hyperparameter Tuning</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#training-validation-and-test-data-sets"><i class="fa fa-check"></i><b>9.1</b> Training, Validation, and Test Data Sets</a></li>
+<li class="chapter" data-level="9.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#data-splitting"><i class="fa fa-check"></i><b>9.2</b> Data Splitting</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#how-can-we-split-the-data-randomly"><i class="fa fa-check"></i><b>9.2.1</b> How can we split the data randomly?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3</b> k-Fold Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#what-is-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> What is k-Fold Cross-Validation?</a></li>
+<li class="chapter" data-level="9.3.2" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#building-a-simple-k-fold-cross-validation-loop"><i class="fa fa-check"></i><b>9.3.2</b> Building a Simple k-Fold Cross-Validation Loop</a></li>
+<li class="chapter" data-level="9.3.3" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#advantages-of-k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.3</b> Advantages of k-Fold Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#grid-search"><i class="fa fa-check"></i><b>9.4</b> Grid Search</a></li>
+<li class="chapter" data-level="9.5" data-path="hyperparameter-tuning.html"><a href="hyperparameter-tuning.html#simulation-of-grid-search-with-cross-validation"><i class="fa fa-check"></i><b>9.5</b> Simulation of Grid Search With Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="classification.html"><a href="classification.html"><i class="fa fa-check"></i><b>10</b> Classification</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="classification.html"><a href="classification.html#classifying-handwritten-digits"><i class="fa fa-check"></i><b>10.1</b> Classifying Handwritten Digits</a></li>
+<li class="chapter" data-level="10.2" data-path="classification.html"><a href="classification.html#linear-classifiers"><i class="fa fa-check"></i><b>10.2</b> Linear Classifiers</a></li>
+<li class="chapter" data-level="10.3" data-path="classification.html"><a href="classification.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>10.3</b> k-Nearest Neighbors</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="classification.html"><a href="classification.html#example-finding-nearest-neighbors-with-k-2"><i class="fa fa-check"></i><b>10.3.1</b> Example: Finding Nearest Neighbors with <span class="math inline">\(k = 2\)</span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="classification.html"><a href="classification.html#more-realistic-example"><i class="fa fa-check"></i><b>10.3.2</b> More Realistic Example</a></li>
+<li class="chapter" data-level="10.3.3" data-path="classification.html"><a href="classification.html#mnist_27-dataset"><i class="fa fa-check"></i><b>10.3.3</b> <code>mnist_27</code> dataset</a></li>
+<li class="chapter" data-level="10.3.4" data-path="classification.html"><a href="classification.html#single-run-grid-search-for-k"><i class="fa fa-check"></i><b>10.3.4</b> Single-run grid search for k</a></li>
+<li class="chapter" data-level="10.3.5" data-path="classification.html"><a href="classification.html#multi-run-grid-search-training-the-model-for-k"><i class="fa fa-check"></i><b>10.3.5</b> Multi-run grid search (training the model) for k</a></li>
+<li class="chapter" data-level="10.3.6" data-path="classification.html"><a href="classification.html#grid-search-with-parallel-computing-mclapply"><i class="fa fa-check"></i><b>10.3.6</b> Grid search with parallel computing (<code>mclapply</code>)</a></li>
+<li class="chapter" data-level="10.3.7" data-path="classification.html"><a href="classification.html#knn3-from-caret-single-vs-parallel-core-application"><i class="fa fa-check"></i><b>10.3.7</b> <code>knn3</code> from <code>caret</code>: Single vs Parallel Core Application</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="classification.html"><a href="classification.html#tuning-in-classification"><i class="fa fa-check"></i><b>10.4</b> Tuning in Classification</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="classification.html"><a href="classification.html#confusion-matrix"><i class="fa fa-check"></i><b>10.4.1</b> Confusion Matrix</a></li>
+<li class="chapter" data-level="10.4.2" data-path="classification.html"><a href="classification.html#why-accuracy-can-be-misleading"><i class="fa fa-check"></i><b>10.4.2</b> Why Accuracy Can Be Misleading</a></li>
+<li class="chapter" data-level="10.4.3" data-path="classification.html"><a href="classification.html#performance-measures-beyond-accuracy"><i class="fa fa-check"></i><b>10.4.3</b> Performance Measures Beyond Accuracy</a></li>
+<li class="chapter" data-level="10.4.4" data-path="classification.html"><a href="classification.html#kappa-statistic"><i class="fa fa-check"></i><b>10.4.4</b> Kappa Statistic</a></li>
+<li class="chapter" data-level="10.4.5" data-path="classification.html"><a href="classification.html#youdens-j-statistic"><i class="fa fa-check"></i><b>10.4.5</b> Youden’s J Statistic</a></li>
+<li class="chapter" data-level="10.4.6" data-path="classification.html"><a href="classification.html#roc-curve"><i class="fa fa-check"></i><b>10.4.6</b> ROC Curve</a></li>
+<li class="chapter" data-level="10.4.7" data-path="classification.html"><a href="classification.html#roc-curve-and-auc"><i class="fa fa-check"></i><b>10.4.7</b> ROC Curve and AUC</a></li>
+<li class="chapter" data-level="10.4.8" data-path="classification.html"><a href="classification.html#using-rocr-and-proc-packages"><i class="fa fa-check"></i><b>10.4.8</b> Using <code>ROCR</code> and <code>pROC</code> packages</a></li>
+<li class="chapter" data-level="10.4.9" data-path="classification.html"><a href="classification.html#tuning-knn-with-auc"><i class="fa fa-check"></i><b>10.4.9</b> Tuning kNN with AUC</a></li>
+<li class="chapter" data-level="10.4.10" data-path="classification.html"><a href="classification.html#test-score-and-threshold"><i class="fa fa-check"></i><b>10.4.10</b> Test Score and Threshold</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="classification.html"><a href="classification.html#conclusion"><i class="fa fa-check"></i><b>10.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html"><i class="fa fa-check"></i><b>11</b> Model Selection and Sparsity</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-econometrics"><i class="fa fa-check"></i><b>11.1</b> Model Selection in Econometrics</a></li>
+<li class="chapter" data-level="11.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-assessment-criteria"><i class="fa fa-check"></i><b>11.2</b> Model Assessment Criteria</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#adjusted-r2-as-a-model-selection-criterion"><i class="fa fa-check"></i><b>11.2.1</b> Adjusted <span class="math inline">\(R^2\)</span> as a Model Selection Criterion</a></li>
+<li class="chapter" data-level="11.2.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#mallows-c_p-statistic"><i class="fa fa-check"></i><b>11.2.2</b> Mallows’ <span class="math inline">\(C_p\)</span> Statistic</a></li>
+<li class="chapter" data-level="11.2.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>11.2.3</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>11.2.4</b> Bayesian Information Criterion (BIC)</a></li>
+<li class="chapter" data-level="11.2.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#cross-validation-and-bootstrap-methods"><i class="fa fa-check"></i><b>11.2.5</b> Cross-Validation and Bootstrap Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#subset-variable-selection-methods"><i class="fa fa-check"></i><b>11.3</b> Subset Variable Selection Methods</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#best-subset-selection"><i class="fa fa-check"></i><b>11.3.1</b> Best Subset Selection</a></li>
+<li class="chapter" data-level="11.3.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#forward-selection"><i class="fa fa-check"></i><b>11.3.2</b> Forward Selection</a></li>
+<li class="chapter" data-level="11.3.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#backward-selection"><i class="fa fa-check"></i><b>11.3.3</b> Backward Selection</a></li>
+<li class="chapter" data-level="11.3.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#hybrid-stepwise-selection"><i class="fa fa-check"></i><b>11.3.4</b> Hybrid (Stepwise) Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#selecting-functional-form-in-econometric-models"><i class="fa fa-check"></i><b>11.4</b> Selecting Functional Form in Econometric Models</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#functional-forms-and-transformations"><i class="fa fa-check"></i><b>11.4.1</b> Functional Forms and Transformations</a></li>
+<li class="chapter" data-level="11.4.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#models-with-structural-changes-piecewise-linear-models"><i class="fa fa-check"></i><b>11.4.2</b> Models with Structural Changes: Piecewise Linear Models</a></li>
+<li class="chapter" data-level="11.4.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#extensions-and-alternative-methods"><i class="fa fa-check"></i><b>11.4.3</b> Extensions and Alternative Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#model-selection-in-machine-learning"><i class="fa fa-check"></i><b>11.5</b> Model Selection in Machine Learning</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#comparing-prediction-models"><i class="fa fa-check"></i><b>11.5.1</b> Comparing Prediction Models</a></li>
+<li class="chapter" data-level="11.5.2" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#balancing-interpretability-and-predictive-accuracy"><i class="fa fa-check"></i><b>11.5.2</b> Balancing Interpretability and Predictive Accuracy</a></li>
+<li class="chapter" data-level="11.5.3" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#practical-guidelines"><i class="fa fa-check"></i><b>11.5.3</b> Practical Guidelines:</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#sparsity-in-model-selection"><i class="fa fa-check"></i><b>11.6</b> Sparsity in Model Selection</a></li>
+<li class="chapter" data-level="11.7" data-path="model-selection-and-sparsity.html"><a href="model-selection-and-sparsity.html#oracle-properties-in-model-selection"><i class="fa fa-check"></i><b>11.7</b> Oracle Properties in Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html"><i class="fa fa-check"></i><b>12</b> Penalized Regression Methods</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#ridge-regression"><i class="fa fa-check"></i><b>12.1</b> Ridge Regression</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#standardization-of-predictors"><i class="fa fa-check"></i><b>12.1.1</b> Standardization of Predictors</a></li>
+<li class="chapter" data-level="12.1.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-ridge-regression"><i class="fa fa-check"></i><b>12.1.2</b> Implementation and Simulation of Ridge Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#lasso-regression"><i class="fa fa-check"></i><b>12.2</b> Lasso Regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#coordinate-descent-for-lasso-regression"><i class="fa fa-check"></i><b>12.2.1</b> Coordinate Descent for Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#least-angle-regression-lars-for-lasso"><i class="fa fa-check"></i><b>12.2.2</b> Least Angle Regression (LARS) for Lasso</a></li>
+<li class="chapter" data-level="12.2.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#differences-between-coordinate-descent-and-lars"><i class="fa fa-check"></i><b>12.2.3</b> Differences Between Coordinate Descent and LARS</a></li>
+<li class="chapter" data-level="12.2.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-lasso-regression"><i class="fa fa-check"></i><b>12.2.4</b> Implementation and Simulation of Lasso Regression</a></li>
+<li class="chapter" data-level="12.2.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#the-relationship-between-the-lasso-and-ols-coefficient-estimates"><i class="fa fa-check"></i><b>12.2.5</b> The relationship between the Lasso and OLS coefficient estimates</a></li>
+<li class="chapter" data-level="12.2.6" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-1"><i class="fa fa-check"></i><b>12.2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#adaptive-lasso"><i class="fa fa-check"></i><b>12.3</b> Adaptive Lasso</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#steps-in-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.1</b> Steps in Adaptive Lasso:</a></li>
+<li class="chapter" data-level="12.3.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-adaptive-lasso"><i class="fa fa-check"></i><b>12.3.2</b> Implementation and Simulation of Adaptive Lasso</a></li>
+<li class="chapter" data-level="12.3.3" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-2"><i class="fa fa-check"></i><b>12.3.3</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#elastic-net-regression"><i class="fa fa-check"></i><b>12.4</b> Elastic Net Regression</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#implementation-and-simulation-of-elastic-net"><i class="fa fa-check"></i><b>12.4.1</b> Implementation and Simulation of Elastic Net</a></li>
+<li class="chapter" data-level="12.4.2" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#conclusion-3"><i class="fa fa-check"></i><b>12.4.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="penalized-regression-methods.html"><a href="penalized-regression-methods.html#technical-derivation-of-ridge-regression-estimator"><i class="fa fa-check"></i><b>12.5</b> Technical: Derivation of Ridge Regression Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html"><i class="fa fa-check"></i><b>13</b> Classification and Regression Trees (CART)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#basic-concepts"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#gini-index---impurity-measure"><i class="fa fa-check"></i><b>13.1.1</b> Gini index - Impurity measure</a></li>
+<li class="chapter" data-level="13.1.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#finding-the-split"><i class="fa fa-check"></i><b>13.1.2</b> Finding the split</a></li>
+<li class="chapter" data-level="13.1.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#can-we-find-a-better-split"><i class="fa fa-check"></i><b>13.1.3</b> Can we find a better split?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#function-to-find-the-important-variables-and-gains"><i class="fa fa-check"></i><b>13.1.4</b> Function to find the important variables and gains</a></li>
+<li class="chapter" data-level="13.1.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#the-second-split"><i class="fa fa-check"></i><b>13.1.5</b> The Second Split</a></li>
+<li class="chapter" data-level="13.1.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#variable-importance---easy-and-heuristic-way"><i class="fa fa-check"></i><b>13.1.6</b> Variable Importance - Easy and heuristic way</a></li>
+<li class="chapter" data-level="13.1.7" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#recursive-partitioning---the-tree-model"><i class="fa fa-check"></i><b>13.1.7</b> Recursive partitioning - The tree model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#step-by-step-tree-construction-for-binary-classification"><i class="fa fa-check"></i><b>13.2</b> Step-by-Step Tree Construction for Binary Classification</a></li>
+<li class="chapter" data-level="13.3" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#classification-decision-trees-with-rpart"><i class="fa fa-check"></i><b>13.3</b> Classification Decision Trees with <code>rpart</code></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#pruning-the-tree"><i class="fa fa-check"></i><b>13.3.1</b> Pruning the Tree</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#regression-trees"><i class="fa fa-check"></i><b>13.4</b> Regression Trees</a></li>
+<li class="chapter" data-level="13.5" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#building-and-interpreting-regression-trees-with-rpart-a-step-by-step-guide"><i class="fa fa-check"></i><b>13.5</b> Building and Interpreting Regression Trees with <code>rpart</code>: A Step-by-Step Guide</a></li>
+<li class="chapter" data-level="13.6" data-path="classification-and-regression-trees-cart.html"><a href="classification-and-regression-trees-cart.html#additional-considerations-and-extensions-for-regression-trees"><i class="fa fa-check"></i><b>13.6</b> Additional Considerations and Extensions for Regression Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html"><i class="fa fa-check"></i><b>14</b> Ensemble Learning and Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#bagging-bootstrap-aggregating"><i class="fa fa-check"></i><b>14.1</b> Bagging (Bootstrap Aggregating)</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#application-with-multiple-splits"><i class="fa fa-check"></i><b>14.1.1</b> Application with multiple splits</a></li>
+<li class="chapter" data-level="14.1.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#tuning"><i class="fa fa-check"></i><b>14.1.2</b> Tuning?</a></li>
+<li class="chapter" data-level="14.1.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#using-out-of-bag-oob-error"><i class="fa fa-check"></i><b>14.1.3</b> Using Out-of-Bag (OOB) Error</a></li>
+<li class="chapter" data-level="14.1.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#oob-error-rate"><i class="fa fa-check"></i><b>14.1.4</b> OOB error rate</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>14.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#random-forest-like-variable-selection"><i class="fa fa-check"></i><b>14.2.1</b> Random Forest-like Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#implementing-random-forest-in-r"><i class="fa fa-check"></i><b>14.3</b> Implementing Random Forest in R</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#building-a-random-forest-model-on-titanic-data"><i class="fa fa-check"></i><b>14.3.1</b> Building a Random Forest Model on Titanic Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#auc"><i class="fa fa-check"></i><b>14.3.2</b> AUC</a></li>
+<li class="chapter" data-level="14.3.3" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#regression-hitters"><i class="fa fa-check"></i><b>14.3.3</b> Regression: Hitters</a></li>
+<li class="chapter" data-level="14.3.4" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#importance-of-variables"><i class="fa fa-check"></i><b>14.3.4</b> Importance of Variables</a></li>
+<li class="chapter" data-level="14.3.5" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#local-importance"><i class="fa fa-check"></i><b>14.3.5</b> Local Importance</a></li>
+<li class="chapter" data-level="14.3.6" data-path="ensemble-learning-and-random-forest.html"><a href="ensemble-learning-and-random-forest.html#randomforestexplainer"><i class="fa fa-check"></i><b>14.3.6</b> <code>randomForestExplainer</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boosting-1.html"><a href="boosting-1.html"><i class="fa fa-check"></i><b>15</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="boosting-1.html"><a href="boosting-1.html#types-of-boosting-models"><i class="fa fa-check"></i><b>15.1</b> Types of Boosting Models</a></li>
+<li class="chapter" data-level="15.2" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-machines-gbm"><i class="fa fa-check"></i><b>15.2</b> Gradient Boosting Machines (GBM)</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="boosting-1.html"><a href="boosting-1.html#gradient-boosting-algorithm-steps"><i class="fa fa-check"></i><b>15.2.1</b> Gradient Boosting Algorithm Steps</a></li>
+<li class="chapter" data-level="15.2.2" data-path="boosting-1.html"><a href="boosting-1.html#hyperparameter-tuning-in-gbm"><i class="fa fa-check"></i><b>15.2.2</b> Hyperparameter Tuning in GBM</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="boosting-1.html"><a href="boosting-1.html#gbm-in-r"><i class="fa fa-check"></i><b>15.3</b> GBM in R</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="boosting-1.html"><a href="boosting-1.html#variable-importance-in-gbm"><i class="fa fa-check"></i><b>15.3.1</b> Variable Importance in GBM</a></li>
+<li class="chapter" data-level="15.3.2" data-path="boosting-1.html"><a href="boosting-1.html#external-training"><i class="fa fa-check"></i><b>15.3.2</b> External Training</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="boosting-1.html"><a href="boosting-1.html#adaboost"><i class="fa fa-check"></i><b>15.4</b> AdaBoost</a></li>
+<li class="chapter" data-level="15.5" data-path="boosting-1.html"><a href="boosting-1.html#xgboost"><i class="fa fa-check"></i><b>15.5</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="boosting-1.html"><a href="boosting-1.html#regression-example"><i class="fa fa-check"></i><b>15.5.1</b> Regression Example</a></li>
+<li class="chapter" data-level="15.5.2" data-path="boosting-1.html"><a href="boosting-1.html#classification-example"><i class="fa fa-check"></i><b>15.5.2</b> Classification Example</a></li>
+<li class="chapter" data-level="15.5.3" data-path="boosting-1.html"><a href="boosting-1.html#tuning-in-xgboost"><i class="fa fa-check"></i><b>15.5.3</b> Tuning in XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="boosting-1.html"><a href="boosting-1.html#the-implementation-of-boosting-methods"><i class="fa fa-check"></i><b>15.6</b> The Implementation of Boosting Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html"><i class="fa fa-check"></i><b>16</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#counterfactual-framework-1"><i class="fa fa-check"></i><b>16.1</b> Counterfactual Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#assumptions-of-the-rubin-causal-model"><i class="fa fa-check"></i><b>16.1.1</b> Assumptions of the Rubin Causal Model:</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#average-treatment-effects"><i class="fa fa-check"></i><b>16.2</b> Average Treatment Effects:</a></li>
+<li class="chapter" data-level="16.3" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#selection-bias-and-heterogeneous-treatment-effect-bias"><i class="fa fa-check"></i><b>16.3</b> Selection Bias and Heterogeneous Treatment Effect Bias</a></li>
+<li class="chapter" data-level="16.4" data-path="counterfactual-framework.html"><a href="counterfactual-framework.html#limitations-of-rcm"><i class="fa fa-check"></i><b>16.4</b> Limitations of RCM:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html"><i class="fa fa-check"></i><b>17</b> Randomized Controlled Trials</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#key-assumptions"><i class="fa fa-check"></i><b>17.1</b> Key Assumptions</a></li>
+<li class="chapter" data-level="17.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#randomization-inference"><i class="fa fa-check"></i><b>17.2</b> Randomization Inference</a></li>
+<li class="chapter" data-level="17.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#linear-regression-in-rcts"><i class="fa fa-check"></i><b>17.3</b> Linear Regression in RCTs</a></li>
+<li class="chapter" data-level="17.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-adjustment-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4</b> Regression Adjustment in Randomized Experiments</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#residual-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.1</b> Residual strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.2" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#regression-strategy-in-randomized-experiments"><i class="fa fa-check"></i><b>17.4.2</b> Regression strategy in Randomized Experiments</a></li>
+<li class="chapter" data-level="17.4.3" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#single-regression-with-covariate-adjustment"><i class="fa fa-check"></i><b>17.4.3</b> Single Regression with Covariate Adjustment</a></li>
+<li class="chapter" data-level="17.4.4" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#simulation-covariate-adjustment-in-rcts"><i class="fa fa-check"></i><b>17.4.4</b> Simulation: Covariate Adjustment in RCTs</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#fishers-randomization-inference"><i class="fa fa-check"></i><b>17.5</b> Fisher’s Randomization Inference</a></li>
+<li class="chapter" data-level="17.6" data-path="randomized-controlled-trials.html"><a href="randomized-controlled-trials.html#challenges-in-randomized-controlled-trials"><i class="fa fa-check"></i><b>17.6</b> Challenges in Randomized Controlled Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="selection-on-observables.html"><a href="selection-on-observables.html"><i class="fa fa-check"></i><b>18</b> Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#assumptions-and-definitions-behind-selection-on-observables"><i class="fa fa-check"></i><b>18.1</b> Assumptions and Definitions Behind Selection on Observables</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#conditional-independence-assumption-unconfoundedness"><i class="fa fa-check"></i><b>18.1.1</b> Conditional Independence Assumption (Unconfoundedness)</a></li>
+<li class="chapter" data-level="18.1.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#common-support-assumption-overlap-condition"><i class="fa fa-check"></i><b>18.1.2</b> Common Support Assumption (Overlap Condition)</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#defining-the-conditional-average-treatment-effect"><i class="fa fa-check"></i><b>18.2</b> Defining the (Conditional) Average Treatment Effect</a></li>
+<li class="chapter" data-level="18.3" data-path="selection-on-observables.html"><a href="selection-on-observables.html#regression-based-estimation-methods"><i class="fa fa-check"></i><b>18.3</b> Regression-Based Estimation Methods</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="selection-on-observables.html"><a href="selection-on-observables.html#separate-regressions-for-treated-and-control-groups"><i class="fa fa-check"></i><b>18.3.1</b> Separate Regressions for Treated and Control Groups</a></li>
+<li class="chapter" data-level="18.3.2" data-path="selection-on-observables.html"><a href="selection-on-observables.html#single-regression-with-covariate-adjustment-1"><i class="fa fa-check"></i><b>18.3.2</b> Single Regression with Covariate Adjustment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="double-machine-learning.html"><a href="double-machine-learning.html"><i class="fa fa-check"></i><b>19</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#double-machine-learning-1"><i class="fa fa-check"></i><b>19.1</b> Double Machine Learning</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#brief-practical-framework-dml1-dml2-for-lasso"><i class="fa fa-check"></i><b>19.1.1</b> Brief Practical Framework (DML1 &amp; DML2 for LASSO)</a></li>
+<li class="chapter" data-level="19.1.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#inference-and-robust-standard-errors"><i class="fa fa-check"></i><b>19.1.2</b> Inference and Robust Standard Errors</a></li>
+<li class="chapter" data-level="19.1.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-dm1-lasso-and-simulation"><i class="fa fa-check"></i><b>19.1.3</b> Step-by-step DM1-LASSO and Simulation</a></li>
+<li class="chapter" data-level="19.1.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml1"><i class="fa fa-check"></i><b>19.1.4</b> Simulation for DML1:</a></li>
+<li class="chapter" data-level="19.1.5" data-path="double-machine-learning.html"><a href="double-machine-learning.html#step-by-step-procedure-for-dml2-lasso"><i class="fa fa-check"></i><b>19.1.5</b> Step-by-step procedure for DML2-LASSO:</a></li>
+<li class="chapter" data-level="19.1.6" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2"><i class="fa fa-check"></i><b>19.1.6</b> Simulation for DML2:</a></li>
+<li class="chapter" data-level="19.1.7" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2-lasso-with-the-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.7</b> DML2-Lasso with the Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.8" data-path="double-machine-learning.html"><a href="double-machine-learning.html#simulation-for-dml2-with-plug-in-penalty"><i class="fa fa-check"></i><b>19.1.8</b> Simulation for DML2 with Plug-In Penalty</a></li>
+<li class="chapter" data-level="19.1.9" data-path="double-machine-learning.html"><a href="double-machine-learning.html#sparsity-in-dml-lasso"><i class="fa fa-check"></i><b>19.1.9</b> Sparsity in DML-Lasso:</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2--decision-trees"><i class="fa fa-check"></i><b>19.2</b> DML2 -Decision Trees</a></li>
+<li class="chapter" data-level="19.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#dml2---random-forest"><i class="fa fa-check"></i><b>19.3</b> DML2 - Random Forest</a></li>
+<li class="chapter" data-level="19.4" data-path="double-machine-learning.html"><a href="double-machine-learning.html#technical-notes-from-fwl-to-dml"><i class="fa fa-check"></i><b>19.4</b> Technical Notes: From FWL to DML</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="double-machine-learning.html"><a href="double-machine-learning.html#frisch-waugh-lovell-theorem"><i class="fa fa-check"></i><b>19.4.1</b> Frisch-Waugh-Lovell Theorem</a></li>
+<li class="chapter" data-level="19.4.2" data-path="double-machine-learning.html"><a href="double-machine-learning.html#from-fwl-to-double-machine-learning-dml"><i class="fa fa-check"></i><b>19.4.2</b> From FWL to Double Machine Learning (DML):</a></li>
+<li class="chapter" data-level="19.4.3" data-path="double-machine-learning.html"><a href="double-machine-learning.html#debiased-lasso"><i class="fa fa-check"></i><b>19.4.3</b> Debiased LASSO</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="matching-methods.html"><a href="matching-methods.html"><i class="fa fa-check"></i><b>20</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="matching-methods.html"><a href="matching-methods.html#subclassification-or-stratification"><i class="fa fa-check"></i><b>20.1</b> Subclassification or Stratification</a></li>
+<li class="chapter" data-level="20.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-1"><i class="fa fa-check"></i><b>20.2</b> Matching Methods</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="matching-methods.html"><a href="matching-methods.html#factors-influence-the-implementation-of-matching-methods"><i class="fa fa-check"></i><b>20.2.1</b> Factors influence the implementation of matching methods:</a></li>
+<li class="chapter" data-level="20.2.2" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance"><i class="fa fa-check"></i><b>20.2.2</b> Assessing Balance</a></li>
+<li class="chapter" data-level="20.2.3" data-path="matching-methods.html"><a href="matching-methods.html#matching-benefits-and-limitations"><i class="fa fa-check"></i><b>20.2.3</b> Matching: Benefits and Limitations</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="matching-methods.html"><a href="matching-methods.html#propensity-score-matching-psm"><i class="fa fa-check"></i><b>20.3</b> Propensity Score Matching (PSM)</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="matching-methods.html"><a href="matching-methods.html#estimating-the-propensity-score"><i class="fa fa-check"></i><b>20.3.1</b> Estimating the Propensity Score</a></li>
+<li class="chapter" data-level="20.3.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-methods-in-psm"><i class="fa fa-check"></i><b>20.3.2</b> Matching Methods in PSM</a></li>
+<li class="chapter" data-level="20.3.3" data-path="matching-methods.html"><a href="matching-methods.html#assessing-balance-in-psm"><i class="fa fa-check"></i><b>20.3.3</b> Assessing Balance in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="matching-methods.html"><a href="matching-methods.html#calculation-of-treatment-effects"><i class="fa fa-check"></i><b>20.4</b> Calculation of Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="matching-methods.html"><a href="matching-methods.html#regression-adjustment-including-propensity-score"><i class="fa fa-check"></i><b>20.4.1</b> Regression Adjustment Including Propensity Score</a></li>
+<li class="chapter" data-level="20.4.2" data-path="matching-methods.html"><a href="matching-methods.html#matching-and-stratification-on-propensity-score"><i class="fa fa-check"></i><b>20.4.2</b> Matching and Stratification on Propensity Score</a></li>
+<li class="chapter" data-level="20.4.3" data-path="matching-methods.html"><a href="matching-methods.html#estimation-of-standard-errors-in-psm"><i class="fa fa-check"></i><b>20.4.3</b> Estimation of Standard Errors in PSM</a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="matching-methods.html"><a href="matching-methods.html#integrating-xgboost-with-matchit-for-propensity-score-matching"><i class="fa fa-check"></i><b>20.5</b> Integrating XGBoost with MatchIt for Propensity Score Matching</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html"><i class="fa fa-check"></i><b>21</b> Inverse Weighting and Doubly Robust Estimation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#inverse-probability-weighting-ipw"><i class="fa fa-check"></i><b>21.1</b> Inverse Probability Weighting (IPW)</a></li>
+<li class="chapter" data-level="21.2" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#doubly-robust-estimators---aipw"><i class="fa fa-check"></i><b>21.2</b> Doubly Robust Estimators - AIPW</a></li>
+<li class="chapter" data-level="21.3" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#challenges-of-selection-on-observables"><i class="fa fa-check"></i><b>21.3</b> Challenges of Selection on Observables</a></li>
+<li class="chapter" data-level="21.4" data-path="inverse-weighting-and-doubly-robust-estimation.html"><a href="inverse-weighting-and-doubly-robust-estimation.html#technical-note-derivation-and-doubly-robust-of-the-aipw-estimator"><i class="fa fa-check"></i><b>21.4</b> Technical Note: Derivation and Doubly robust of the AIPW Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html"><i class="fa fa-check"></i><b>22</b> Selection on Unobservables and DML-IV</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>22.1</b> Instrumental Variables (IV):</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#core-iv-concepts"><i class="fa fa-check"></i><b>22.1.1</b> Core IV Concepts</a></li>
+<li class="chapter" data-level="22.1.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-potential-outcomes-framework-and-rcts"><i class="fa fa-check"></i><b>22.1.2</b> IV in the Potential Outcomes Framework and RCTs</a></li>
+<li class="chapter" data-level="22.1.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#iv-in-the-observational-data"><i class="fa fa-check"></i><b>22.1.3</b> IV in the Observational Data</a></li>
+<li class="chapter" data-level="22.1.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#weak-instrument"><i class="fa fa-check"></i><b>22.1.4</b> Weak Instrument</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-iv-dml-iv"><i class="fa fa-check"></i><b>22.2</b> Double Machine Learning IV (DML-IV)</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#structural-model-and-instrumental-variables-estimation"><i class="fa fa-check"></i><b>22.2.1</b> Structural Model and Instrumental Variables Estimation</a></li>
+<li class="chapter" data-level="22.2.2" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#double-machine-learning-dml-iv-estimation"><i class="fa fa-check"></i><b>22.2.2</b> Double Machine Learning (DML-IV) Estimation</a></li>
+<li class="chapter" data-level="22.2.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#neyman-orthogonality-and-robustness"><i class="fa fa-check"></i><b>22.2.3</b> Neyman Orthogonality and Robustness</a></li>
+<li class="chapter" data-level="22.2.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#algorithm-dml-iv"><i class="fa fa-check"></i><b>22.2.4</b> Algorithm: DML-IV</a></li>
+<li class="chapter" data-level="22.2.5" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-lasso"><i class="fa fa-check"></i><b>22.2.5</b> DML2-IV Simulation using LASSO</a></li>
+<li class="chapter" data-level="22.2.6" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#dml2-iv-simulation-using-random-forest"><i class="fa fa-check"></i><b>22.2.6</b> DML2-IV Simulation using RANDOM FOREST</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#closing-remarks-ml-for-iv"><i class="fa fa-check"></i><b>22.3</b> Closing Remarks: ML for IV</a></li>
+<li class="chapter" data-level="22.4" data-path="selection-on-unobservables-and-dml-iv.html"><a href="selection-on-unobservables-and-dml-iv.html#technical-connecting-iv-to-potential-outcomes-to-2sls"><i class="fa fa-check"></i><b>22.4</b> Technical: Connecting IV to potential outcomes to 2sls</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html"><i class="fa fa-check"></i><b>23</b> Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-approaches-to-estimating-heterogeneous-treatment-effects"><i class="fa fa-check"></i><b>23.1</b> Parametric Approaches to Estimating Heterogeneous Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#interaction-models-in-linear-regression"><i class="fa fa-check"></i><b>23.1.1</b> Interaction Models in Linear Regression</a></li>
+<li class="chapter" data-level="23.1.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#stratified-or-subgroup-analysis"><i class="fa fa-check"></i><b>23.1.2</b> Stratified or Subgroup Analysis</a></li>
+<li class="chapter" data-level="23.1.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#parametric-generalized-linear-models-glms"><i class="fa fa-check"></i><b>23.1.3</b> Parametric Generalized Linear Models (GLMs)</a></li>
+<li class="chapter" data-level="23.1.4" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#random-coefficients-models"><i class="fa fa-check"></i><b>23.1.4</b> Random Coefficients Models</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#double-machine-learning-for-conditional-average-treatment-effects-cate"><i class="fa fa-check"></i><b>23.2</b> Double Machine Learning for Conditional Average Treatment Effects (CATE)</a></li>
+<li class="chapter" data-level="23.3" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#fully-nonparametric-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3</b> Fully Nonparametric Methods for HTE Estimation</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#matching-and-weighting-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.1</b> Matching and Weighting Methods for HTE Estimation</a></li>
+<li class="chapter" data-level="23.3.2" data-path="heterogeneous-treatment-effects.html"><a href="heterogeneous-treatment-effects.html#kernel-based-methods-for-hte-estimation"><i class="fa fa-check"></i><b>23.3.2</b> Kernel-Based Methods for HTE Estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html"><i class="fa fa-check"></i><b>24</b> Causal Trees and Forests</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#honest-causal-tree-ct-h-method"><i class="fa fa-check"></i><b>24.1</b> Honest Causal Tree (CT-H) Method</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#ct-h-algorithm"><i class="fa fa-check"></i><b>24.1.1</b> CT-H Algorithm:</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-honest-causal-tree"><i class="fa fa-check"></i><b>24.1.2</b> Simulation: Honest Causal Tree</a></li>
+<li class="chapter" data-level="24.1.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#causal-random-forests-ensemble-methods-for-hte-and-inference"><i class="fa fa-check"></i><b>24.1.3</b> “Causal” Random Forests: Ensemble Methods for HTE and Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#generalized-random-forests-grf"><i class="fa fa-check"></i><b>24.2</b> Generalized Random Forests (GRF)</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#grf-algorithm"><i class="fa fa-check"></i><b>24.2.1</b> GRF Algorithm:</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#simulation-with-grf-package-in-r"><i class="fa fa-check"></i><b>24.2.2</b> Simulation with GRF package in R:</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#application-of-causal-forests-in-economics-health-and-social-sciences"><i class="fa fa-check"></i><b>24.3</b> Application of Causal Forests in Economics, Health and Social Sciences</a></li>
+<li class="chapter" data-level="24.4" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#technical-optimizing-causal-forests-and-derivations"><i class="fa fa-check"></i><b>24.4</b> Technical: Optimizing Causal Forests and Derivations</a>
+<ul>
+<li class="chapter" data-level="24.4.1" data-path="causal-trees-and-forests.html"><a href="causal-trees-and-forests.html#equivalence-of-step-4-estimators-in-the-grf-algorithm-for-the-causal-forest"><i class="fa fa-check"></i><b>24.4.1</b> Equivalence of Step 4 Estimators in the <code>grf</code> Algorithm for the Causal Forest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html"><i class="fa fa-check"></i><b>25</b> Meta Learners for Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#meta-learners-and-cate"><i class="fa fa-check"></i><b>25.1</b> Meta Learners and CATE</a></li>
+<li class="chapter" data-level="25.2" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#s-learner-single-model-approach"><i class="fa fa-check"></i><b>25.2</b> S-Learner (Single Model Approach)</a></li>
+<li class="chapter" data-level="25.3" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#t-learner-separate-models-for-treatment-and-control"><i class="fa fa-check"></i><b>25.3</b> T-Learner (Separate Models for Treatment and Control)</a>
+<ul>
+<li class="chapter" data-level="25.3.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-s-learner-and-t-learner"><i class="fa fa-check"></i><b>25.3.1</b> Simulation of S-Learner and T-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.4" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#x-learner-cross-fitting"><i class="fa fa-check"></i><b>25.4</b> X-Learner (Cross-Fitting)</a>
+<ul>
+<li class="chapter" data-level="25.4.1" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#simulation-of-x-learner"><i class="fa fa-check"></i><b>25.4.1</b> Simulation of X-Learner</a></li>
+</ul></li>
+<li class="chapter" data-level="25.5" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#r-learner-residualized-estimation"><i class="fa fa-check"></i><b>25.5</b> R-Learner (Residualized Estimation)</a></li>
+<li class="chapter" data-level="25.6" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#dr-learner-doubly-robust-learner"><i class="fa fa-check"></i><b>25.6</b> DR-Learner (Doubly Robust Learner)</a></li>
+<li class="chapter" data-level="25.7" data-path="meta-learners-for-treatment-effects.html"><a href="meta-learners-for-treatment-effects.html#cate-vs.-ite"><i class="fa fa-check"></i><b>25.7</b> CATE vs. ITE</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html"><i class="fa fa-check"></i><b>26</b> Difference in Differences and DML-DiD</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#panel-data-fixed-effects-and-causal-inference"><i class="fa fa-check"></i><b>26.1</b> Panel Data, Fixed Effects, and Causal Inference</a></li>
+<li class="chapter" data-level="26.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#difference-in-differences-did"><i class="fa fa-check"></i><b>26.2</b> Difference-in-Differences (DiD)</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#controlling-for-additional-covariates-in-did"><i class="fa fa-check"></i><b>26.2.1</b> Controlling for Additional Covariates in DiD</a></li>
+<li class="chapter" data-level="26.2.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#two-way-fixed-effects-twfe-with-covariates"><i class="fa fa-check"></i><b>26.2.2</b> Two-Way Fixed Effects (TWFE) with Covariates</a></li>
+<li class="chapter" data-level="26.2.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#event-study-designs"><i class="fa fa-check"></i><b>26.2.3</b> Event Study Designs</a></li>
+<li class="chapter" data-level="26.2.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#heterogeneous-treatment-effects-in-did"><i class="fa fa-check"></i><b>26.2.4</b> Heterogeneous Treatment Effects in DiD</a></li>
+<li class="chapter" data-level="26.2.5" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#where-to-go-next-tools-resources-and-recent-advances"><i class="fa fa-check"></i><b>26.2.5</b> Where to Go Next: Tools, Resources, and Recent Advances</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-for-did-estimation"><i class="fa fa-check"></i><b>26.3</b> Double Machine Learning for DiD Estimation</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#step-by-step-implementation"><i class="fa fa-check"></i><b>26.3.1</b> Step-by-Step Implementation</a></li>
+<li class="chapter" data-level="26.3.2" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#double-machine-learning-did-simulation"><i class="fa fa-check"></i><b>26.3.2</b> Double-Machine Learning DiD Simulation</a></li>
+<li class="chapter" data-level="26.3.3" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#extension-of-dml-did-to-multiple-time-periods"><i class="fa fa-check"></i><b>26.3.3</b> Extension of DML-DiD to multiple time periods</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="difference-in-differences-and-dml-did.html"><a href="difference-in-differences-and-dml-did.html#time-varying-continuous-treatments"><i class="fa fa-check"></i><b>26.4</b> Time-varying Continuous Treatments</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html"><i class="fa fa-check"></i><b>27</b> Synthetic DiD and Regression Discontinuity</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#the-synthetic-control-method"><i class="fa fa-check"></i><b>27.1</b> The Synthetic Control Method</a>
+<ul>
+<li class="chapter" data-level="27.1.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#generalized-synthetic-control-method-gscm"><i class="fa fa-check"></i><b>27.1.1</b> Generalized Synthetic Control Method (GSCM)</a></li>
+<li class="chapter" data-level="27.1.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#augmented-synthetic-control-method-ascm"><i class="fa fa-check"></i><b>27.1.2</b> Augmented Synthetic Control Method (ASCM)</a></li>
+</ul></li>
+<li class="chapter" data-level="27.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#synthetic-difference-in-differences-sdid"><i class="fa fa-check"></i><b>27.2</b> Synthetic Difference-in-Differences (SDiD)</a></li>
+<li class="chapter" data-level="27.3" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#regression-discontinuity-designs-rdd"><i class="fa fa-check"></i><b>27.3</b> Regression Discontinuity Designs (RDD)</a>
+<ul>
+<li class="chapter" data-level="27.3.1" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#rdd-simulation"><i class="fa fa-check"></i><b>27.3.1</b> RDD Simulation</a></li>
+<li class="chapter" data-level="27.3.2" data-path="synthetic-did-and-regression-discontinuity.html"><a href="synthetic-did-and-regression-discontinuity.html#credibility-and-extensions-in-rdd-applications"><i class="fa fa-check"></i><b>27.3.2</b> Credibility and Extensions in RDD Applications</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html"><i class="fa fa-check"></i><b>28</b> Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#arima-a-statistical-model-for-time-series-forecasting"><i class="fa fa-check"></i><b>28.1</b> ARIMA: A Statistical Model for Time Series Forecasting</a></li>
+<li class="chapter" data-level="28.2" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#hyndman-khandakar-algorithm"><i class="fa fa-check"></i><b>28.2</b> Hyndman-Khandakar algorithm</a></li>
+<li class="chapter" data-level="28.3" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#ts-plots"><i class="fa fa-check"></i><b>28.3</b> TS Plots</a></li>
+<li class="chapter" data-level="28.4" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#box-cox-transformation"><i class="fa fa-check"></i><b>28.4</b> Box-Cox transformation</a></li>
+<li class="chapter" data-level="28.5" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#stationarity"><i class="fa fa-check"></i><b>28.5</b> Stationarity</a></li>
+<li class="chapter" data-level="28.6" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#modeling-arima"><i class="fa fa-check"></i><b>28.6</b> Modeling ARIMA</a></li>
+<li class="chapter" data-level="28.7" data-path="time-series-forecasting.html"><a href="time-series-forecasting.html#grid-search-for-arima"><i class="fa fa-check"></i><b>28.7</b> Grid search for ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html"><i class="fa fa-check"></i><b>29</b> Direct Forecasting with Random Forests</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#time-series-embedding-for-direct-forecasting"><i class="fa fa-check"></i><b>29.1</b> Time Series Embedding for Direct Forecasting</a></li>
+<li class="chapter" data-level="29.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#var-for-recursive-forecasting"><i class="fa fa-check"></i><b>29.2</b> VAR for Recursive Forecasting</a></li>
+<li class="chapter" data-level="29.3" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#embedding-for-direct-forecast"><i class="fa fa-check"></i><b>29.3</b> Embedding for Direct Forecast</a></li>
+<li class="chapter" data-level="29.4" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#random-forest-with-time-series"><i class="fa fa-check"></i><b>29.4</b> Random Forest with Time Series</a>
+<ul>
+<li class="chapter" data-level="29.4.1" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#univariate"><i class="fa fa-check"></i><b>29.4.1</b> Univariate</a></li>
+<li class="chapter" data-level="29.4.2" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#multivariate"><i class="fa fa-check"></i><b>29.4.2</b> Multivariate</a></li>
+</ul></li>
+<li class="chapter" data-level="29.5" data-path="direct-forecasting-with-random-forests.html"><a href="direct-forecasting-with-random-forests.html#rolling-and-expanding-windows"><i class="fa fa-check"></i><b>29.5</b> Rolling and expanding windows</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html"><i class="fa fa-check"></i><b>30</b> Neural Networks &amp; Deep Learning</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---the-idea"><i class="fa fa-check"></i><b>30.1</b> Neural Network - the idea</a></li>
+<li class="chapter" data-level="30.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#backpropagation"><i class="fa fa-check"></i><b>30.2</b> Backpropagation</a></li>
+<li class="chapter" data-level="30.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#neural-network---more-inputs"><i class="fa fa-check"></i><b>30.3</b> Neural Network - More inputs</a></li>
+<li class="chapter" data-level="30.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning"><i class="fa fa-check"></i><b>30.4</b> Deep Learning</a></li>
+<li class="chapter" data-level="30.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#deep-learning-with-keras-package"><i class="fa fa-check"></i><b>30.5</b> Deep Learning with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.5.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#setting-up-a-keras-model"><i class="fa fa-check"></i><b>30.5.1</b> Setting up a Keras Model</a></li>
+<li class="chapter" data-level="30.5.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-with-python"><i class="fa fa-check"></i><b>30.5.2</b> Keras with Python</a></li>
+<li class="chapter" data-level="30.5.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#tuning-a-keras-model"><i class="fa fa-check"></i><b>30.5.3</b> Tuning a Keras Model</a></li>
+<li class="chapter" data-level="30.5.4" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#visualizing-model-performance"><i class="fa fa-check"></i><b>30.5.4</b> Visualizing Model Performance</a></li>
+<li class="chapter" data-level="30.5.5" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-keras-tuner"><i class="fa fa-check"></i><b>30.5.5</b> Grid Search with Keras Tuner</a></li>
+<li class="chapter" data-level="30.5.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#grid-search-with-r"><i class="fa fa-check"></i><b>30.5.6</b> Grid Search with R</a></li>
+</ul></li>
+<li class="chapter" data-level="30.6" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#clasification-with-keras-package"><i class="fa fa-check"></i><b>30.6</b> Clasification with <code>keras</code> package</a>
+<ul>
+<li class="chapter" data-level="30.6.1" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#model-outcome-and-activation-function"><i class="fa fa-check"></i><b>30.6.1</b> Model Outcome and Activation Function</a></li>
+<li class="chapter" data-level="30.6.2" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#probabilistic-model-and-thresholding"><i class="fa fa-check"></i><b>30.6.2</b> Probabilistic Model and Thresholding</a></li>
+<li class="chapter" data-level="30.6.3" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#keras-package"><i class="fa fa-check"></i><b>30.6.3</b> <code>keras</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="30.7" data-path="neural-networks-deep-learning.html"><a href="neural-networks-deep-learning.html#pytorch-and-keras"><i class="fa fa-check"></i><b>30.7</b> PyTorch and Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html"><i class="fa fa-check"></i><b>31</b> Matrix Decomposition and Applications</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#eigenvectors-and-eigenvalues"><i class="fa fa-check"></i><b>31.1</b> Eigenvectors and Eigenvalues</a></li>
+<li class="chapter" data-level="31.2" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#single-value-decomposition"><i class="fa fa-check"></i><b>31.2</b> Single Value Decomposition</a></li>
+<li class="chapter" data-level="31.3" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#rankr-approximations"><i class="fa fa-check"></i><b>31.3</b> Rank(<span class="math inline">\(r\)</span>) Approximations</a></li>
+<li class="chapter" data-level="31.4" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#moore-penrose-inverse"><i class="fa fa-check"></i><b>31.4</b> Moore-Penrose Inverse</a></li>
+<li class="chapter" data-level="31.5" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#principle-component-analysis"><i class="fa fa-check"></i><b>31.5</b> Principle Component Analysis</a></li>
+<li class="chapter" data-level="31.6" data-path="matrix-decomposition-and-applications.html"><a href="matrix-decomposition-and-applications.html#factor-analysis"><i class="fa fa-check"></i><b>31.6</b> Factor Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html"><i class="fa fa-check"></i><b>32</b> Optimization Algorithms - Basics</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#brute-force-optimization"><i class="fa fa-check"></i><b>32.1</b> Brute-force optimization</a></li>
+<li class="chapter" data-level="32.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#derivative-based-methods"><i class="fa fa-check"></i><b>32.2</b> Derivative-based methods</a></li>
+<li class="chapter" data-level="32.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#ml-estimation-with-logistic-regression"><i class="fa fa-check"></i><b>32.3</b> ML Estimation with logistic regression</a></li>
+<li class="chapter" data-level="32.4" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#gradient-descent-algorithm"><i class="fa fa-check"></i><b>32.4</b> Gradient Descent Algorithm</a>
+<ul>
+<li class="chapter" data-level="32.4.1" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#one-variable"><i class="fa fa-check"></i><b>32.4.1</b> One-variable</a></li>
+<li class="chapter" data-level="32.4.2" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#adjustable-lr-and-sgd"><i class="fa fa-check"></i><b>32.4.2</b> Adjustable <code>lr</code> and SGD</a></li>
+<li class="chapter" data-level="32.4.3" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#multivariable"><i class="fa fa-check"></i><b>32.4.3</b> Multivariable</a></li>
+</ul></li>
+<li class="chapter" data-level="32.5" data-path="optimization-algorithms---basics.html"><a href="optimization-algorithms---basics.html#optimization-with-r"><i class="fa fa-check"></i><b>32.5</b> Optimization with R</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>33</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Causal Inference and Machine Learning In Economics, Social, and Health Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="synthetic-did-and-regression-discontinuity" class="section level1 hasAnchor" number="27">
+<h1><span class="header-section-number">Chapter 27</span> Synthetic DiD and Regression Discontinuity<a href="synthetic-did-and-regression-discontinuity.html#synthetic-did-and-regression-discontinuity" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter continues our focus on causal inference under selection on unobservables and serves as the final chapter in this sequence. In the previous chapter, we examined Difference-in-Differences (DiD) and its extensions—including Double Machine Learning for DiD—as strategies for identifying treatment effects when unobserved confounding may bias estimates. Building on that foundation, we now expand the causal inference toolkit to include methods that construct more flexible and data-driven counterfactuals.</p>
+<p>We begin with a class of techniques that estimate counterfactual outcomes by explicitly combining information from untreated units in observational panel data settings. These methods—starting with the original Synthetic Control Method (SCM) and extending to Generalized SCM (GSCM), Augmented SCM (ASCM), and Synthetic Difference-in-Differences (SDiD)—offer alternatives to traditional approaches like DiD when standard assumptions (e.g., parallel trends) may not hold. At their core, these approaches aim to improve causal inference by flexibly weighting control units and/or time periods to approximate the untreated outcome trajectory for treated units. They have become increasingly popular for evaluating policies, shocks, and interventions in cases where randomized experiments are infeasible and only a limited number of treated units are available. This section introduces each method in turn, highlighting their assumptions, estimation strategies, and practical applications.</p>
+<p>The chapter concludes with Regression Discontinuity Designs (RDD), a powerful quasi-experimental method that exploits sharp or fuzzy thresholds in treatment assignment. RDD provides credible causal estimates near the cutoff point under minimal assumptions, making it one of the most widely used non-experimental designs. We review both sharp and fuzzy RDD frameworks, discuss practical estimation issues like bandwidth selection and functional form, and provide simulation-based examples to reinforce key ideas. We also highlight recent extensions that integrate machine learning tools for covariate adjustment and variance reduction. By the end of this chapter, readers will have a comprehensive understanding of advanced, design-based methods that address selection on unobservables using both structural and flexible, data-adaptive techniques. Throughout the chapter, we revisit tools and concepts from earlier parts of the book—including machine learning estimators, panel data structure, and local estimation—to show how they integrate into these advanced designs for causal inference.</p>
+<div id="the-synthetic-control-method" class="section level2 hasAnchor" number="27.1">
+<h2><span class="header-section-number">27.1</span> The Synthetic Control Method<a href="synthetic-did-and-regression-discontinuity.html#the-synthetic-control-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In empirical economics and related fields, identifying credible causal effects of interventions often faces a major challenge: the absence of a valid counterfactual. While randomized experiments are ideal for causal inference, they are rarely feasible in large-scale policy contexts. The Synthetic Control Method (SCM), introduced by Abadie and Gardeazabal (2003) and extended by Abadie, Diamond, and Hainmueller (2010, 2015), offers a transparent, data-driven approach for such situations. SCM constructs a synthetic control unit—a weighted average of untreated units—that approximates the trajectory the treated unit would have followed in the absence of intervention.</p>
+<p>SCM is particularly suited to comparative case studies where a single unit, such as a country or region, is uniquely exposed to a treatment, and no individual control unit alone serves as a good counterfactual. Instead of selecting a comparator arbitrarily, SCM determines weights on multiple control units so that the synthetic control matches the treated unit’s pre-intervention characteristics, including lagged outcomes and relevant covariates. A good pre-treatment fit implies that any post-treatment divergence between the treated unit and its synthetic control can be interpreted as the causal effect.</p>
+<p>Unlike difference-in-differences methods, SCM does not rely on a parallel trends assumption. It constructs the counterfactual directly, minimizing pre-treatment discrepancies. Because SCM typically focuses on a single treated unit, traditional inference methods are not applicable. Instead, SCM uses placebo tests: the method is applied to each control unit as if it were treated, generating a distribution of placebo effects. If the observed treatment effect is unusually large relative to this distribution, it supports a causal interpretation.</p>
+<p>SCM results are commonly shown through plots comparing the treated and synthetic control paths over time, or by displaying the gap between them. These visuals, especially when pre-treatment fit is tight and post-treatment divergence is clear, provide intuitive and persuasive evidence. The post-/pre-treatment MSPE ratio is often used to assess the strength of the estimated effect.</p>
+<p>What distinguishes SCM is that it constructs rather than assumes a counterfactual. The synthetic control is explicitly designed to match the treated unit before the intervention using a convex combination of control units. This makes SCM especially useful when there is only one treated unit and no randomized assignment.</p>
+<p><strong>Estimation Procedure (Simplified):</strong> The Synthetic Control Method is applied in panel data settings where we observe a treated unit and several untreated units over time. Suppose we have a balanced panel with <span class="math inline">\(J+1\)</span> units and <span class="math inline">\(T\)</span> periods. Unit 1 is exposed to a treatment beginning at time <span class="math inline">\(T_0 + 1\)</span>, while the remaining <span class="math inline">\(J\)</span> units are potential controls. Let <span class="math inline">\(Y_{it}^N\)</span> denote the potential outcome for unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span> without treatment, and <span class="math inline">\(Y_{it}^I\)</span> the potential outcome under treatment. For <span class="math inline">\(t \leq T_0\)</span>, we observe <span class="math inline">\(Y_{it} = Y_{it}^N\)</span> for all units, and for <span class="math inline">\(t &gt; T_0\)</span>, <span class="math inline">\(Y_{1t} = Y_{1t}^I\)</span>. The treatment effect is defined as:</p>
+<p><span class="math display">\[\begin{equation}
+\alpha_{1t} = Y_{1t}^I - Y_{1t}^N, \quad t &gt; T_0
+\end{equation}\]</span></p>
+<p>Our goal is to estimate <span class="math inline">\(Y\_{1t}^N\)</span>—the counterfactual outcome the treated unit would have experienced without treatment—so we can recover the treatment effect <span class="math inline">\(\alpha\_{1t}\)</span>. SCM approximates this counterfactual by constructing a weighted average of the outcomes of the <span class="math inline">\(J\)</span> control units:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{Y}_{1t}^N = \sum_{j=2}^{J+1} w_j Y_{jt}, \quad t = 1, \ldots, T
+\end{equation}\]</span></p>
+<p>The weights <span class="math inline">\(w_j\)</span> are non-negative and sum to one, making the synthetic control a convex combination of controls. This ensures interpretability and avoids extrapolation.<a href="#fn86" class="footnote-ref" id="fnref86"><sup>86</sup></a> The estimated treatment effect is then:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{\alpha}_{1t} = Y_{1t} - \hat{Y}_{1t}^N
+\end{equation}\]</span></p>
+<p>For SCM to be credible, several conditions must be met. First, the treated unit’s characteristics must lie within the convex hull of the controls—otherwise, it cannot be closely approximated. Second, the method assumes no anticipation, so treatment does not influence outcomes before it begins. Third, there should be no interference, meaning the treatment affects only the treated unit.</p>
+<p><strong>Practical Implementation</strong></p>
+<p>One of the most widely cited and instructive applications of the Synthetic Control Method is the study by Abadie and Gardeazabal (2003), which examined the economic impact of terrorism in the Basque Country. The <code>Synth</code> R package, developed to operationalize this method, includes this very dataset as a built-in example, allowing users to replicate and explore the methodology in detail. This makes the Basque Country case a compelling entry point for learning SCM.</p>
+<p>The core idea is to estimate the causal impact of terrorism by comparing the actual trajectory of per capita GDP in the Basque Country with that of a synthetic control—constructed from a weighted combination of other Spanish regions that were unaffected by terrorism. By aligning the synthetic control with the Basque Country’s pre-treatment trajectory using education, investment, and demographic indicators, the method allows for a meaningful comparison after terrorism began to escalate around 1970.</p>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="synthetic-did-and-regression-discontinuity.html#cb755-1" tabindex="-1"></a><span class="fu">library</span>(Synth)</span>
+<span id="cb755-2"><a href="synthetic-did-and-regression-discontinuity.html#cb755-2" tabindex="-1"></a><span class="fu">data</span>(basque) <span class="co"># Load the data</span></span>
+<span id="cb755-3"><a href="synthetic-did-and-regression-discontinuity.html#cb755-3" tabindex="-1"></a><span class="co"># Set time parameters</span></span>
+<span id="cb755-4"><a href="synthetic-did-and-regression-discontinuity.html#cb755-4" tabindex="-1"></a>pre_period <span class="ot">&lt;-</span> <span class="dv">1960</span><span class="sc">:</span><span class="dv">1969</span></span>
+<span id="cb755-5"><a href="synthetic-did-and-regression-discontinuity.html#cb755-5" tabindex="-1"></a>post_period <span class="ot">&lt;-</span> <span class="dv">1970</span><span class="sc">:</span><span class="dv">1997</span></span>
+<span id="cb755-6"><a href="synthetic-did-and-regression-discontinuity.html#cb755-6" tabindex="-1"></a><span class="co"># Prepare input</span></span>
+<span id="cb755-7"><a href="synthetic-did-and-regression-discontinuity.html#cb755-7" tabindex="-1"></a>dataprep.out <span class="ot">&lt;-</span> <span class="fu">dataprep</span>(</span>
+<span id="cb755-8"><a href="synthetic-did-and-regression-discontinuity.html#cb755-8" tabindex="-1"></a>  <span class="at">foo =</span> basque,</span>
+<span id="cb755-9"><a href="synthetic-did-and-regression-discontinuity.html#cb755-9" tabindex="-1"></a>  <span class="at">predictors =</span> <span class="fu">c</span>(<span class="st">&quot;school.illit&quot;</span>, <span class="st">&quot;school.prim&quot;</span>, <span class="st">&quot;school.med&quot;</span>, </span>
+<span id="cb755-10"><a href="synthetic-did-and-regression-discontinuity.html#cb755-10" tabindex="-1"></a>                 <span class="st">&quot;school.high&quot;</span>, <span class="st">&quot;invest&quot;</span>, <span class="st">&quot;popdens&quot;</span>),</span>
+<span id="cb755-11"><a href="synthetic-did-and-regression-discontinuity.html#cb755-11" tabindex="-1"></a>  <span class="at">predictors.op =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb755-12"><a href="synthetic-did-and-regression-discontinuity.html#cb755-12" tabindex="-1"></a>  <span class="at">time.predictors.prior =</span> pre_period,</span>
+<span id="cb755-13"><a href="synthetic-did-and-regression-discontinuity.html#cb755-13" tabindex="-1"></a>  <span class="at">special.predictors =</span> <span class="fu">list</span>(</span>
+<span id="cb755-14"><a href="synthetic-did-and-regression-discontinuity.html#cb755-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="st">&quot;gdpcap&quot;</span>, <span class="dv">1960</span><span class="sc">:</span><span class="dv">1969</span>, <span class="st">&quot;mean&quot;</span>),</span>
+<span id="cb755-15"><a href="synthetic-did-and-regression-discontinuity.html#cb755-15" tabindex="-1"></a>    <span class="fu">list</span>(<span class="st">&quot;popdens&quot;</span>, <span class="dv">1969</span>, <span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb755-16"><a href="synthetic-did-and-regression-discontinuity.html#cb755-16" tabindex="-1"></a>  ),</span>
+<span id="cb755-17"><a href="synthetic-did-and-regression-discontinuity.html#cb755-17" tabindex="-1"></a>  <span class="at">dependent =</span> <span class="st">&quot;gdpcap&quot;</span>,</span>
+<span id="cb755-18"><a href="synthetic-did-and-regression-discontinuity.html#cb755-18" tabindex="-1"></a>  <span class="at">unit.variable =</span> <span class="st">&quot;regionno&quot;</span>,</span>
+<span id="cb755-19"><a href="synthetic-did-and-regression-discontinuity.html#cb755-19" tabindex="-1"></a>  <span class="at">time.variable =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb755-20"><a href="synthetic-did-and-regression-discontinuity.html#cb755-20" tabindex="-1"></a>  <span class="at">treatment.identifier =</span> <span class="dv">17</span>,</span>
+<span id="cb755-21"><a href="synthetic-did-and-regression-discontinuity.html#cb755-21" tabindex="-1"></a>  <span class="at">controls.identifier =</span> <span class="fu">setdiff</span>(<span class="fu">unique</span>(basque<span class="sc">$</span>regionno), <span class="dv">17</span>),</span>
+<span id="cb755-22"><a href="synthetic-did-and-regression-discontinuity.html#cb755-22" tabindex="-1"></a>  <span class="at">time.optimize.ssr =</span> pre_period,</span>
+<span id="cb755-23"><a href="synthetic-did-and-regression-discontinuity.html#cb755-23" tabindex="-1"></a>  <span class="at">time.plot =</span> <span class="dv">1955</span><span class="sc">:</span><span class="dv">1997</span></span>
+<span id="cb755-24"><a href="synthetic-did-and-regression-discontinuity.html#cb755-24" tabindex="-1"></a>)</span>
+<span id="cb755-25"><a href="synthetic-did-and-regression-discontinuity.html#cb755-25" tabindex="-1"></a>synth.out <span class="ot">&lt;-</span> <span class="fu">synth</span>(dataprep.out)</span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="synthetic-did-and-regression-discontinuity.html#cb756-1" tabindex="-1"></a><span class="co"># Plot treated vs synthetic</span></span>
+<span id="cb756-2"><a href="synthetic-did-and-regression-discontinuity.html#cb756-2" tabindex="-1"></a><span class="fu">path.plot</span>(<span class="at">synth.res =</span> synth.out, <span class="at">dataprep.res =</span> dataprep.out,</span>
+<span id="cb756-3"><a href="synthetic-did-and-regression-discontinuity.html#cb756-3" tabindex="-1"></a>          <span class="at">Main =</span> <span class="st">&quot;Basque Country: Treated vs Synthetic GDP per Capita&quot;</span>,</span>
+<span id="cb756-4"><a href="synthetic-did-and-regression-discontinuity.html#cb756-4" tabindex="-1"></a>          <span class="at">Ylab =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="at">Xlab =</span> <span class="st">&quot;Year&quot;</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/basque-plots-1.png" width="576" /></p>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="synthetic-did-and-regression-discontinuity.html#cb757-1" tabindex="-1"></a><span class="co"># Show the treatment effect (gap)</span></span>
+<span id="cb757-2"><a href="synthetic-did-and-regression-discontinuity.html#cb757-2" tabindex="-1"></a><span class="fu">gaps.plot</span>(<span class="at">synth.res =</span> synth.out, <span class="at">dataprep.res =</span> dataprep.out,</span>
+<span id="cb757-3"><a href="synthetic-did-and-regression-discontinuity.html#cb757-3" tabindex="-1"></a>          <span class="at">Main =</span> <span class="st">&quot;Gap (Basque - Synthetic)&quot;</span>, <span class="at">Ylab =</span> <span class="st">&quot;GDP Difference&quot;</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/basque-plots-2.png" width="576" /></p>
+<p>The figures above are generated using the default <code>Synth</code> package plotting functions. To create more visually appealing, customizable, and colorful versions, we can extract the data and use base R graphics as shown below:</p>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="synthetic-did-and-regression-discontinuity.html#cb758-1" tabindex="-1"></a><span class="co"># Extract outcomes</span></span>
+<span id="cb758-2"><a href="synthetic-did-and-regression-discontinuity.html#cb758-2" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y1plot  <span class="co"># Treated unit</span></span>
+<span id="cb758-3"><a href="synthetic-did-and-regression-discontinuity.html#cb758-3" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>Y0plot <span class="sc">%*%</span> synth.out<span class="sc">$</span>solution.w  <span class="co"># Synthetic control</span></span>
+<span id="cb758-4"><a href="synthetic-did-and-regression-discontinuity.html#cb758-4" tabindex="-1"></a>years <span class="ot">&lt;-</span> dataprep.out<span class="sc">$</span>tag<span class="sc">$</span>time.plot</span>
+<span id="cb758-5"><a href="synthetic-did-and-regression-discontinuity.html#cb758-5" tabindex="-1"></a></span>
+<span id="cb758-6"><a href="synthetic-did-and-regression-discontinuity.html#cb758-6" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb758-7"><a href="synthetic-did-and-regression-discontinuity.html#cb758-7" tabindex="-1"></a><span class="fu">plot</span>(years, Y1, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb758-8"><a href="synthetic-did-and-regression-discontinuity.html#cb758-8" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;GDP per Capita&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb758-9"><a href="synthetic-did-and-regression-discontinuity.html#cb758-9" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Basque Country: Treated vs Synthetic GDP per Capita&quot;</span>, <span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(Y1, Y0)))</span>
+<span id="cb758-10"><a href="synthetic-did-and-regression-discontinuity.html#cb758-10" tabindex="-1"></a><span class="fu">lines</span>(years, Y0, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb758-11"><a href="synthetic-did-and-regression-discontinuity.html#cb758-11" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Treated&quot;</span>, <span class="st">&quot;Synthetic Control&quot;</span>),</span>
+<span id="cb758-12"><a href="synthetic-did-and-regression-discontinuity.html#cb758-12" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/basque-plotscl-1.png" width="576" /></p>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="synthetic-did-and-regression-discontinuity.html#cb759-1" tabindex="-1"></a>gap <span class="ot">&lt;-</span> Y1 <span class="sc">-</span> Y0</span>
+<span id="cb759-2"><a href="synthetic-did-and-regression-discontinuity.html#cb759-2" tabindex="-1"></a><span class="fu">plot</span>(years, gap, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;firebrick&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb759-3"><a href="synthetic-did-and-regression-discontinuity.html#cb759-3" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;GDP Difference&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb759-4"><a href="synthetic-did-and-regression-discontinuity.html#cb759-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Gap (Basque - Synthetic)&quot;</span>)</span>
+<span id="cb759-5"><a href="synthetic-did-and-regression-discontinuity.html#cb759-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;forestgreen&quot;</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/basque-plotscl-2.png" width="576" /></p>
+<p>The output typically includes two central plots. The first shows the paths of actual and synthetic GDP per capita over time, which ideally align closely before the intervention. The second plot displays the gap between the two series (i.e., the estimated treatment effect), revealing a substantial decline in the Basque Country’s GDP relative to its synthetic counterpart after terrorism intensified. The tight pre-treatment match provides visual credibility, while the post-treatment divergence illustrates the estimated causal impact.</p>
+<p>This example serves as an effective demonstration of how SCM constructs a counterfactual, assesses treatment effects, and visualizes the results. It also illustrates the core strengths of the method: its transparency, its minimal reliance on functional form assumptions, and its ability to handle one-time, region-specific interventions.</p>
+<p>For readers interested in implementing SCM or further exploring its capabilities, the sources in the footnote provide comprehensive guidance and reproducible code.<a href="#fn87" class="footnote-ref" id="fnref87"><sup>87</sup></a> While this chapter continues with more recent developments in this method, the materials listed in the footnote form a clear and practical foundation for learning the method and applying it to new contexts.</p>
+<p>The Synthetic Control Method has been applied in a range of studies evaluating the effects of policy changes, shocks, and interventions when only a single treated unit is available. Abadie and Gardeazabal (2003) used SCM to quantify the economic impact of terrorism in the Basque Country, finding a significant reduction in per capita GDP relative to a synthetic Spain without terrorism. In a policy context, Abadie, Diamond, and Hainmueller (2010) analyzed the effect of California’s tobacco control program, showing that smoking declined substantially compared to the synthetic control. Cavallo et al. (2013) examined the macroeconomic consequences of natural disasters, showing that major events like earthquakes can have large and persistent negative impacts. Bohn et al. (2014) applied SCM to study the impact of immigration enforcement, concluding that stricter enforcement policies did not reduce violent crime. In the health sector, Kreif et al. (2016) evaluated English health system reforms and found evidence of improved performance in treated areas relative to synthetic comparisons. Building on the foundations of SCM, researchers have developed extensions such as the Generalized Synthetic Control Method (GSCM) to better accommodate settings with multiple treated units, unobserved heterogeneity, and time-varying confounders.</p>
+<div id="generalized-synthetic-control-method-gscm" class="section level3 hasAnchor" number="27.1.1">
+<h3><span class="header-section-number">27.1.1</span> Generalized Synthetic Control Method (GSCM)<a href="synthetic-did-and-regression-discontinuity.html#generalized-synthetic-control-method-gscm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Building on the foundations of SCM, the Generalized Synthetic Control Method (GSCM) extends the approach to settings involving multiple treated units, unobserved heterogeneity, and time-varying confounders. Developed by Xu (2017) and implemented in the <code>gsynth</code> R package, GSCM accommodates more complex treatment structures than the original SCM framework. For readers interested in deeper exploration of the method and its implementation, we refer to the original papers and documentation.<a href="#fn88" class="footnote-ref" id="fnref88"><sup>88</sup></a></p>
+<p>Unlike classical SCM, which constructs a weighted average of control units to match the treated unit in the pre-treatment period, GSCM employs a matrix completion framework with interactive fixed effects. Potential outcomes are modeled as a combination of latent factors along with unit- and time-specific effects, allowing the method to flexibly account for unobserved heterogeneity and time-varying trends. The estimation algorithm iteratively recovers these latent components and estimates treatment effects by comparing observed outcomes with model-predicted counterfactuals. GSCM supports multiple treated units, staggered treatment adoption, dynamic effects, and provides tools for cross-validation to determine the number of factors. It also includes options for computing standard errors and conducting inference.</p>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="synthetic-did-and-regression-discontinuity.html#cb760-1" tabindex="-1"></a><span class="co">#from https://yiqingxu.org/packages/gsynth/articles/tutorial.html</span></span>
+<span id="cb760-2"><a href="synthetic-did-and-regression-discontinuity.html#cb760-2" tabindex="-1"></a><span class="fu">library</span>(gsynth)</span>
+<span id="cb760-3"><a href="synthetic-did-and-regression-discontinuity.html#cb760-3" tabindex="-1"></a><span class="fu">data</span>(gsynth)</span>
+<span id="cb760-4"><a href="synthetic-did-and-regression-discontinuity.html#cb760-4" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">gsynth</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata,</span>
+<span id="cb760-5"><a href="synthetic-did-and-regression-discontinuity.html#cb760-5" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;time&quot;</span>),</span>
+<span id="cb760-6"><a href="synthetic-did-and-regression-discontinuity.html#cb760-6" tabindex="-1"></a>              <span class="at">force =</span> <span class="st">&quot;two-way&quot;</span>,</span>
+<span id="cb760-7"><a href="synthetic-did-and-regression-discontinuity.html#cb760-7" tabindex="-1"></a>              <span class="at">CV =</span> <span class="cn">TRUE</span>, <span class="at">r =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</span>
+<span id="cb760-8"><a href="synthetic-did-and-regression-discontinuity.html#cb760-8" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">inference =</span> <span class="st">&quot;parametric&quot;</span>,</span>
+<span id="cb760-9"><a href="synthetic-did-and-regression-discontinuity.html#cb760-9" tabindex="-1"></a>              <span class="at">nboots =</span> <span class="dv">1000</span>, <span class="at">parallel =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb760-10"><a href="synthetic-did-and-regression-discontinuity.html#cb760-10" tabindex="-1"></a></span>
+<span id="cb760-11"><a href="synthetic-did-and-regression-discontinuity.html#cb760-11" tabindex="-1"></a><span class="fu">print</span>(out)</span>
+<span id="cb760-12"><a href="synthetic-did-and-regression-discontinuity.html#cb760-12" tabindex="-1"></a>out<span class="sc">$</span>est.att</span>
+<span id="cb760-13"><a href="synthetic-did-and-regression-discontinuity.html#cb760-13" tabindex="-1"></a>out<span class="sc">$</span>est.avg</span>
+<span id="cb760-14"><a href="synthetic-did-and-regression-discontinuity.html#cb760-14" tabindex="-1"></a>out<span class="sc">$</span>est.beta</span></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="synthetic-did-and-regression-discontinuity.html#cb761-1" tabindex="-1"></a><span class="co"># Plot average treatment effect</span></span>
+<span id="cb761-2"><a href="synthetic-did-and-regression-discontinuity.html#cb761-2" tabindex="-1"></a><span class="fu">plot</span>(out, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">theme.bw =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/plot-gscm-1.png" width="576" /></p>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="synthetic-did-and-regression-discontinuity.html#cb762-1" tabindex="-1"></a><span class="co">#can adjust xlim and ylim, and supply the plot title and titles for the two axes.</span></span>
+<span id="cb762-2"><a href="synthetic-did-and-regression-discontinuity.html#cb762-2" tabindex="-1"></a><span class="fu">plot</span>(out, <span class="at">type =</span> <span class="st">&quot;gap&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">12</span>), <span class="at">xlab =</span> <span class="st">&quot;Period&quot;</span>, </span>
+<span id="cb762-3"><a href="synthetic-did-and-regression-discontinuity.html#cb762-3" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Estimated ATT - customized plot&quot;</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/plot-gscm-2.png" width="576" /></p>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="synthetic-did-and-regression-discontinuity.html#cb763-1" tabindex="-1"></a><span class="fu">plot</span>(out, <span class="at">type =</span> <span class="st">&quot;counterfactual&quot;</span>, <span class="at">raw =</span> <span class="st">&quot;all&quot;</span>)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/plot-gscm-3.png" width="576" /></p>
+<p>In this simulation, the <code>simdata</code> dataset includes 50 units observed over 30 periods, with five units treated from period 21 onward. Covariates <code>X1</code> and <code>X2</code>, along with a treatment indicator <code>D</code>, help explain the outcome variable <code>Y</code>. The model uses a two-way fixed effects specification and cross-validation to select the number of latent factors. Once estimated, the results are visualized using built-in plotting tools. The first plot displays the estimated average treatment effects over time, while the second shows the gap between observed and predicted outcomes for the treated units. These visualizations allow researchers to assess both the dynamics and the significance of the treatment effect.</p>
+<p>GSCM is particularly powerful when the number of treated units is large or treatment timing varies across units. Its ability to model unobserved heterogeneity and account for complex temporal dynamics makes it a natural and robust extension of SCM for modern panel data applications.</p>
+<p>A natural progression from GSCM is the Augmented Synthetic Control Method (ASCM), which combines the original SCM approach with outcome modeling to improve pre-treatment fit and reduce extrapolation bias.</p>
+</div>
+<div id="augmented-synthetic-control-method-ascm" class="section level3 hasAnchor" number="27.1.2">
+<h3><span class="header-section-number">27.1.2</span> Augmented Synthetic Control Method (ASCM)<a href="synthetic-did-and-regression-discontinuity.html#augmented-synthetic-control-method-ascm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Augmented Synthetic Control Method (ASCM) builds on the original SCM framework by incorporating outcome modeling to improve pre-treatment fit and reduce potential extrapolation bias. Introduced by Ben-Michael, Feller, and Rothstein (2021), ASCM combines SCM with a parametric or semi-parametric model—often ridge regression—to estimate counterfactual outcomes more robustly, particularly when the treated unit lies outside the convex hull of the control units. This addresses a key limitation of SCM: its inability to match the treated unit well when no convex combination of controls approximates its pre-treatment behavior.</p>
+<p>Let <span class="math inline">\(Y_{it}\)</span> be the observed outcome for unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and suppose unit 1 is treated beginning at time <span class="math inline">\(T_0 + 1\)</span>. The goal is to estimate the counterfactual outcome <span class="math inline">\(Y_{1t}^N\)</span> for <span class="math inline">\(t &gt; T_0\)</span>. As in SCM, ASCM constructs a weighted combination of control units:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{Y}_{1t}^{N} = \sum_{j=2}^{J+1} w_j^{\text{ascm}} Y_{jt}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(w_j^{\text{ascm}} = w_j^{\text{scm}} + w_j^{\text{adj}}\)</span>. Here, <span class="math inline">\(w_j^{\text{scm}}\)</span> are the SCM weights that minimize the pre-treatment discrepancy between the treated unit and the synthetic control, and <span class="math inline">\(w_j^{\text{adj}}\)</span> are adjustment terms obtained by fitting a penalized regression model to the residuals.<a href="#fn89" class="footnote-ref" id="fnref89"><sup>89</sup></a> Unlike SCM, which imposes <span class="math inline">\(w_j \geq 0\)</span> and <span class="math inline">\(\sum w_j = 1\)</span>, ASCM relaxes these constraints, allowing for negative weights and weights greater than one. This flexibility enables better prediction accuracy, though it comes with a trade-off in terms of interpretability. The final estimate of the treatment effect is:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{\alpha}_{1t} = Y_{1t} - \hat{Y}_{1t}^{N}, \quad t &gt; T_0
+\end{equation}\]</span></p>
+<p>ASCM supports inference through placebo-based standard errors and confidence intervals. By modeling pre-treatment residuals and incorporating them into post-treatment counterfactual prediction, ASCM yields more accurate and robust effect estimates, especially when SCM fails to achieve a close pre-treatment match.</p>
+<p>The method is implemented in the <code>augsynth</code> R package (see footnote <a href="#fn90" class="footnote-ref" id="fnref90"><sup>90</sup></a>), which allows users to fit models with ridge augmentation, visualize results, and conduct sensitivity analysis. ASCM thus represents a powerful generalization of SCM, retaining its transparency while gaining flexibility through model-based augmentation. It is especially useful in applications where pre-treatment imbalance remains even after SCM weighting.</p>
+<p>ASCM can be implemented in two key modes: <code>singlesynth</code> and <code>multisynth</code>. The <code>singlesynth</code> approach applies when there is a single treated unit, and the counterfactual is constructed using a weighted combination of control units with ridge-augmented adjustments. In contrast, <code>multisynth</code> extends ASCM to settings with staggered treated units. The <code>augsynth</code> package supports both approaches, allowing users to flexibly choose based on the number and structure of treated units in their application.</p>
+<p>To illustrate the use of the Augmented Synthetic Control Method (ASCM), we consider the effects of the 2012 personal income tax cuts in Kansas, using the built-in <code>kansas</code> dataset from the <code>augsynth</code> package. The outcome of interest is log GSP per capita (<code>lngdpcapita</code>) across U.S. states, observed quarterly from 1990 to 2016. Kansas enacted substantial tax cuts in the second quarter of 2012, and we aim to estimate the causal impact of this policy on its economic performance.</p>
+<p>We first estimate a standard synthetic control model (not shown), which uses only pre-treatment outcomes to construct a counterfactual. We then apply ASCM by augmenting the synthetic control with a ridge regression model:</p>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="synthetic-did-and-regression-discontinuity.html#cb764-1" tabindex="-1"></a><span class="do">## Install devtools if noy already installed</span></span>
+<span id="cb764-2"><a href="synthetic-did-and-regression-discontinuity.html#cb764-2" tabindex="-1"></a><span class="do">##install.packages(&quot;devtools&quot;, repos=&#39;http://cran.us.r-project.org&#39;)</span></span>
+<span id="cb764-3"><a href="synthetic-did-and-regression-discontinuity.html#cb764-3" tabindex="-1"></a><span class="do">##library(devtools)</span></span>
+<span id="cb764-4"><a href="synthetic-did-and-regression-discontinuity.html#cb764-4" tabindex="-1"></a><span class="do">## Install augsynth from github</span></span>
+<span id="cb764-5"><a href="synthetic-did-and-regression-discontinuity.html#cb764-5" tabindex="-1"></a><span class="do">##devtools::install_github(&quot;ebenmichael/augsynth&quot;, dependencies = TRUE)</span></span>
+<span id="cb764-6"><a href="synthetic-did-and-regression-discontinuity.html#cb764-6" tabindex="-1"></a><span class="fu">library</span>(augsynth)</span>
+<span id="cb764-7"><a href="synthetic-did-and-regression-discontinuity.html#cb764-7" tabindex="-1"></a><span class="fu">data</span>(kansas)</span>
+<span id="cb764-8"><a href="synthetic-did-and-regression-discontinuity.html#cb764-8" tabindex="-1"></a></span>
+<span id="cb764-9"><a href="synthetic-did-and-regression-discontinuity.html#cb764-9" tabindex="-1"></a><span class="co">#syn &lt;- augsynth(lngdpcapita ~ treated, fips, year_qtr, kansas,</span></span>
+<span id="cb764-10"><a href="synthetic-did-and-regression-discontinuity.html#cb764-10" tabindex="-1"></a><span class="co">#                progfunc = &quot;None&quot;, scm = TRUE)</span></span>
+<span id="cb764-11"><a href="synthetic-did-and-regression-discontinuity.html#cb764-11" tabindex="-1"></a><span class="co"># plot(syn)</span></span>
+<span id="cb764-12"><a href="synthetic-did-and-regression-discontinuity.html#cb764-12" tabindex="-1"></a>asyn <span class="ot">&lt;-</span> <span class="fu">augsynth</span>(lngdpcapita <span class="sc">~</span> treated, fips, year_qtr, kansas,</span>
+<span id="cb764-13"><a href="synthetic-did-and-regression-discontinuity.html#cb764-13" tabindex="-1"></a>                 <span class="at">progfunc =</span> <span class="st">&quot;Ridge&quot;</span>, <span class="at">scm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## One outcome and one treatment time found. Running single_augsynth.</code></pre>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="synthetic-did-and-regression-discontinuity.html#cb766-1" tabindex="-1"></a><span class="fu">plot</span>(asyn)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/fig_syn-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>ASCM improves pre-treatment fit by adjusting residual differences between Kansas and its synthetic control, allowing for limited extrapolation beyond the convex hull of controls, regulated by a ridge penalty term. In this example, it results in clearer post-treatment effects and narrower confidence intervals, underscoring the method’s advantages when traditional SCM fit is imperfect.</p>
+<p>For staggered treatment adoption across units—where different units receive the intervention at different times—the <code>multisynth</code> function in the <code>augsynth</code> package can be used. One illustrative application comes from Paglayan (2018), who examined the effects of states implementing mandatory collective bargaining agreements for public sector unions. The implementation and replication materials are available on the package’s GitHub page, linked in the earlier footnote.</p>
+<p>A further recent development enhances SCM by incorporating multiple outcomes to improve estimation precision and robustness. In Ben-Michael, Feller, and Sun (2025), the authors propose a framework that jointly models several related outcomes to strengthen causal inference. The method is demonstrated through simulation and a re-analysis of the Flint water crisis’s impact on student achievement. See footnote<a href="#fn91" class="footnote-ref" id="fnref91"><sup>91</sup></a> for replication materials.</p>
+</div>
+</div>
+<div id="synthetic-difference-in-differences-sdid" class="section level2 hasAnchor" number="27.2">
+<h2><span class="header-section-number">27.2</span> Synthetic Difference-in-Differences (SDiD)<a href="synthetic-did-and-regression-discontinuity.html#synthetic-difference-in-differences-sdid" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As discussed earlier in this chapter, Difference-in-Differences (DiD) and Synthetic Control (SC) are widely used methods for estimating treatment effects, each with its own strengths and limitations. DiD relies on the assumption of parallel trends and applies equal weight to all units and time periods, while SC constructs a synthetic version of the treated unit using optimally chosen weights but ignores fixed effects and time variation in contributions. The SDiD estimator brings these two approaches together within a single framework. To overcome these challenges, <strong>Synthetic Difference-in-Differences (SDiD)</strong>—proposed by Arkhangelsky et al. (2021)—combines the strengths of both approaches in a unified framework. SDiD improves robustness, enhances pre-treatment fit, and reduces extrapolation bias.</p>
+<p>SDiD achieves this by applying weights across both units and time periods. Unit weights are learned from the pre-treatment period, similar to SC, while time weights—similar in spirit to DiD—are learned across both pre- and post-treatment periods. This structure allows SDiD to adapt flexibly to heterogeneous settings, achieving improved estimation performance in practice.</p>
+<p><strong>Estimation Procedure (Simplified)</strong>: Assume a balanced panel with <span class="math inline">\(N\)</span> units and <span class="math inline">\(T\)</span> time periods, with the treatment beginning at period <span class="math inline">\(T_0 + 1\)</span>. For simplicity, assume one treated unit. Let the observed outcome be modeled as:</p>
+<p>\end{equation}
+Y_{it} = + <em>i + <em>t + W</em>{it} + </em>{it}
+\end{equation}</p>
+<p>where<span class="math inline">\(\mu\)</span>: overall mean, <span class="math inline">\(\alpha_i\)</span>: unit-specific fixed effects, <span class="math inline">\(\beta_t\)</span>: time-specific fixed effects, <span class="math inline">\(W_{it}\)</span>: binary treatment indicator, <span class="math inline">\(\tau\)</span>: treatment effect, <span class="math inline">\(\varepsilon_{it}\)</span>: idiosyncratic error</p>
+<p>The SDiD estimator seeks parameters <span class="math inline">\(\hat{\tau}, \hat{\mu}, \hat{\alpha}, \hat{\beta}\)</span> by minimizing a doubly-weighted least squares criterion:</p>
+<p><span class="math display">\[\begin{align}
+(\hat{\tau}^{\text{sdid}}, \hat{\mu}, \hat{\alpha}, \hat{\beta}) = \arg \min_{\tau, \mu, \alpha, \beta}
+\sum_{i=1}^{N} \sum_{t=1}^{T} \left( Y_{it} - \mu - \alpha_i - \beta_t - W_{it} \tau \right)^2
+\cdot \hat{\omega}_i^{\text{sdid}} \cdot \hat{\lambda}_t^{\text{sdid}}
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(\hat{\omega}_i^{\text{sdid}}\)</span> and <span class="math inline">\(\hat{\lambda}_t^{\text{sdid}}\)</span> are estimated weights over units and time periods respectively.<a href="#fn92" class="footnote-ref" id="fnref92"><sup>92</sup></a></p>
+<p>The structure of the SDiD estimator makes clear how it generalizes both DiD and SC. If we remove both sets of weights—setting all unit and time weights equal—the SDiD objective reduces to a standard two-way fixed effects regression, which corresponds exactly to the traditional DiD estimator. This highlights that DiD assumes all units and time periods contribute equally, without differential weighting. On the other hand, if we omit unit fixed effects and time weights from the SDiD formulation—retaining only unit weights estimated to match pre-treatment outcomes—we recover the Synthetic Control (SC) estimator. In this sense, DiD and SC are both nested within the SDiD framework, which enhances flexibility by allowing weighted contributions from both units and time periods while adjusting for unit and time-specific heterogeneity.</p>
+<p>To illustrate the method, consider estimating the effect of California Proposition 99, a tobacco tax law passed in 1988, on cigarette consumption. The <code>synthdid</code> R package provides a built-in dataset and implementation tools:</p>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="synthetic-did-and-regression-discontinuity.html#cb767-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;synth-inference/synthdid&quot;</span>)</span>
+<span id="cb767-2"><a href="synthetic-did-and-regression-discontinuity.html#cb767-2" tabindex="-1"></a><span class="fu">library</span>(synthdid)</span>
+<span id="cb767-3"><a href="synthetic-did-and-regression-discontinuity.html#cb767-3" tabindex="-1"></a></span>
+<span id="cb767-4"><a href="synthetic-did-and-regression-discontinuity.html#cb767-4" tabindex="-1"></a><span class="co"># Estimate the effect of California Proposition 99 on cigarette consumption</span></span>
+<span id="cb767-5"><a href="synthetic-did-and-regression-discontinuity.html#cb767-5" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&#39;california_prop99&#39;</span>)</span>
+<span id="cb767-6"><a href="synthetic-did-and-regression-discontinuity.html#cb767-6" tabindex="-1"></a>setup <span class="ot">=</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
+<span id="cb767-7"><a href="synthetic-did-and-regression-discontinuity.html#cb767-7" tabindex="-1"></a>tau.hat <span class="ot">=</span> <span class="fu">synthdid_estimate</span>(setup<span class="sc">$</span>Y, setup<span class="sc">$</span>N0, setup<span class="sc">$</span>T0)</span>
+<span id="cb767-8"><a href="synthetic-did-and-regression-discontinuity.html#cb767-8" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(tau.hat, <span class="at">method=</span><span class="st">&#39;placebo&#39;</span>))</span>
+<span id="cb767-9"><a href="synthetic-did-and-regression-discontinuity.html#cb767-9" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&#39;point estimate: %1.2f&#39;</span>, tau.hat)</span></code></pre></div>
+<pre><code>## [1] &quot;point estimate: -15.60&quot;</code></pre>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="synthetic-did-and-regression-discontinuity.html#cb769-1" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&#39;95%% CI (%1.2f, %1.2f)&#39;</span>, tau.hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, tau.hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span></code></pre></div>
+<pre><code>## [1] &quot;95% CI (-33.23, 2.03)&quot;</code></pre>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="synthetic-did-and-regression-discontinuity.html#cb771-1" tabindex="-1"></a><span class="fu">plot</span>(tau.hat)</span></code></pre></div>
+<p><img src="27-RD_files/figure-html/synthdid-setup-1.png" width="672" /></p>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="synthetic-did-and-regression-discontinuity.html#cb772-1" tabindex="-1"></a>tau.sc   <span class="ot">=</span> <span class="fu">sc_estimate</span>(setup<span class="sc">$</span>Y, setup<span class="sc">$</span>N0, setup<span class="sc">$</span>T0)</span>
+<span id="cb772-2"><a href="synthetic-did-and-regression-discontinuity.html#cb772-2" tabindex="-1"></a>tau.did  <span class="ot">=</span> <span class="fu">did_estimate</span>(setup<span class="sc">$</span>Y, setup<span class="sc">$</span>N0, setup<span class="sc">$</span>T0)</span>
+<span id="cb772-3"><a href="synthetic-did-and-regression-discontinuity.html#cb772-3" tabindex="-1"></a>estimates <span class="ot">=</span> <span class="fu">list</span>(tau.did, tau.sc, tau.hat)</span>
+<span id="cb772-4"><a href="synthetic-did-and-regression-discontinuity.html#cb772-4" tabindex="-1"></a><span class="fu">names</span>(estimates) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Diff-in-Diff&#39;</span>, <span class="st">&#39;Synthetic Control&#39;</span>, <span class="st">&#39;Synthetic Diff-in-Diff&#39;</span>)</span>
+<span id="cb772-5"><a href="synthetic-did-and-regression-discontinuity.html#cb772-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">unlist</span>(estimates))</span></code></pre></div>
+<pre><code>##           Diff-in-Diff      Synthetic Control Synthetic Diff-in-Diff 
+##              -27.34911              -19.61966              -15.60383</code></pre>
+<p>This comparison highlights how SDiD often yields estimates (the black arrow in the figure is estimated ATT) that are more conservative than DiD (when parallel trends fail) and more stable than SC (when matching is imperfect).
+The SDiD plot reveals a noticeable divergence post-1988, reflecting the estimated treatment effect of the law on smoking rates. The comparison shows that SDiD typically yields estimates that are more conservative than DiD (which may overstate effects under non-parallel trends) and more stable than SC (which may be sensitive to pre-treatment imbalance).</p>
+<p>The method is readily accessible through the <code>synthdid</code> R package, which is supported by comprehensive theoretical documentation and clear implementation examples. A valuable companion to the R tools is the official documentation site <a href="https://synth-inference.github.io/synthdid/">https://synth-inference.github.io/synthdid/</a>, which includes tutorials and replication materials.</p>
+<p>For users working in Stata, Clarke et al. (2024) provide a clear and accessible exposition of the SDiD methodology. Their paper covers both single and staggered treatment adoption settings and introduces the <code>sdid</code> command for implementation in Stata. Even for researchers who do not use Stata, the paper is highly recommended for its lucid explanation of the method, its assumptions, inference strategies, and for the well-developed examples it provides.</p>
+<p>In addition, Ciccia (2024) proposes an event-study extension to the SDiD framework. This work shows how SDiD estimators can be decomposed into dynamic treatment effects in both simple and staggered designs. These estimators can be implemented using the <code>sdid_event</code> package in Stata.</p>
+<p>For Python users, there are also open-source implementations of SDiD under development and available at <a href="https://github.com/MasaAsami/pysynthdid">https://github.com/MasaAsami/pysynthdid</a> and <a href="https://github.com/d2cml-ai/synthdid.py">https://github.com/d2cml-ai/synthdid.py</a>.</p>
+<p>Taken together, the methods discussed in this section—SCM and its extensions—provide powerful tools for constructing credible counterfactuals and estimating treatment effects in observational data. These approaches are especially well-suited to situations involving a limited number of treated units and no clear natural control. However, when treatment assignment varies over time or across units in more structured ways, such as around a known threshold or cutoff, alternative strategies like Regression Discontinuity Design (RDD) may offer a better fit. We turn next to RDD to examine its conceptual foundation, estimation strategy, and empirical use.</p>
+</div>
+<div id="regression-discontinuity-designs-rdd" class="section level2 hasAnchor" number="27.3">
+<h2><span class="header-section-number">27.3</span> Regression Discontinuity Designs (RDD)<a href="synthetic-did-and-regression-discontinuity.html#regression-discontinuity-designs-rdd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Regression Discontinuity Design (RDD) is a powerful quasi-experimental framework that exploits a sharp rule: treatment is assigned based on whether a continuous running variable crosses a known cutoff. This rule creates a discontinuity with no overlap—units just above the threshold receive treatment, and those just below do not. RDD is widely used for estimating causal effects in settings where randomization is infeasible but treatment follows a strict threshold policy. When properly implemented, RDD yields internally valid causal estimates for units near the cutoff, often providing insights comparable to those from randomized controlled trials (RCTs).</p>
+<p>The canonical setup involves a policy or program assigned based on whether an individual’s score on a running variable crosses a threshold—for example, students with test scores above 75 receiving a scholarship. Those just above and just below the cutoff are likely similar in observable and unobservable characteristics. Therefore, any systematic difference in outcomes such as college attendance or earnings can be attributed to the treatment.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:synd2"></span>
+<img src="27-RD_files/figure-html/synd2-1.png" alt="Simulated Sharp RDD with Scholarship Cutoff" width="672" />
+<p class="caption">
+FIGURE 27.1: Simulated Sharp RDD with Scholarship Cutoff
+</p>
+</div>
+<p>The figure illustrates a sharp regression discontinuity design using a simulated example where students receive a scholarship if their test score exceeds 75. The vertical dashed line marks the cutoff, while the shaded region shows the estimation bandwidth <span class="math inline">\(h\)</span> on either side. The two regression lines are fit separately to the left and right of the threshold, and the bold vertical line represents the estimated treatment effect—the jump in expected outcome at the cutoff. The design assumes individuals near the threshold are otherwise similar, justifying the causal interpretation of the observed discontinuity.</p>
+<p>The key idea is that if individuals near the cutoff are otherwise comparable, then any observed difference in outcomes can be attributed to the treatment. At the threshold, the probability of treatment changes abruptly. For identification to be valid, the assignment rule does not need to be random—it only needs to be precisely defined, transparent, and immune to manipulation. This local comparison relies on minimal assumptions but critically depends on individuals being unable to sort around the cutoff. If units can sort around the threshold, internal validity is compromised. McCrary’s (2008) density test is commonly used to detect such manipulation. While density tests can help detect sorting, they cannot rule out precise manipulation based on unobserved factors. Ultimately, the assumption functions as an exclusion restriction and must be supported by institutional knowledge.</p>
+<p>When “no manipulation/sorting with precision” assumption holds, the assignment is effectively random in a neighborhood around the cutoff, identifying a Local Average Treatment Effect (LATE) that may not generalize beyond that range. This does not require <span class="math inline">\(X\)</span> to be independent of <span class="math inline">\(Y\)</span>, but only that around the cutoff, the value of <span class="math inline">\(X\)</span> is as good as random for identification purposes. This identification strategy hinges on the assumption that, in the absence of treatment, potential outcomes would evolve smoothly with the running variable across the threshold.</p>
+<p>RDD comes in two forms: sharp and fuzzy. In a sharp RDD, treatment is deterministically assigned—everyone above the cutoff is treated, and no one below is. Estimation involves comparing the conditional expectation of the outcome just above and just below the threshold. In contrast, a fuzzy RDD arises when the probability of treatment jumps at the cutoff, but treatment is not strictly assigned. This occurs when, for example, a policy is loosely enforced or individuals can opt out. In such cases, the cutoff indicator serves as an instrument for actual treatment, and the design resembles an instrumental variables (IV) setup. The treatment effect is estimated as the ratio of the discontinuity in the outcome to the discontinuity in treatment probability, identifying a LATE for compliers. To summarize, sharp RDD assumes treatment is deterministically assigned at the cutoff, while fuzzy RDD involves a discontinuous jump in treatment probability, requiring instrumental variable methods to recover causal effects.</p>
+<p>Under the Rubin Causal Model, each unit <span class="math inline">\(i\)</span> has two potential outcomes: <span class="math inline">\(Y_i(1)\)</span> if treated and <span class="math inline">\(Y_i(0)\)</span> if untreated. Treatment <span class="math inline">\(D_i\)</span> is assigned based on whether the running variable <span class="math inline">\(X_i\)</span> exceeds a known cutoff <span class="math inline">\(c\)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+D_i = \begin{cases}
+1, &amp; \text{if } X_i \ge c, \\
+0, &amp; \text{if } X_i &lt; c.
+\end{cases}
+\end{equation}\]</span></p>
+<p>Here, <span class="math inline">\(D_i\)</span> is a deterministic and discontinuous function of <span class="math inline">\(X_i\)</span>—no matter how close to <span class="math inline">\(c\)</span>, treatment jumps from 0 to 1 at the cutoff. The treatment effect at the threshold is:</p>
+<p><span class="math display">\[\begin{align}
+\tau_{\text{LATE}} &amp;= \mathbb{E}[Y_i(1) \mid X_i = c] - \mathbb{E}[Y_i(0) \mid X_i = c] \notag \\
+&amp;= \mathbb{E}[Y_i \mid X_i = c, D_i = 1] - \mathbb{E}[Y_i \mid X_i = c, D_i = 0]
+\end{align}\]</span></p>
+<p>Assuming the conditional expectations of the potential outcomes are continuous in <span class="math inline">\(X\)</span> around the cutoff <span class="math inline">\(c\)</span>, we can estimate the treatment effect at the threshold by comparing the observed outcomes just to the right and just to the left of <span class="math inline">\(c\)</span>.<a href="#fn93" class="footnote-ref" id="fnref93"><sup>93</sup></a> Because treatment jumps discontinuously at <span class="math inline">\(c\)</span>, the average outcome should also jump if the treatment has an effect. This jump reflects the causal effect at the cutoff and is estimated as:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{\tau} = \lim_{x \downarrow c} \mathbb{E}[Y \mid X = x] - \lim_{x \uparrow c} \mathbb{E}[Y \mid X = x]
+\end{equation}\]</span></p>
+<p>Here, the first term represents the expected outcome for units just above the cutoff (treated), and the second term for units just below the cutoff (untreated). The difference between these two conditional expectations isolates the causal effect of the treatment, assuming no other factor changes discontinuously at <span class="math inline">\(c\)</span>. This nonparametric approach does not require specifying a functional form but relies on local comparisons near the threshold.</p>
+<p>In a fuzzy RDD, treatment is not perfectly determined by the cutoff but the probability of receiving treatment increases discontinuously at <span class="math inline">\(X = c\)</span>. This setup still allows identification of a local average treatment effect (LATE) at the threshold, but it requires adjusting for the fact that not all individuals above the cutoff are treated, and some below may also receive treatment.</p>
+<p>Formally, the treatment assignment probability satisfies:</p>
+<p><span class="math display">\[\begin{equation}
+P(D_i = 1 \mid X_i) =
+\begin{cases}
+p_0, &amp; X_i &lt; c, \\
+p_1, &amp; X_i \ge c,
+\end{cases} \quad \text{with } p_1 &gt; p_0
+\end{equation}\]</span></p>
+<p>The intuition is that the cutoff introduces a jump in the likelihood of treatment. If potential outcomes are continuous in <span class="math inline">\(X\)</span> at <span class="math inline">\(c\)</span>, then the treatment effect can be recovered by scaling the observed discontinuity in the outcome by the discontinuity in treatment probability. This is analogous to an instrumental variables (IV) approach, where the cutoff indicator serves as an instrument for actual treatment receipt.<a href="#fn94" class="footnote-ref" id="fnref94"><sup>94</sup></a></p>
+<p><strong>Estimation and Practical Implementation</strong></p>
+<p>Implementing regression discontinuity designs requires a series of coordinated estimation and validation decisions, including the choice of estimation method (parametric or nonparametric), functional form, bandwidth selection, specification of the local neighborhood around the cutoff, and diagnostic checks such as visual inspections, balance tests, and falsification exercises to assess validity and robustness. Researchers face several implementation choices—such as whether to use parametric or nonparametric methods, how to select bandwidths, and which functional forms or kernels to use—each involving trade-offs between bias and variance.</p>
+<p>For estimation, researchers often use a parametric regression model where the outcome varies smoothly with the running variable, except for a discontinuity at the cutoff. A commonly used sharp RDD specification is:</p>
+<p><span class="math display">\[\begin{equation}
+Y_i = \alpha + \tau D_i + f(X_i - c) + \varepsilon_i
+\end{equation}\]</span></p>
+<p>Here, <span class="math inline">\(Y_i\)</span> is the observed outcome, <span class="math inline">\(D_i\)</span> is the treatment indicator defined by whether <span class="math inline">\(X_i \ge c\)</span>, and <span class="math inline">\(f(X_i - c)\)</span> is a smooth function of the running variable. The coefficient <span class="math inline">\(\tau\)</span> captures the size of the jump in the outcome at the threshold—interpreted as the treatment effect for units right at the cutoff. Including the smooth function helps control for any underlying trend in the running variable, isolating the discontinuity due to treatment.</p>
+<p>Local polynomial regression is the workhorse method for RDD estimation. It approximates the regression function separately on either side of the cutoff using polynomials, allowing both the slope and intercept to differ at the threshold. A common starting point is a local linear specification—a degree-1 polynomial—estimated using the running variable centered at the cutoff. That is, defining <span class="math inline">\(\tilde{X}_i = X_i - c\)</span>, the model becomes:</p>
+<p><span class="math display">\[\begin{equation}
+Y_i = \alpha + \tau D_i + \beta \tilde{X}_i + \gamma (D_i \cdot \tilde{X}_i) + \varepsilon_i
+\end{equation}\]</span></p>
+<p>Here, <span class="math inline">\(\tilde{X}_i\)</span> is negative to the left of the cutoff, zero at the cutoff, and positive to the right. The treatment indicator <span class="math inline">\(D_i\)</span> equals 1 if <span class="math inline">\(X_i \ge c\)</span>. This setup fits separate lines on either side of the threshold, which may differ in both intercept (capturing the treatment effect) and slope.</p>
+<p>Because there is no overlap in treatment assignment, treatment effects are estimated by extrapolating from either side of the cutoff. If the functional form is mis-specified, this extrapolation can introduce bias—highlighting the importance of flexible, data-driven methods focused on observations near the threshold. Although higher-order polynomials offer more flexibility, they can overfit and behave erratically near the cutoff. As a result, researchers are generally advised to use local linear or quadratic models only, as recommended by Gelman and Imbens (2019). Standard errors are typically heteroskedasticity-robust due to outcome variability near the cutoff. Recent work also discourages clustering standard errors by the running variable in this context (Calonico et al. 2017).<a href="#fn95" class="footnote-ref" id="fnref95"><sup>95</sup></a></p>
+<p>A crucial design decision is bandwidth selection, which directly affects the bias-variance trade-off. A smaller bandwidth focuses on observations closest to the cutoff, increasing comparability and reducing bias but inflating variance due to a smaller sample size. A larger bandwidth provides more data and lowers variance but risks bias by including less comparable observations. Several data-driven algorithms address this trade-off. The Imbens-Kalyanaraman (IK) method offers a rule-of-thumb optimized for mean squared error, while the Calonico-Cattaneo-Titiunik (CCT) method introduces bias correction for robustness. These selectors help target a window around the cutoff where the functional form is most stable, minimizing extrapolation risk. In practice, researchers often assess sensitivity by plotting the estimated treatment effect <span class="math inline">\(\hat{\tau}\)</span> across different bandwidths to visualize how estimates change with window size.</p>
+<p>Another way of approximating <span class="math inline">\(f(X_i - c) = f (\tilde{X}_i)\)</span> is to use a nonparametric kernel. Kernel-based methods estimate local averages by assigning weights that decline with distance from the cutoff, focusing inference on the neighborhood where treatment status changes. The triangular kernel is especially popular—not only because it emphasizes nearby observations, but also because it minimizes mean squared error in boundary estimation settings like RDD.[^TriKernel] These methods are flexible and avoid imposing global functional form assumptions, but still require bandwidth selection and involve the same bias-variance trade-off considerations as local polynomial regressions.</p>
+<p>[^TriKernel]The triangular kernel assigns weights linearly decreasing with distance from the cutoff:<br />
+<span class="math display">\[
+K(u) = (1 - |u|) \cdot \mathbf{1}(|u| \leq 1)
+\]</span><br />
+where <span class="math inline">\(u = \frac{X_i - c}{h}\)</span>, <span class="math inline">\(c\)</span> is the cutoff, and <span class="math inline">\(h\)</span> is the bandwidth.</p>
+<p>Functional form decisions, particularly the choice of polynomial order, also influence RDD estimates. Higher-order polynomials offer more flexibility but risk overfitting and can produce erratic behavior near the threshold, especially when sensitive to outliers. In contrast, local linear or local quadratic models are generally preferred for balancing fit and interpretability. Researchers often inspect fitted curves and residuals to assess model adequacy and determine whether additional flexibility is needed.</p>
+<p>Careful graphical analysis is a central component of RDD diagnostics. The typical plot shows the outcome variable on the vertical axis and the running variable on the horizontal, with fitted curves on each side of the cutoff. Beyond offering intuitive evidence, these plots also help guide bandwidth and functional form choices by revealing curvature or irregularities in the running variable-outcome relationship. A clear jump in the outcome at the threshold provides intuitive evidence of a treatment effect. However, these plots can be sensitive to binning choices and bandwidth, so visual interpretations must be approached with caution.</p>
+<p>Validating the RD design requires ruling out manipulation around the threshold. If individuals can precisely sort around the cutoff, the identifying assumption fails. The McCrary (2008) test detects any discontinuity in the density of the running variable, implemented in R via <code>DCdensity()</code>. Researchers also assess whether predetermined covariates remain smooth across the cutoff. If a covariate shows a discontinuous jump at the threshold, it may signal the presence of a confounder rather than a treatment effect—raising concerns that the observed outcome discontinuity could be driven by imbalance rather than the intervention itself. Balance checks can include visual and regression-based assessments of other baseline characteristics around the cutoff<a href="#fn96" class="footnote-ref" id="fnref96"><sup>96</sup></a>. Placebo tests are also useful—researchers examine whether estimated treatment effects arise at other values of the running variable where no policy change occurred. Finding significant jumps away from the actual cutoff would cast doubt on the design’s validity.</p>
+<div id="rdd-simulation" class="section level3 hasAnchor" number="27.3.1">
+<h3><span class="header-section-number">27.3.1</span> RDD Simulation<a href="synthetic-did-and-regression-discontinuity.html#rdd-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this simulation we generate data which we used the earlier RDD example: a scholarship awarded to students whose test scores exceed a cutoff of 75. As shown in the earlier figure, the design creates a sharp discontinuity in treatment assignment, allowing causal inference based on local comparisons near the threshold.</p>
+<p>While the initial plot is constructed manually using <code>ggplot2</code>, in this simulation we use the <code>rdrobust</code> package to formally implement and estimate the RDD. The command <code>rdplot(y, x, c = 0)</code> automatically generates a data-driven RD plot using local linear regression, where <span class="math inline">\(x\)</span> is the running variable centered at the cutoff and <span class="math inline">\(y\)</span> is the simulated outcome. This function bin-scatters the data and overlays separate polynomial fits on each side of the cutoff, providing a quick and informative way to visualize the discontinuity and inspect model adequacy.</p>
+<p>We estimate the treatment effect using <code>rdrobust()</code>. It applies local polynomial regression with robust bias correction and inference procedures developed by Calonico, Cattaneo, and Titiunik (2014). The call to <code>rdrobust(y, x, c = 0, p = 1, kernel = "triangular", h = ...)</code> estimates the treatment effect at the cutoff using a local linear regression (p = 1) with a triangular kernel, which weights observations closer to the cutoff more heavily. The bandwidth <span class="math inline">\(h\)</span> is selected using the CCT optimal bandwidth selector via the <code>rdbwselect()</code> function with the <code>bwselect = "mserd"</code> option. The output includes both the conventional (uncorrected) and robust bias-corrected estimates of the treatment effect, along with corresponding standard errors. The local quadratic version <code>p = 2</code> is estimated in the same way, offering a check on the sensitivity of results to polynomial order. As discussed earlier, local linear models are generally preferred over higher-order polynomials due to their favorable bias-variance trade-off and stability near the cutoff.</p>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="synthetic-did-and-regression-discontinuity.html#cb774-1" tabindex="-1"></a><span class="fu">library</span>(rdrobust)</span>
+<span id="cb774-2"><a href="synthetic-did-and-regression-discontinuity.html#cb774-2" tabindex="-1"></a></span>
+<span id="cb774-3"><a href="synthetic-did-and-regression-discontinuity.html#cb774-3" tabindex="-1"></a><span class="co"># Simulate test scores between 0 and 100</span></span>
+<span id="cb774-4"><a href="synthetic-did-and-regression-discontinuity.html#cb774-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb774-5"><a href="synthetic-did-and-regression-discontinuity.html#cb774-5" tabindex="-1"></a>score <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb774-6"><a href="synthetic-did-and-regression-discontinuity.html#cb774-6" tabindex="-1"></a>score <span class="ot">&lt;-</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(score, <span class="dv">0</span>), <span class="dv">100</span>)  <span class="co"># Restrict scores between 0 and 100</span></span>
+<span id="cb774-7"><a href="synthetic-did-and-regression-discontinuity.html#cb774-7" tabindex="-1"></a></span>
+<span id="cb774-8"><a href="synthetic-did-and-regression-discontinuity.html#cb774-8" tabindex="-1"></a><span class="co"># Scholarship assigned if score &gt; 75</span></span>
+<span id="cb774-9"><a href="synthetic-did-and-regression-discontinuity.html#cb774-9" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb774-10"><a href="synthetic-did-and-regression-discontinuity.html#cb774-10" tabindex="-1"></a>treated <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(score <span class="sc">&gt;</span> cutoff, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb774-11"><a href="synthetic-did-and-regression-discontinuity.html#cb774-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">30</span> <span class="sc">*</span> treated <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> score <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">15</span>)  <span class="co"># Potential outcome</span></span>
+<span id="cb774-12"><a href="synthetic-did-and-regression-discontinuity.html#cb774-12" tabindex="-1"></a>x <span class="ot">&lt;-</span> score <span class="sc">-</span> cutoff  <span class="co"># Center the running variable at the cutoff</span></span>
+<span id="cb774-13"><a href="synthetic-did-and-regression-discontinuity.html#cb774-13" tabindex="-1"></a></span>
+<span id="cb774-14"><a href="synthetic-did-and-regression-discontinuity.html#cb774-14" tabindex="-1"></a><span class="co"># Bandwidth selection using CCT method</span></span>
+<span id="cb774-15"><a href="synthetic-did-and-regression-discontinuity.html#cb774-15" tabindex="-1"></a>bw_cct <span class="ot">&lt;-</span> <span class="fu">rdbwselect</span>(y, x, <span class="at">kernel =</span> <span class="st">&quot;triangular&quot;</span>, <span class="at">bwselect =</span> <span class="st">&quot;mserd&quot;</span>)</span>
+<span id="cb774-16"><a href="synthetic-did-and-regression-discontinuity.html#cb774-16" tabindex="-1"></a><span class="fu">print</span>(bw_cct)</span></code></pre></div>
+<pre><code>## Call: rdbwselect
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  647          353
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## Unique Obs.                     647          333</code></pre>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="synthetic-did-and-regression-discontinuity.html#cb776-1" tabindex="-1"></a><span class="co"># Visual RD plot (uses local linear by default)</span></span>
+<span id="cb776-2"><a href="synthetic-did-and-regression-discontinuity.html#cb776-2" tabindex="-1"></a><span class="fu">rdplot</span>(y, x, <span class="at">c =</span> <span class="dv">0</span>, <span class="at">kernel =</span> <span class="st">&quot;triangular&quot;</span>, <span class="at">p =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:synd3"></span>
+<img src="27-RD_files/figure-html/synd3-1.png" alt="RD Plot with Triangular Kernel and CCT Bandwidth (Local Linear Fit)" width="672" />
+<p class="caption">
+FIGURE 27.2: RD Plot with Triangular Kernel and CCT Bandwidth (Local Linear Fit)
+</p>
+</div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="synthetic-did-and-regression-discontinuity.html#cb777-1" tabindex="-1"></a><span class="co"># Local linear regression (p = 1) with triangular kernel</span></span>
+<span id="cb777-2"><a href="synthetic-did-and-regression-discontinuity.html#cb777-2" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">rdrobust</span>(y, x, <span class="at">c =</span> <span class="dv">0</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;triangular&quot;</span>, <span class="at">h =</span> bw_cct<span class="sc">$</span>bws[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb777-3"><a href="synthetic-did-and-regression-discontinuity.html#cb777-3" tabindex="-1"></a>out<span class="sc">$</span>Estimate</span></code></pre></div>
+<pre><code>##        tau.us   tau.bc    se.us    se.rb
+## [1,] 20.82346 24.46106 3.442885 4.352538</code></pre>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="synthetic-did-and-regression-discontinuity.html#cb779-1" tabindex="-1"></a><span class="co"># Local quadratic regression (p = 2) with triangular kernel</span></span>
+<span id="cb779-2"><a href="synthetic-did-and-regression-discontinuity.html#cb779-2" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">rdrobust</span>(y, x, <span class="at">c =</span> <span class="dv">0</span>, <span class="at">p =</span> <span class="dv">2</span>, <span class="at">kernel =</span> <span class="st">&quot;triangular&quot;</span>, <span class="at">h =</span> bw_cct<span class="sc">$</span>bws[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb779-3"><a href="synthetic-did-and-regression-discontinuity.html#cb779-3" tabindex="-1"></a>out2<span class="sc">$</span>Estimate</span></code></pre></div>
+<pre><code>##        tau.us   tau.bc    se.us   se.rb
+## [1,] 24.46106 29.94459 4.352538 5.20353</code></pre>
+<p>The second figure, produced using <code>rdplotdensity()</code> from the <code>rddensity</code> package, serves a different but crucial purpose. It implements the McCrary (2008) density test, which assesses the possibility that units have manipulated their position relative to the cutoff (e.g., by artificially boosting scores to qualify for the scholarship). The underlying assumption of RDD is that the running variable cannot be precisely manipulated; otherwise, the groups just above and below the threshold would not be comparable. <code>rddensity()</code> estimates the density of the running variable on either side of the cutoff and tests for a discontinuous jump. A significant result would suggest sorting or manipulation, which would undermine the causal interpretation of the estimated treatment effect. In our simulated data, which was generated without manipulation, the test is expected to yield a non-significant p-value, consistent with the design assumption.</p>
+<div class="figure"><span style="display:block;" id="fig:synd4"></span>
+<img src="27-RD_files/figure-html/synd4-1.png" alt="Estimated Density of the Running Variable around the Cutoff (McCrary Test)" width="672" />
+<p class="caption">
+FIGURE 27.3: Estimated Density of the Running Variable around the Cutoff (McCrary Test)
+</p>
+</div>
+<!-- Note to self: Run invisible(rdplotdensity(density_test, X = x)) manually if needed -->
+<p>Together, these commands (<code>rdplot</code>, <code>rdrobust</code>, <code>rdbwselect</code>, and <code>rddensity</code>) form a robust pipeline for implementing, estimating, and validating an RDD. Researchers can modify key elements of this simulation to suit their empirical application: for instance, changing the cutoff value, using different kernels (e.g., uniform or Epanechnikov), trying alternative bandwidth selection methods (like IK), or experimenting with other polynomial orders. For more complex settings involving covariates or fuzzy designs (where treatment probability jumps but assignment is not deterministic), <code>rdrobust</code> also supports extensions such as instrumental variables estimation.</p>
+</div>
+<div id="credibility-and-extensions-in-rdd-applications" class="section level3 hasAnchor" number="27.3.2">
+<h3><span class="header-section-number">27.3.2</span> Credibility and Extensions in RDD Applications<a href="synthetic-did-and-regression-discontinuity.html#credibility-and-extensions-in-rdd-applications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While RDD designs offer high internal validity, they identify effects only for units near the cutoff. In sharp RDD, this corresponds to the average treatment effect at the threshold; in fuzzy RDD, it reflects the local average treatment effect (LATE) for compliers—those whose treatment status is influenced by crossing the cutoff. These are not estimates of the treatment effect for everyone in the sample, but only for units close to the threshold—the “local” in LATE. This is a trade-off: while we gain credible identification, we give up broader generalizability. In many cases, however, this local group is of direct policy interest—for example, students just on the margin of qualifying for a scholarship or patients just eligible for an intervention. RDD also requires large samples near the cutoff to obtain precise estimates and depends on a well-defined assignment rule. Thin density near the threshold can limit power and precision, making RDD less suitable when few observations fall within the effective estimation window. Despite these limitations, RDD remains one of the most credible nonexperimental methods for causal inference, especially in evaluating policy interventions.</p>
+<p>This section a very brief explanation of Regression Discontinuity Designs (RDD). There are also extensions of Regression Discontinuity Designs that go beyond the standard single-threshold, continuous running variable setup. These include RD designs with discrete running variables, multiple cutoffs and multiple scores (<code>rdmulti</code>), geographic or spatial RD (<code>SpatialRDD</code>)<a href="#fn97" class="footnote-ref" id="fnref97"><sup>97</sup></a>, and methods addressing issues like covariate adjustment, clustered data, and inference under weak identification. Calonico et al. (2025) introduced estimation and inference procedures, along with the <code>rdhte</code> package, for analyzing heterogeneous treatment effects in RDD designs. Hsu, Y., &amp; Shen, S. (2024) extend RD model to a dynamic framework, where observations are eligible for repeated RD events (see replication package from the reference doi link). These topics introduce additional complexity and are not covered in this brief summary. For implementation, the most comprehensive and up-to-date resource is <a href="https://rdpackages.github.io/">rdpackages.github.io</a>, which hosts the main packages used in practice, along with replication files, illustration code, and software in R, Stata, and Python. One of the best recent overviews is Cattaneo, Idrobo, and Titiunik (2024). Additional related volumes and resources are also available on the same site.</p>
+<p>Machine learning methods are increasingly used in RD designs to improve precision when adjusting for high-dimensional covariates. Kreiss and Rothe (2024) propose a two-step estimator: first selecting relevant covariates using a localized Lasso, then including them in a local linear RD model. This approach retains valid inference under approximate sparsity and uses standard bandwidth and variance tools.</p>
+<p>Noack, Olma, and Rothe (2024) propose a method for covariate adjustment in RDD by subtracting a function of covariates from the outcome variable. This function is estimated using machine learning techniques such as Lasso, random forests, or neural networks. Their approach can handle high-dimensional covariates and aims to reduce the variance of treatment effect estimates. Simulation studies demonstrate that this method often yields shorter confidence intervals compared to traditional RD estimators, particularly when covariates are informative. The method is implemented in the<code>DoubleML</code> package in python.</p>
+<p>To conclude, the regression discontinuity design provides a robust framework for causal inference under relatively mild assumptions. Its power lies in its simplicity and transparency: when a threshold-based rule determines treatment, and individuals cannot manipulate their position relative to the cutoff, RD can uncover the causal effect with minimal structural assumptions. The challenge, as always, is in the details: careful choice of bandwidth, correct functional form, attention to manipulation, and thoughtful interpretation of results are all essential to making RD work in practice.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="86">
+<li id="fn86"><p>To determine the optimal weights <span class="math inline">\(w\_j\)</span>, SCM relies on matching the treated unit to a weighted average of the control units based on observed characteristics and lagged outcomes. To determine the optimal weights, let <span class="math inline">\(\mathbf{X}_1\)</span> be a <span class="math inline">\(k \times 1\)</span> vector of pre-treatment predictors for the treated unit, and <span class="math inline">\(\mathbf{X}_0\)</span> a <span class="math inline">\(k \times J\)</span> matrix of the same variables for the control units. The weights <span class="math inline">\(\mathbf{W}\)</span> are chosen to minimize the weighted distance:
+<span class="math display">\[\| \mathbf{X}_1 - \mathbf{X}_0 \mathbf{W} \|_V = \sqrt{(\mathbf{X}_1 - \mathbf{X}_0 \mathbf{W})&#39; V (\mathbf{X}_1 - \mathbf{X}_0 \mathbf{W})}\]</span>
+where <span class="math inline">\(V\)</span> is a positive semi-definite matrix that sets the relative importance of the predictors. Typically, <span class="math inline">\(V\)</span> is selected to minimize the mean squared prediction error (MSPE) in the pre-treatment period. The optimization problem becomes:
+<span class="math display">\[\min_{\mathbf{W}} \| \mathbf{X}_1 - \mathbf{X}_0 \mathbf{W} \|_V \quad \text{subject to } w_j \geq 0, \sum w_j = 1\]</span><a href="synthetic-did-and-regression-discontinuity.html#fnref86" class="footnote-back">↩︎</a></p></li>
+<li id="fn87"><p>Carlos Mendez’s R Tutorial on Synthetic Control: <a href="https://carlos-mendez.quarto.pub/r-synthetic-control-tutorial/" class="uri">https://carlos-mendez.quarto.pub/r-synthetic-control-tutorial/</a>. CRAN page for the Synth Package: <a href="https://cran.r-project.org/web/packages/Synth/index.html" class="uri">https://cran.r-project.org/web/packages/Synth/index.html</a>. Abadie, Diamond and Hainmueller (2011). These resources offer detailed documentation and examples using the default dataset provided in the package. They cover data preparation, model estimation, visualization, and interpretation.<a href="synthetic-did-and-regression-discontinuity.html#fnref87" class="footnote-back">↩︎</a></p></li>
+<li id="fn88"><p>See Xu (2017) and Xu &amp; Liu (2022). These sources offer a comprehensive and clear overview of GSCM, including theoretical foundations, estimation details, and further applications. Note that the <code>gsynth</code> package has recently been retired and integrated into the <code>fect</code> package. The updated implementation and full documentation are available at <a href="https://yiqingxu.org/packages/fect/04-gsynth.html" class="uri">https://yiqingxu.org/packages/fect/04-gsynth.html</a>.<a href="synthetic-did-and-regression-discontinuity.html#fnref88" class="footnote-back">↩︎</a></p></li>
+<li id="fn89"><p>Formally, the ASCM estimator can be understood as solving the following optimization problem:
+<span class="math display">\[
+\min_{\beta, \mathbf{w}} \sum_{t=1}^{T_0} \left(Y_{1t} - \mathbf{X}_{t}&#39;\beta - \sum_{j=2}^{J+1} w_j Y_{jt} \right)^2 + \lambda \| \beta \|_2^2
+\]</span>
+where <span class="math inline">\(\mathbf{X}_{t}\)</span> is a vector of time-varying covariates or latent components, <span class="math inline">\(\beta\)</span> is a vector of regression coefficients, and <span class="math inline">\(\lambda\)</span> is a ridge penalty that controls the extent of regularization. The ridge penalty shrinks the coefficients to avoid overfitting and manages the degree of extrapolation beyond the convex hull.<a href="synthetic-did-and-regression-discontinuity.html#fnref89" class="footnote-back">↩︎</a></p></li>
+<li id="fn90"><p>See Ben-Michael, E., Feller, A., &amp; Rothstein, J. (2021). “The Augmented Synthetic Control Method.” <em>Journal of the American Statistical Association</em>, 116(536), 1789–1803. The method is available through the <code>augsynth</code> R package: <a href="https://github.com/ebenmichael/augsynth" class="uri">https://github.com/ebenmichael/augsynth</a>.<a href="synthetic-did-and-regression-discontinuity.html#fnref90" class="footnote-back">↩︎</a></p></li>
+<li id="fn91"><p>Replication materials are available via Harvard Dataverse: Sun, Liyang; Ben-Michael, Eli; Feller, Avi, 2025. “Replication data for: Using Multiple Outcomes to Improve the Synthetic Control Method.” <a href="https://doi.org/10.7910/DVN/KBVB9F">https://doi.org/10.7910/DVN/KBVB9F</a>. V1<a href="synthetic-did-and-regression-discontinuity.html#fnref91" class="footnote-back">↩︎</a></p></li>
+<li id="fn92"><p>Please see Algorithm 1 and 2, and Equations 4–6 in Arkhangelsky et al. (2021) for the formal estimation procedures. The weights are derived by solving the following optimization problems:
+:
+<span class="math display">\[
+(\hat{\omega}_0,\hat{\omega}^{\text{sdid}}) = \arg \min_{\omega \in \mathbb{R}_+, \omega \in \Omega} \sum_{t=1}^{T_{\text{pre}}}  \left( \omega_0 + \sum_{i=1}^{N_{\text{co}}} \omega_i Y_{it} - \frac{1}{N_{\text{tr}}} \sum_{i=N_{\text{co}}+1}^{N} Y_{it} \right)^2 + \zeta T_{\text{pre}} \|\omega\|^2_2
+\]</span>
+:
+<span class="math display">\[
+(\hat{\lambda}_0,\hat{\lambda}^{\text{sdid}}) = \arg \min_{\lambda \in \mathbb{R}, \lambda \in \Lambda} \sum_{i=1}^{N_{\text{co}}} \left( \lambda_0 + \sum_{t=1}^{T_{\text{pre}}} \lambda_t Y_{it} - \frac{1}{T_{post}} \sum_{t=T_{\text{pre}}+1}^{T} Y_{it} \right)^2
+\]</span>
+Here, <span class="math inline">\(\zeta\)</span> is a ridge regularization parameter that prevents overfitting.<a href="synthetic-did-and-regression-discontinuity.html#fnref92" class="footnote-back">↩︎</a></p></li>
+<li id="fn93"><p>Note that in sharp RDD, there is complete lack of overlap: <span class="math inline">\(P(D_i = 1 | X_i &lt; c) = 0\)</span> and <span class="math inline">\(P(D_i = 1 | X_i \ge c) = 1\)</span>, so traditional identification via common support does not apply.<a href="synthetic-did-and-regression-discontinuity.html#fnref93" class="footnote-back">↩︎</a></p></li>
+<li id="fn94"><p>The treatment effect at the cutoff is estimated as:
+<span class="math display">\[
+\tau = \frac{
+\lim_{x \downarrow c} \mathbb{E}[Y \mid X = x] - \lim_{x \uparrow c} \mathbb{E}[Y \mid X = x]
+}{
+\lim_{x \downarrow c} \mathbb{E}[D \mid X = x] - \lim_{x \uparrow c} \mathbb{E}[D \mid X = x]
+}
+\]</span>
+This Wald-type estimator isolates the causal effect for compliers—those whose treatment status is influenced by crossing the threshold. A corresponding parametric specification using Local Two-Stage Least Squares (2SLS) is:
+First stage (treatment model):
+<span class="math display">\[
+D_i = \pi_0 + \pi_1 \mathbf{1}(X_i \ge c) + g(X_i - c) + \nu_i
+\]</span>
+Second stage (outcome model):
+<span class="math display">\[
+Y_i = \alpha + \tau \hat{D}_i + f(X_i - c) + \varepsilon_i
+\]</span>
+Here, <span class="math inline">\(\mathbf{1}(X_i \ge c)\)</span> is the instrument, <span class="math inline">\(g(\cdot)\)</span> and <span class="math inline">\(f(\cdot)\)</span> are smooth functions of the running variable, and <span class="math inline">\(\hat{D}_i\)</span> is the fitted value from the first stage. The second-stage coefficient <span class="math inline">\(\tau\)</span> gives the LATE at the cutoff for compliers.<a href="synthetic-did-and-regression-discontinuity.html#fnref94" class="footnote-back">↩︎</a></p></li>
+<li id="fn95"><p>Control variables are usually omitted in sharp RDD because the design itself—if valid—ensures treated and control groups are comparable near the cutoff. Including controls can improve precision but may imply concern about residual imbalance. Their inclusion is more relevant in fuzzy designs, where treatment is not strictly assigned by the cutoff. See Calonico et al. (2019) for methods incorporating covariates.<a href="synthetic-did-and-regression-discontinuity.html#fnref95" class="footnote-back">↩︎</a></p></li>
+<li id="fn96"><p>For example, researchers may examine visual plots of <span class="math inline">\(E[W_i | \tilde{X}_i, D_i]\)</span>, where <span class="math inline">\(W_i\)</span> represents a predetermined covariate and <span class="math inline">\(\tilde{X}_i = X_i - c\)</span>, as well as local regressions of the form:<br />
+<span class="math display">\[
+E[W_i | \tilde{X}_i, D_i] = \alpha + \beta_0 \tilde{X}_i + \beta_1 (\tilde{X}_i \cdot D_i) + \tau_W D_i.
+\]</span><br />
+A statistically significant <span class="math inline">\(\tau_W\)</span> would indicate a discontinuity in covariates at the threshold, suggesting possible imbalance.<a href="synthetic-did-and-regression-discontinuity.html#fnref96" class="footnote-back">↩︎</a></p></li>
+<li id="fn97"><p>For more details, see the package vignette at <a href="https://cran.r-project.org/web/packages/SpatialRDD/vignettes/spatialrdd_vignette.html">https://cran.r-project.org/web/packages/SpatialRDD/vignettes/spatialrdd_vignette.html</a>.<a href="synthetic-did-and-regression-discontinuity.html#fnref97" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="difference-in-differences-and-dml-did.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="time-series-forecasting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/yihui/bookdown-crc/edit/master/27-RD.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown.pdf", "bookdown.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
