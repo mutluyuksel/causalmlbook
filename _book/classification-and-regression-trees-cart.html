@@ -1337,8 +1337,8 @@ C_{\alpha}(T) = \sum_{t \in T} N_{t} \cdot \text{Gini}(t) + \alpha \cdot |T|
 ## 
 ##         CP nsplit rel error  xerror    xstd
 ## 1 0.724138      0   1.00000 1.00000 0.14282
-## 2 0.034483      1   0.27586 0.62069 0.12640
-## 3 0.010000      2   0.24138 0.62069 0.12640</code></pre>
+## 2 0.034483      1   0.27586 0.55172 0.12140
+## 3 0.010000      2   0.24138 0.68966 0.13070</code></pre>
 <div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="classification-and-regression-trees-cart.html#cb291-1" tabindex="-1"></a><span class="co"># Plot the tree</span></span>
 <span id="cb291-2"><a href="classification-and-regression-trees-cart.html#cb291-2" tabindex="-1"></a><span class="fu">library</span>(rpart.plot) <span class="co"># You can use plot() but prp() is much better</span></span>
 <span id="cb291-3"><a href="classification-and-regression-trees-cart.html#cb291-3" tabindex="-1"></a><span class="fu">prp</span>(</span>
@@ -1389,13 +1389,13 @@ C_{\alpha}(T) = \sum_{t \in T} N_{t} \cdot \text{Gini}(t) + \alpha \cdot |T|
 ## 
 ##         CP nsplit rel error  xerror    xstd
 ## 1 0.724138      0  1.000000 1.00000 0.14282
-## 2 0.103448      1  0.275862 0.55172 0.12140
+## 2 0.103448      1  0.275862 0.58621 0.12399
 ## 3 0.034483      2  0.172414 0.48276 0.11560
-## 4 0.017241      6  0.034483 0.44828 0.11237
-## 5 0.000000      8  0.000000 0.44828 0.11237</code></pre>
+## 4 0.017241      6  0.034483 0.48276 0.11560
+## 5 0.000000      8  0.000000 0.48276 0.11560</code></pre>
 <div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="classification-and-regression-trees-cart.html#cb295-1" tabindex="-1"></a>min_cp <span class="ot">=</span> tree_model<span class="sc">$</span>cptable[<span class="fu">which.min</span>(tree_model<span class="sc">$</span>cptable[,<span class="st">&quot;xerror&quot;</span>]),<span class="st">&quot;CP&quot;</span>]</span>
 <span id="cb295-2"><a href="classification-and-regression-trees-cart.html#cb295-2" tabindex="-1"></a>min_cp</span></code></pre></div>
-<pre><code>## [1] 0.01724138</code></pre>
+<pre><code>## [1] 0.03448276</code></pre>
 <p>Now, we prune the tree using the best <code>cp</code> value:</p>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="classification-and-regression-trees-cart.html#cb297-1" tabindex="-1"></a>pruned_tree_model <span class="ot">&lt;-</span> <span class="fu">prune</span>(tree_model, <span class="at">cp =</span> min_cp)</span>
 <span id="cb297-2"><a href="classification-and-regression-trees-cart.html#cb297-2" tabindex="-1"></a><span class="fu">printcp</span>(pruned_tree_model)</span></code></pre></div>
@@ -1405,17 +1405,16 @@ C_{\alpha}(T) = \sum_{t \in T} N_{t} \cdot \text{Gini}(t) + \alpha \cdot |T|
 ##     minbucket = 1, cp = 0))
 ## 
 ## Variables actually used in tree construction:
-## [1] INCAR INSYS PVENT
+## [1] INSYS PVENT
 ## 
 ## Root node error: 29/71 = 0.40845
 ## 
 ## n= 71 
 ## 
 ##         CP nsplit rel error  xerror    xstd
-## 1 0.724138      0  1.000000 1.00000 0.14282
-## 2 0.103448      1  0.275862 0.55172 0.12140
-## 3 0.034483      2  0.172414 0.48276 0.11560
-## 4 0.017241      6  0.034483 0.44828 0.11237</code></pre>
+## 1 0.724138      0   1.00000 1.00000 0.14282
+## 2 0.103448      1   0.27586 0.58621 0.12399
+## 3 0.034483      2   0.17241 0.48276 0.11560</code></pre>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="classification-and-regression-trees-cart.html#cb299-1" tabindex="-1"></a><span class="fu">prp</span>(</span>
 <span id="cb299-2"><a href="classification-and-regression-trees-cart.html#cb299-2" tabindex="-1"></a>  pruned_tree_model,</span>
 <span id="cb299-3"><a href="classification-and-regression-trees-cart.html#cb299-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="dv">2</span>,</span>
