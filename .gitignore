@@ -1,1 +1,36 @@
+<<<<<<< HEAD
 .DS_Store
+=======
+# Ignore source and working files not needed in the deployed site
+
+# R/RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Rprofile
+*.Rproj
+
+# Bookdown build & project files
+_bookdown_files/
+*.Rmd
+*.R
+*.rds
+*.bib
+*.pdf
+*.csv
+*.xlsx
+*.txt
+*.docx
+
+# Source figures, working folders
+*.jpeg
+*.eps
+*.svg
+old/
+data/
+workingniceversion/
+SLIDES/
+my_dir/
+_book/
+
+>>>>>>> fb5f325965d8fbde14ecdac2f4c604b71fbf5e31
